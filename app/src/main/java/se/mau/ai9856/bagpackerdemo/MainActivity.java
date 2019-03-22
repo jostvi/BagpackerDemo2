@@ -4,11 +4,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
-    private Button getListBtn;
     private EditText inputTxt;
     private String[] items = {"Badkläder","Strumpor","T-Shirt","Gummistövlar","Tandborste",
             "Chokladkartong","Lusekofta","Pyjamas","Pass","Astmaspray","Toalettborste",
@@ -20,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getListBtn = findViewById(R.id.btnGenerateList);
         inputTxt = findViewById(R.id.inputTxt);
     }
 
