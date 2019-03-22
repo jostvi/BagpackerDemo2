@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BagpackerDemo</string>
+    <string name="generate_list">Generera lista</string>
+    <string name="get_list_btn">Hämta lista</string>
+    <string name="save_button">Spara</string>
+    <string name="delete_btn">X</string>
+</resources>
