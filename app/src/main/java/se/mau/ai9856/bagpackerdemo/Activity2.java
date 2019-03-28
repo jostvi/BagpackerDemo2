@@ -1,10 +1,13 @@
 package se.mau.ai9856.bagpackerdemo;
+
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class Activity2 extends ListActivity {
     private static final String ITEMS = "items";
@@ -24,7 +27,7 @@ public class Activity2 extends ListActivity {
         Toast.makeText(this, "Hoppsan! Du tryckte på " + item, Toast.LENGTH_LONG).show();
     }
     private void setList(){
-        String[] stuff = getIntent().getStringArrayExtra(ITEMS);
+        ArrayList<String> stuff = getIntent().getStringArrayListExtra(ITEMS);
         adapter = new ArrayAdapter<>(this, R.layout.row_layout, R.id.itemName, stuff);
         setListAdapter(adapter);
     }
