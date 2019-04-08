@@ -4,8 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Button;
 
 import com.android.volley.Cache;
 import com.android.volley.Network;
@@ -17,21 +16,16 @@ import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
-    /*private EditText inputTxt;
-    /private TextView txtOut;
-    private String[] stuff = {"Badkläder","Strumpor","T-Shirt","Gummistövlar","Tandborste",
-            "Chokladkartong","Lusekofta","Pyjamas","Pass","Astmaspray","Toalettborste",
-            "Badanka","Laddare","Sladdar","Midjeväska","PingPongBoll","Badboll",
-            "Underbyxor","Monokel","Damasker" };*/
+    private Button btnGetList;
     private static final String ITEMS = "items";
     private ArrayList<String> items = new ArrayList<>();
 
@@ -39,15 +33,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //inputTxt = findViewById(R.id.inputTxt);
-        //txtOut = findViewById(R.id.textView2);
+        btnGetList = findViewById(R.id.getListBtn);
     }
 
     public void getJSON(View getListBtn) {
+
         RequestQueue requestQueue;
-        Cache cache = new DiskBasedCache(getCacheDir(), 1024*1024);
+        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024);
         Network network = new BasicNetwork(new HurlStack());
-        requestQueue = new RequestQueue(cache, network);
+        requestQueue = new RequestQueue(cache, network); // MARKER: Gör om till singleton. Hur gör då jag med cache o network?
         requestQueue.start();
 
         String url = "http://christina3107.eu.pythonanywhere.com/?json";
@@ -55,28 +49,29 @@ public class MainActivity extends AppCompatActivity {
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        try{
+                        try {
                             JSONArray jsonArray = response.getJSONArray("list");
-                            for (int i = 0; i < jsonArray.length(); i++){
+                            for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject item = jsonArray.getJSONObject(i);
                                 String itemName = item.getString("item");
                                 items.add(itemName);
                             }
-                        }catch (JSONException e){
+                            showList(items);
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
                 }, new Response.ErrorListener() {
-                    public void onErrorResponse(VolleyError e){
+                    public void onErrorResponse(VolleyError e) {
                         e.printStackTrace();
                     }
                 });
         requestQueue.add(request);
-        showList(items);
-        //txtOut.setText(response.toString());
+        String loading = getString(R.string.loading);
+        btnGetList.setText(loading);
     }
 
-    public void showList(ArrayList<String> items){
+    public void showList(ArrayList<String> items) {
         Intent showListIntent = new Intent(this, Activity2.class);
         showListIntent.putExtra(ITEMS, items);
         startActivity(showListIntent);

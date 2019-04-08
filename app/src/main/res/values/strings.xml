@@ -5,4 +5,5 @@
     <string name="save_button">Spara</string>
     <string name="delete_btn">X</string>
     <string name="input_destination">Skriv nåt här (T.ex. Töreboda eller Gävle)</string>
+    <string name="loading">Laddar...</string>
 </resources>
