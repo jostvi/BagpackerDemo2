@@ -44,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
         requestQueue = new RequestQueue(cache, network); // MARKER: Gör om till singleton. Hur gör då jag med cache o network?
         requestQueue.start();
 
-        String url = "http://christina3107.eu.pythonanywhere.com/?json";
+        String url = "http://christina3107.eu.pythonanywhere.com/?param1=selfiedrönare&param2=babywatcher";
+
         JsonObjectRequest request = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
         requestQueue.add(request);
-        String loading = getString(R.string.loading);
+        String loading = "laddar...";
         btnGetList.setText(loading);
     }
 
@@ -75,20 +76,5 @@ public class MainActivity extends AppCompatActivity {
         Intent showListIntent = new Intent(this, Activity2.class);
         showListIntent.putExtra(ITEMS, items);
         startActivity(showListIntent);
-        /*String destination = inputTxt.getText().toString();
-
-        if(destination.equalsIgnoreCase("Gävle")) {
-            String[] toGefle = {stuff[1],stuff[3],stuff[7],stuff[17]};
-            showListIntent.putExtra(ITEMS, toGefle);
-
-        }
-        else if(destination.equalsIgnoreCase("Töreboda")) {
-            showListIntent.putExtra(ITEMS, stuff);
-        }
-        else{
-            String[] toAnywhere = {"Handduk"};
-            showListIntent.putExtra(ITEMS, toAnywhere);
-        }
-        startActivity(showListIntent);*/
     }
 }
