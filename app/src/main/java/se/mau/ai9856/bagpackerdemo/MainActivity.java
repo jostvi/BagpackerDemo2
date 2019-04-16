@@ -29,11 +29,27 @@ public class MainActivity extends AppCompatActivity {
     private static final String ITEMS = "items";
     private ArrayList<String> items = new ArrayList<>();
 
+    private Button btnCreateList;
+    private Button btnLogIn;
+    private Button btnCreateAccount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btnGetList = findViewById(R.id.getListBtn);
+        btnLogIn = (Button)findViewById(R.id.btnLogIn);
+        btnCreateAccount = (Button)findViewById(R.id.btnCreateAccount);
+        btnCreateList = (Button)findViewById(R.id.btnCreateList);
+
+        btnCreateAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,CreateNewAccount.class );
+                startActivity(intent);
+
+            }
+        });
     }
 
     public void getJSON(View getListBtn) {
