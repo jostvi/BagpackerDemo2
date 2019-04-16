@@ -26,7 +26,7 @@ public class Login extends Activity {
 
 
     textView = (TextView)findViewById(R.id.textView3);
-      textView.setVisibility(View.GONE);
+        textView.setVisibility(View.GONE);
 
       buttonLOGGAIN.setOnClickListener(new View.OnClickListener() {
         @Override

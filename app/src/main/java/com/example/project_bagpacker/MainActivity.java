@@ -7,8 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class MainActivity extends AppCompatActivity { //AppCompat
-
+public class MainActivity extends AppCompatActivity {
     private Button btnSkapaKonto;
     private Button btnLogIn;
 
@@ -34,6 +33,7 @@ public class MainActivity extends AppCompatActivity { //AppCompat
         btnLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intentLogin = new Intent(MainActivity.this,Login.class );
                 startActivity(intentLogin);
             }
