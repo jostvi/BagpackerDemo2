@@ -11,6 +11,10 @@ public class ListItem {
         this.name = name;
     }
 
+    public void setItemName(String name){
+        this.name = name;
+    }
+
     public String getItemName(){
         return name;
     }

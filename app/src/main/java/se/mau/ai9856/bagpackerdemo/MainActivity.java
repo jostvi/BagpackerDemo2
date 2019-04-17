@@ -5,25 +5,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
-import com.android.volley.Cache;
-import com.android.volley.Network;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.BasicNetwork;
-import com.android.volley.toolbox.DiskBasedCache;
-import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
-
+import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 
-
+/**
+ * This is where the application starts. From here, the user can choose to retrieve
+ * a list from a dummy webb-server then go to ListViewActivity, or go to CreateTripActivity to
+ * create a new list, or to..
+ * @author Johan W
+ */
 public class MainActivity extends AppCompatActivity {
     private Button btnGetList;
     private static final String ITEMS = "items";
@@ -52,22 +50,19 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void getJSON(View getListBtn) {
+    public void getJSON(View v) {
 
-        RequestQueue requestQueue;
-        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024);
-        Network network = new BasicNetwork(new HurlStack());
-        requestQueue = new RequestQueue(cache, network); // MARKER: Gör om till singleton. Hur gör då jag med cache o network?
-        requestQueue.start();
-
-        String url = "http://christina3107.eu.pythonanywhere.com/?param1=selfiedrönare&param2=babywatcher";
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = "http://bagpacker.pythonanywhere.com/get_list/?param1=123";
 
         JsonObjectRequest request = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            JSONArray jsonArray = response.getJSONArray("list");
+
+                            JSONArray jsonArray = response.getJSONArray("lista");
+
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject item = jsonArray.getJSONObject(i);
                                 String itemName = item.getString("item");
@@ -89,8 +84,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showList(ArrayList<String> items) {
-        Intent showListIntent = new Intent(this, Activity2.class);
+
+        Intent showListIntent = new Intent(this, ListViewActivity.class);
         showListIntent.putExtra(ITEMS, items);
         startActivity(showListIntent);
+    }
+
+    public void createTrip(View v) {
+        Intent createTripIntent = new Intent(this, CreateTripActivity.class);
+        startActivity(createTripIntent);
+    }
+
+    public void showSavedLists(View v){
+        Intent intent = new Intent (this, SavedLists.class);
+        startActivity(intent);
     }
 }

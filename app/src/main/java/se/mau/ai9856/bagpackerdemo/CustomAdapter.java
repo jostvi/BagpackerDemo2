@@ -18,8 +18,8 @@ public class CustomAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<ListItem> list;
 
-    public CustomAdapter(Context activity2, ArrayList<ListItem> list){
-        context = activity2;
+    public CustomAdapter(Context context, ArrayList<ListItem> list){
+        this.context = context;
         this.list = list;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }

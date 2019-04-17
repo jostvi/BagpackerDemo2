@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/screenBackground"
+    android:orientation="vertical"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    tools:context=".ListViewActivity">
+
+    <EditText
+        android:id="@+id/new_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Lägg till grej, helst inte selfiedrönare" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/save_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="saveNewItem"
+            android:text="@string/save_item" />
+
+        <Button
+            android:id="@+id/delete_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="deleteItem"
+            android:text="@string/delete_listItem" />
+
+        <Button
+            android:id="@+id/save_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="saveList"
+            android:text="@string/save_list" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

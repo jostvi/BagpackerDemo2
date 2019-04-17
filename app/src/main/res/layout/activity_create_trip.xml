@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CreateTripActivity"
+    android:background="@color/screenBackground"
+    >
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/where_to"
+        android:textSize="18sp"
+        android:layout_margin="10dp"/>
+
+    <EditText
+        android:id="@+id/destination"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/set_destination"
+        android:layout_margin="10dp"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/what_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hur ska du resa?"
+        android:textSize="18sp"
+        android:layout_margin="10dp"/>
+    <Spinner
+        android:id="@+id/spinner_transport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/cardview_light_background"/>
+   <!-- <EditText
+        android:id="@+id/edit_transport"
+        android:hint="Ange färdmedel"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:background="@color/screenBackground"
+        />-->
+    <!--<EditText
+        android:id="@+id/edit_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/this_date"
+        android:layout_margin="10dp"
+        android:textSize="24sp" />-->
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hur ska du bo?"
+        android:layout_margin="10dp"
+        android:textSize="18sp" />
+    <Spinner
+        android:id="@+id/spinner_accomodation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/cardview_light_background"/>
+
+    <!--<EditText
+        android:id="@+id/edit_accomodation"
+        android:hint="Ange boende"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:background="@color/screenBackground"
+        />-->
+
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/what_you_wanna_do"
+        android:textSize="18sp"
+        android:layout_margin="10dp"/>
+
+    <Spinner
+        android:id="@+id/spinner_activities"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/cardview_light_background"/>
+
+    <!--<EditText
+        android:hint="@string/choose_activity"
+        android:id="@+id/edit_activities"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:background="@color/screenBackground"/>-->
+
+    <TextView
+        android:id="@+id/log"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textColor="@color/colorAccent"
+        android:layout_margin="10dp"/>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/generate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/generate"
+            android:onClick="generateList"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</LinearLayout>

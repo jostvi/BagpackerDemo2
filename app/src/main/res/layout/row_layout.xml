@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
@@ -14,26 +15,26 @@
         android:layout_marginEnd="10dp" />
         android:layout_
 
+
     <TextView
         android:id="@+id/itemName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_toEndOf="@+id/deleteButton"
         android:fontFamily="sans-serif"
         android:textColor="@color/colorAccent"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:layout_toEndOf="@id/itemCheck"/>
+        <!--android:layout_toEndOf="@+id/deleteButton"-->
 
-    <Button
+
+    <!--<ImageView
         android:id="@+id/deleteButton"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_toEndOf="@+id/itemCheck"
-        android:background="@color/screenBackground"
-        android:text="X"
-        android:textColor="@color/colorAccent"
-        android:textSize="10dp" />
+        app:srcCompat="@android:drawable/ic_delete" />-->
 
 </RelativeLayout>

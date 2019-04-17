@@ -48,7 +48,7 @@ public class CreateNewAccount extends AppCompatActivity {
 
     public void validate(String username, String password){
         if (username.equals("Bagpacker ") && password.equals("A") ){
-            Intent intent = new Intent (CreateNewAccount.this, Activity2.class);
+            Intent intent = new Intent (CreateNewAccount.this, ListViewActivity.class);
             startActivity(intent);
         }
     }
