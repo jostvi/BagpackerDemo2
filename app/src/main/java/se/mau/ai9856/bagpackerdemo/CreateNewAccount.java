@@ -40,18 +40,15 @@ public class CreateNewAccount extends AppCompatActivity {
         btnLogin.setOnClickListener (new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent (CreateNewAccount.this, CreateTripActivity.class);
+                startActivity(intent);
 
-                validate(username.getText().toString(), password.getText().toString());
+
             }
         });
     }
 
-    public void validate(String username, String password){
-        if (username.equals("Bagpacker ") && password.equals("A") ){
-            Intent intent = new Intent (CreateNewAccount.this, ListViewActivity.class);
-            startActivity(intent);
-        }
-    }
+
 
     public void save(View v){
         String name = username.getText().toString();

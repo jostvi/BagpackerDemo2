@@ -28,15 +28,16 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> items = new ArrayList<>();
 
     private Button btnCreateList;
-    private Button btnLogIn;
+    private Button btnLogin;
     private Button btnCreateAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         btnGetList = findViewById(R.id.getListBtn);
-        btnLogIn = (Button)findViewById(R.id.btnLogIn);
+        btnLogin = (Button)findViewById(R.id.btnLogin);
         btnCreateAccount = (Button)findViewById(R.id.btnCreateAccount);
         btnCreateList = (Button)findViewById(R.id.btnCreateList);
 
@@ -48,6 +49,19 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
+        btnLogin.setOnClickListener(new View.OnClickListener() { //btnLogin
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Login.class);
+                startActivity(intent);
+
+            }
+        });
+
+
     }
 
     public void getJSON(View v) {

@@ -11,10 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SavedLists"></activity>
+        <activity android:name=".Login"></activity>
+        <activity android:name=".SavedLists" />
         <activity android:name=".CreateTripActivity" />
         <activity android:name=".ListViewActivity" />
-        <activity android:name=".CreateNewAccount"></activity>
+        <activity android:name=".CreateNewAccount" />
         <activity android:name=".StartPage" />
         <activity android:name=".Activity2" />
         <activity android:name=".MainActivity">
