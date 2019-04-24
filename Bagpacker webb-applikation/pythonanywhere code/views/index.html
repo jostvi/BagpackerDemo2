@@ -1,0 +1,135 @@
+<!doctype html>
+
+<html lang="sv">
+<head>
+
+        <title>Bagpacker</title>
+        <meta charset="utf8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/static/style.css" rel="stylesheet">
+        <link rel='shortcut icon' type='image/x-icon' href="/static/favicon.png">
+        <link href="https://fonts.googleapis.com/css?family=Lobster|Roboto+Condensed" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/jquery-ui-i18n.min.js">
+        </script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="/static/datepicker-sv.js" type='text/javascript'></script>
+
+
+        <script>
+        $( function() {
+            $.datepicker.setDefaults($.datepicker.regional['sv']);
+            var dateFormat = "yy/mm/dd",
+            from = $( "#from" )
+                .datepicker({
+                dateFormat: "yy/mm/dd",
+                showAnim: "slideDown",
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 1,
+                minDate: 0
+                })
+                .on( "change", function() {
+                to.datepicker( "option", "minDate", getDate( this ) );
+                }),
+            to = $( "#to" ).datepicker({
+                defaultDate: "+1w",
+                dateFormat: "yy/mm/dd",
+                showAnim: "slideDown",
+                changeMonth: true,
+                numberOfMonths: 2,
+                minDate: 0
+            })
+            .on( "change", function() {
+                from.datepicker( "option", "maxDate", getDate( this ) );
+
+            });
+
+            function getDate( element ) {
+            var date;
+            try {
+                date = $.datepicker.parseDate( dateFormat, element.value );
+            } catch( error ) {
+                date = null;
+            }
+
+            return date;
+            }
+        } );
+        </script>
+
+
+</head>
+
+<body>
+    <h1>Bagpacker - Demo</h1>
+    <main>
+        <form action="/generate_list" method="POST">
+            <!-- ska hela formuläret visas på en sida eller ska det delas upp på flera sidor? -->
+            <input type="text" id="address-input" name="location" placeholder="Vart ska du resa?" >
+            <script src="https://cdn.jsdelivr.net/npm/places.js@1.16.1"></script>
+            <script>
+            const fixedOptions = {
+                appId: 'plUWMO59XHQR',
+                apiKey: '7e343f5d1071965e1e0c0a929ef1444b',
+                container: document.querySelector('#address-input'),
+              };
+
+            const reconfigurableOptions = {
+                language: 'en',
+                type: 'city',
+                aroundLatLngViaIP: false
+              };
+              const placesInstance = places(fixedOptions).configure(reconfigurableOptions);
+            </script>
+
+            <!-- <script>
+            var placesAutocomplete = places({
+            appId: 'plUWMO59XHQR',
+            apiKey: '7e343f5d1071965e1e0c0a929ef1444b',
+            container: document.querySelector('#address-input')
+            })
+            </script> -->
+            <p>Hur länge ska du vara iväg?</p>
+            <label for="from">Från</label>
+            <input type="text" id="from" name="from" autocomplete="off">
+            <label for="to">till</label>
+            <input type="text" id="to" name="to" autocomplete="off">
+
+            <p>Hur ska du ta dig till ditt resmål?</p>
+            <input type="radio" name="transport" value="bil" id="transport1" checked> <label for="transport1">Bil</label><br>
+            <input type="radio" name="transport" value="tåg" id="transport2"> <label for="transport2">Tåg</label><br>
+            <input type="radio" name="transport" value="flyg" id="transport3"> <label for="transport3">Flyg</label><br>
+            <!-- Fyll på med fler transportmedel, ersätt checkboxar med ikoner -->
+            <p>Hur ska du bo?</p>
+            <input type="radio" name="accommodation" value="hotell" id="hotel" checked> <label for="hotel">Hotell</label><br>
+            <input type="radio" name="accommodation" value="lägenhet" id="apartment"> <label for="apartment">Apartment</label><br>
+            <input type="radio" name="accommodation" value="hos kompisar"id="friends"> <label for="friends">Hos kompisar</label><br>
+            <input type="radio" name="accommodation" value="husvagn" id="caravan"> <label for="caravan">Husvagn / husbil </label><br>
+            <input type="radio" name="accommodation" value="tält" id="tent"> <label for="tent">Tält</label><br>
+            <!-- Fyll på med fler typer av boende, ersätt radiobuttons med ikoner -->
+            <p>Vilka aktiviteter planerar du att utöva?</p>
+            <input type="radio" name="activity" value="friluftsliv" id="activity1" checked> <label for="activity1">Friluftsliv</label><br>
+            <input type="radio" name="activity" value="vintersport" id="activity2"> <label for="activity2">Vintersport</label><br>
+            <input type="radio" name="activity" value="sol och bad" id="activity3"> <label for="activity3">Sol och bad</label><br>
+            <input type="radio" name="activity" value="sightseeing" id="activity4"> <label for="activity4">Sightseeing</label><br>
+            <input type="radio" name="activity" value="kultur- och nattliv" id="activity5"> <label for="activity5">Kultur- och nattliv</label><br>
+            <!-- Fyll på med fler aktiviteter, ersätt checkboxar med ikoner -->
+            <!-- Packlistan ska genereras för ? vuxna ? barn, Är ni flera stycken som ska resa? Hitta på bra formulering! -->
+            <input type="submit" id="button" value="Generera packlista!">
+        </form>
+    </main>
+
+    <footer>
+        &copy; Team Bagpacker 2019
+    </footer>
+
+
+
+</body>
+
+
+</html>
