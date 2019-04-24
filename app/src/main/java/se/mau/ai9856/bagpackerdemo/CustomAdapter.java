@@ -16,9 +16,9 @@ public class CustomAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private Context context;
     private ArrayList<ListItem> list;
-    private ArrayList<HeaderInfo> subList;
+    private ArrayList<Header> subList;
 
-    public CustomAdapter(Context context, ArrayList<HeaderInfo> subList) {
+    public CustomAdapter(Context context, ArrayList<Header> subList) {
         this.context = context;
         this.subList = subList;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

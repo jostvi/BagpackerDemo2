@@ -12,7 +12,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONObject;
 
 /**
@@ -79,5 +78,14 @@ public class MainActivity extends AppCompatActivity {
     public void showSavedLists(View v) {
         Intent intent = new Intent(this, SavedLists.class);
         startActivity(intent);
+    }
+
+    public void generateTest(View v){
+        String jsonStr = "{\"lista\":[{\"item\":\"skor\",\"category\":\"kläder\"}," +
+                "                     {\"item\":\"tisha\",\"category\":\"kläder\"}," +
+                "                     {\"item\":\"tights\",\"category\":\"kläder\"}," +
+                "                     {\"item\":\"pistol\",\"category\":\"vapen\"}," +
+                "                     {\"item\":\"hjärnblödning\",\"category\":\"tillstånd\"}]}";
+        showList(jsonStr);
     }
 }

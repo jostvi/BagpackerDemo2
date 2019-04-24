@@ -3,14 +3,8 @@ package se.mau.ai9856.bagpackerdemo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -18,15 +12,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedHashMap;
 
 public class ListViewActivity extends AppCompatActivity {
     private static final String ITEMS = "items";
     private ExpandableListView expListView;
-    private LinkedHashMap<String, HeaderInfo> mySection = new LinkedHashMap<>();
-    private ArrayList<HeaderInfo> sectionList = new ArrayList<>();
+    private LinkedHashMap<String, Header> mySection = new LinkedHashMap<>();
+    private ArrayList<Header> sectionList = new ArrayList<>();
     private ArrayList<ListItem> list = new ArrayList<>();
     private ExpandableListAdapter expAdapter;
     private JSONArray jsonArray;
@@ -35,13 +27,6 @@ public class ListViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
-       // newItem = findViewById(R.id.add_item);
-        //deleteItem = findViewById(R.id.delete_item);
-        //listView = findViewById(R.id.listView);
-        //setList();
-
-        // test av exp. list:
-
         expListView = findViewById(R.id.expList);
         expAdapter = new ExpandableListAdapter(ListViewActivity.this, sectionList);
         expListView.setAdapter(expAdapter);
@@ -128,27 +113,23 @@ public class ListViewActivity extends AppCompatActivity {
             for (int i = 0; i < jArray.length(); i++){
                 JSONObject jObject = jArray.getJSONObject(i);
                 String category = jObject.getString("category");
-                HeaderInfo headerInfo = mySection.get(category);
-                if (headerInfo == null) {
-                    headerInfo = new HeaderInfo();
-                    headerInfo.setName(category);
-                    mySection.put(category, headerInfo);
-                    sectionList.add(headerInfo);
+                Header header = mySection.get(category);
+                if (header == null) {
+                    header = new Header();
+                    header.setName(category);
+                    mySection.put(category, header);
+                    sectionList.add(header);
                 }
-                ArrayList<ListItem> itemList = headerInfo.getItemList();
+                ArrayList<ListItem> itemList = header.getItemList();
                 int listSize = itemList.size();
                 listSize++;
 
                 ListItem listItem = new ListItem(listSize, jObject.getString("item"));
                 itemList.add(listItem);
-                headerInfo.setItemList(itemList);
+                header.setItemList(itemList);
             }
         }catch(JSONException e){
             e.printStackTrace();
         }
-    }
-
-    private class AddItemRow {
-        private EditText input = findViewById(R.id.new_item);
     }
 }

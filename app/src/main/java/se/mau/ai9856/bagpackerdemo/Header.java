@@ -2,7 +2,7 @@ package se.mau.ai9856.bagpackerdemo;
 
 import java.util.ArrayList;
 
-public class HeaderInfo {
+public class Header {
     private String name;
     private ArrayList<ListItem> itemList = new ArrayList<>();
 
@@ -18,7 +18,5 @@ public class HeaderInfo {
         return itemList;
     }
 
-    public void setItemList(ArrayList<ListItem> itemList){
-        this.itemList = itemList;
-    }
+    public void setItemList(ArrayList<ListItem> itemList){ this.itemList = itemList; }
 }

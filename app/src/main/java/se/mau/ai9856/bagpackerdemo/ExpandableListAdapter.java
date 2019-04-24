@@ -1,21 +1,23 @@
 package se.mau.ai9856.bagpackerdemo;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import java.util.ArrayList;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private Context context;
-    private ArrayList<HeaderInfo> sectionList;
+    private ArrayList<Header> sectionList;
 
-    public ExpandableListAdapter(Context context, ArrayList<HeaderInfo> sectionList){
+    public ExpandableListAdapter(Context context, ArrayList<Header> sectionList){
         this.context = context;
         this.sectionList = sectionList;
     }
@@ -32,7 +34,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public HeaderInfo getGroup(int groupPosition) {
+    public Header getGroup(int groupPosition) {
         return sectionList.get(groupPosition);
     }
 
@@ -60,15 +62,15 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View view, ViewGroup parent) {
-        HeaderInfo headerInfo = getGroup(groupPosition);
+        Header group = getGroup(groupPosition);
         if(view == null){
             LayoutInflater inf = (LayoutInflater)
                     context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inf.inflate(R.layout.header_layout, null);
         }
-
+        Log.e("HEJ", "Group: " + group.getName());
         TextView header = view.findViewById(R.id.list_header);
-        header.setText(headerInfo.getName().trim());
+        header.setText(group.getName().trim());
         return view;
     }
 
@@ -76,18 +78,36 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild,
                              View view, ViewGroup parent) {
         final ViewHolder holder;
+        final ViewHolder2 holder2;
         final ListItem listItem = getChild(groupPosition, childPosition);
         if (view == null){
-            holder = new ViewHolder();
-            LayoutInflater childInflater = (LayoutInflater)
-                    context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = childInflater.inflate(R.layout.row_layout, null);
-            holder.tv = view.findViewById(R.id.itemName);
-            holder.checks = view.findViewById(R.id.itemCheck);
-            holder.btnDelete = view.findViewById(R.id.deleteButton);
-            view.setTag(holder);
+            if (isLastChild){
+                holder2 = new ViewHolder2();
+                LayoutInflater childInflater = (LayoutInflater)
+                        context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                view = childInflater.inflate(R.layout.new_item_row, null);
+                holder2.etNewItem = view.findViewById(R.id.etNewItem);
+                holder2.btnAddItem = view.findViewById(R.id.btnAddItem);
+                view.setTag(holder2);
+                return view;
+            } else {
+                holder = new ViewHolder();
+                LayoutInflater childInflater = (LayoutInflater)
+                        context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                view = childInflater.inflate(R.layout.row_layout, null);
+                holder.tv = view.findViewById(R.id.itemName);
+                holder.checks = view.findViewById(R.id.itemCheck);
+                holder.btnDelete = view.findViewById(R.id.deleteButton);
+                view.setTag(holder);
+            }
+            //Log.e("NULL", "Group: " + groupPosition + " Child: " + childPosition + " isLast: " + isLastChild + " View: " + view.toString() + " Parent: " + parent.toString());
         } else {
-            holder = (ViewHolder) view.getTag();
+            if(view.getTag()instanceof ViewHolder){
+                holder = (ViewHolder) view.getTag();
+            } else {
+                holder = new ViewHolder();
+                holder2 = (ViewHolder2) view.getTag();
+            }
         }
         holder.checks.setOnCheckedChangeListener(null);
         holder.checks.setFocusable(true);
@@ -123,7 +143,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 }
             }
         });
-
+        Log.e("HEJ2", "Child: " + listItem.getItemName());
         holder.tv.setText(listItem.getItemName().trim());
         //TextView childItem = view.findViewById(R.id.itemName);
         //childItem.setText(listItem.getItemName().trim());
@@ -150,5 +170,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         private TextView tv;
         private CheckBox checks;
         private ImageButton btnDelete;
+    }
+
+    private class ViewHolder2 {
+        private EditText etNewItem;
+        private ImageButton btnAddItem;
     }
 }
