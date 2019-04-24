@@ -5,73 +5,54 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-import java.util.ArrayList;
 
 /**
  * This is where the application starts. From here, the user can choose to retrieve
  * a list from a dummy webb-server then go to ListViewActivity, or go to CreateTripActivity to
  * create a new list, or to..
+ *
  * @author Johan W
  */
+
 public class MainActivity extends AppCompatActivity {
     private Button btnGetList;
     private static final String ITEMS = "items";
-    private ArrayList<String> items = new ArrayList<>();
-
-    private Button btnCreateList;
-    private Button btnLogIn;
-    private Button btnCreateAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btnGetList = findViewById(R.id.getListBtn);
-        btnLogIn = (Button)findViewById(R.id.btnLogIn);
-        btnCreateAccount = (Button)findViewById(R.id.btnCreateAccount);
-        btnCreateList = (Button)findViewById(R.id.btnCreateList);
-
+        btnGetList = findViewById(R.id.getListBtn); // ändra id i xml-koden
+        Button btnCreateAccount = findViewById(R.id.btnCreateAccount);
         btnCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,CreateNewAccount.class );
+                Intent intent = new Intent(MainActivity.this, CreateNewAccount.class);
                 startActivity(intent);
-
             }
         });
     }
 
-    public void getJSON(View v) {
-
+    public void getJSON(View v) {   // byt namn
+        EditText input = findViewById(R.id.password_input); // ändra id i xml
+        String password = input.getText().toString();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        String url = "http://bagpacker.pythonanywhere.com/get_list/?param1=123";
+        String url = "http://bagpacker.pythonanywhere.com/get_list/?param1=" + password;
 
         JsonObjectRequest request = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        try {
-
-                            JSONArray jsonArray = response.getJSONArray("lista");
-
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject item = jsonArray.getJSONObject(i);
-                                String itemName = item.getString("item");
-                                items.add(itemName);
-                            }
-                            showList(items);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        String jsonStr = response.toString();
+                        showList(jsonStr);
                     }
                 }, new Response.ErrorListener() {
                     public void onErrorResponse(VolleyError e) {
@@ -83,8 +64,7 @@ public class MainActivity extends AppCompatActivity {
         btnGetList.setText(loading);
     }
 
-    public void showList(ArrayList<String> items) {
-
+    public void showList(String items) {
         Intent showListIntent = new Intent(this, ListViewActivity.class);
         showListIntent.putExtra(ITEMS, items);
         startActivity(showListIntent);
@@ -95,8 +75,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(createTripIntent);
     }
 
-    public void showSavedLists(View v){
-        Intent intent = new Intent (this, SavedLists.class);
+    public void showSavedLists(View v) {
+        Intent intent = new Intent(this, SavedLists.class);
         startActivity(intent);
     }
 }

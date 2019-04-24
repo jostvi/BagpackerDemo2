@@ -8,8 +8,8 @@
     android:background="@color/colorAccent"
     tools:context=".SavedLists">
 
-    <ListView
-        android:id="@android:id/list"
+    <ExpandableListView
+        android:id="@+id/saved_list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"/>
 

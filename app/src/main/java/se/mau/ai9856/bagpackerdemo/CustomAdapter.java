@@ -4,23 +4,23 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 
 public class CustomAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private Context context;
     private ArrayList<ListItem> list;
+    private ArrayList<HeaderInfo> subList;
 
-    public CustomAdapter(Context context, ArrayList<ListItem> list){
+    public CustomAdapter(Context context, ArrayList<HeaderInfo> subList) {
         this.context = context;
-        this.list = list;
+        this.subList = subList;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -43,7 +43,7 @@ public class CustomAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
 
-        if (convertView == null){
+        if (convertView == null) {
             holder = new ViewHolder();
             convertView = inflater.inflate(R.layout.row_layout, null);
             holder.tv = convertView.findViewById(R.id.itemName);
@@ -55,13 +55,13 @@ public class CustomAdapter extends BaseAdapter {
         holder.checks.setOnCheckedChangeListener(null);
         holder.checks.setFocusable(true);
 
-        if (list.get(position).isSelected){
+        if (list.get(position).isSelected) {
             holder.checks.setChecked(true);
         } else {
             holder.checks.setChecked(false);
         }
 
-        holder.checks.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+        holder.checks.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton cb, boolean b) {
                 if (checkMaxLimit()) {
@@ -69,8 +69,8 @@ public class CustomAdapter extends BaseAdapter {
                         holder.checks.setChecked(false);
                         list.get(position).isSelected = false;
                     } else {
-                      //  holder.checks.setChecked(false);
-                        // list.get(position).isSelected = false;
+                        holder.checks.setChecked(false);
+                        list.get(position).isSelected = false;
                         Toast.makeText(context, "Packat och klart!", Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -87,16 +87,17 @@ public class CustomAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public boolean checkMaxLimit(){
+    public boolean checkMaxLimit() {
         int counterMax = 0;
-        for(ListItem item : list){
-            if(item.isSelected){
+        for (ListItem item : list) {
+            if (item.isSelected) {
                 counterMax++;
             }
         }
-        return counterMax >= list.size()-1;
+        return counterMax >= list.size() - 1;
     }
-    private class ViewHolder{
+
+    private class ViewHolder {
         TextView tv;
         public CheckBox checks;
     }

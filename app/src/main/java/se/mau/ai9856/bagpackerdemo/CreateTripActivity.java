@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -46,34 +47,32 @@ public class CreateTripActivity extends AppCompatActivity implements AdapterView
     }
 
     public void onItemSelected(AdapterView<?> parent, View v, int pos, long id) {
-            switch(parent.getId()){
-                case R.id.spinner_activities:
-                    activity = (String) parent.getSelectedItem();
-                    itemPosition = parent.getSelectedItemPosition(); // skapa en position per spinner
-                    break;
-                case R.id.spinner_accomodation:
-                    accomodation = (String) parent.getSelectedItem();
-                    break;
-                case R.id.spinner_transport:
-                    transport = (String) parent.getSelectedItem();
-                    break;
-            }
+        switch (parent.getId()) {
+            case R.id.spinner_activities:
+                activity = (String) parent.getSelectedItem();
+                itemPosition = parent.getSelectedItemPosition(); // skapa en position per spinner
+                break;
+            case R.id.spinner_accomodation:
+                accomodation = (String) parent.getSelectedItem();
+                break;
+            case R.id.spinner_transport:
+                transport = (String) parent.getSelectedItem();
+                break;
+        }
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
     }
 
     public void generateList(View v) {
-        if (!(destination.getText().length() > 0  || itemPosition > 0)) {
+        if (!(destination.getText().length() > 0 || itemPosition > 0)) {
             log.setText("Du måste fylla i ALLA fält!");
         } else {
             String url = "http://bagpacker.pythonanywhere.com/android/?param1="
-                    + destination.getText()
-                    + "&param2=" + transport
-                    + "&param3=" + accomodation
-                    + "&param4=" + activity;
-            //String header = "Till " + destination.getText();
-            //items.add(header);
+                                                        + destination.getText()
+                                                        + "&param2=" + transport
+                                                        + "&param3=" + accomodation
+                                                        + "&param4=" + activity;
             String loading = "Laddar...";
             log.setText(loading);
             destination.setText(null);
@@ -87,50 +86,42 @@ public class CreateTripActivity extends AppCompatActivity implements AdapterView
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        try {
-                            JSONArray jsonArray = response.getJSONArray("lista");
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject item = jsonArray.getJSONObject(i);
-                                String itemName = item.getString("item");
-                                items.add(itemName);
-                            }
-                            showList(items);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        String json = response.toString();
+                        showList(json);
                     }
                 }, new Response.ErrorListener() {
                     public void onErrorResponse(VolleyError e) {
                         e.printStackTrace();
                     }
                 });
+
         queue.add(request);
     }
 
-    public void showList(ArrayList<String> items) {
-        Intent showListIntent = new Intent(this, ListViewActivity.class);
+    public void showList(String items) {
+        Intent showListIntent = new Intent(CreateTripActivity.this, ListViewActivity.class);
         showListIntent.putExtra(ITEMS, items);
         startActivity(showListIntent);
     }
 
-    private void setUpSpinners(){
+    private void setUpSpinners() {
         spinnerAct = findViewById(R.id.spinner_activities);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                                    R.array.activities_array, android.R.layout.simple_spinner_item);
+                R.array.activities_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerAct.setAdapter(adapter);
         spinnerAct.setOnItemSelectedListener(this);
 
         spinnerAcc = findViewById(R.id.spinner_accomodation);
         ArrayAdapter<CharSequence> adapterAcc = ArrayAdapter.createFromResource(this,
-                                    R.array.accomodation_array, android.R.layout.simple_spinner_item);
+                R.array.accomodation_array, android.R.layout.simple_spinner_item);
         adapterAcc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerAcc.setAdapter(adapterAcc);
         spinnerAcc.setOnItemSelectedListener(this);
 
         spinnerTrans = findViewById(R.id.spinner_transport);
         ArrayAdapter<CharSequence> adapterTrans = ArrayAdapter.createFromResource(this,
-                                    R.array.transport_array, android.R.layout.simple_spinner_item);
+                R.array.transport_array, android.R.layout.simple_spinner_item);
         adapterTrans.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTrans.setAdapter(adapterTrans);
         spinnerTrans.setOnItemSelectedListener(this);

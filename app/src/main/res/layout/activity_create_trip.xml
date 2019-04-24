@@ -38,21 +38,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@color/cardview_light_background"/>
-   <!-- <EditText
-        android:id="@+id/edit_transport"
-        android:hint="Ange färdmedel"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_margin="10dp"
-        android:background="@color/screenBackground"
-        />-->
-    <!--<EditText
-        android:id="@+id/edit_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/this_date"
-        android:layout_margin="10dp"
-        android:textSize="24sp" />-->
 
     <TextView
         android:id="@+id/textView3"
@@ -68,16 +53,6 @@
         android:layout_margin="10dp"
         android:background="@color/cardview_light_background"/>
 
-    <!--<EditText
-        android:id="@+id/edit_accomodation"
-        android:hint="Ange boende"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_margin="10dp"
-        android:background="@color/screenBackground"
-        />-->
-
-
     <TextView
         android:id="@+id/textView4"
         android:layout_width="match_parent"
@@ -92,14 +67,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@color/cardview_light_background"/>
-
-    <!--<EditText
-        android:hint="@string/choose_activity"
-        android:id="@+id/edit_activities"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_margin="10dp"
-        android:background="@color/screenBackground"/>-->
 
     <TextView
         android:id="@+id/log"

@@ -1,15 +1,14 @@
 <resources>
-    <string name="app_name">BagpackerDemo</string>
+    <string name="app_name">Bagpacker</string>
     <string name="generate_list">Generera lista</string>
     <string name="get_list">Hämta lista</string>
     <string name="save_button">Spara</string>
     <string name="delete_btn">X</string>
-    <string name="input_destination">Skriv nåt här (T.ex. Töreboda eller Gävle)</string>
     <string name="title">BAGPACKER</string>
     <string name="createTrip">Ny resa</string>
     <string name="log">log</string>
     <string name="generate">Generera lista!</string>
-    <string name="save_item">Lägg till</string>
+    <string name="save_item">+</string>
     <string name="save_list">Spara lista</string>
     <string name="choose_activity">Välj aktivitet</string>
     <string name="what_you_wanna_do">Vad vill du göra?</string>
@@ -18,7 +17,7 @@
     <string name="set_destination">Ange resmål</string>
     <string name="where_to">Vart vill du åka?</string>
     <string name="load_from_save">Hämta sparad lista</string>
-    <string name="delete_listItem">Ta bort</string>
+    <string name="delete_listItem">-</string>
     <string name="when_then">När ska du resa?</string>
     <string name="this_date">Ange datum (ÅÅ-MM-DD)</string>
     <string-array name="activities_array">
@@ -42,5 +41,15 @@
         <item>hos kompisar</item>
         <item>husvagn</item>
         <item>tält</item>
+    </string-array>
+    <string-array name="expandable_list_test">
+        <item>byxor</item>
+        <item>strumpor</item>
+        <item>t-shirt</item>
+        <item>linne</item>
+        <item>tunn jacka</item>
+        <item>underbyxor</item>
+        <item>keps</item>
+        <item>sandaler</item>
     </string-array>
 </resources>
