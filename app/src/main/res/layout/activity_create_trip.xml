@@ -10,7 +10,7 @@
     >
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/questionDestination"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/where_to"
@@ -26,35 +26,35 @@
         android:textSize="24sp" />
 
     <TextView
-        android:id="@+id/what_date"
+        android:id="@+id/questionTransport"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Hur ska du resa?"
         android:textSize="18sp"
         android:layout_margin="10dp"/>
     <Spinner
-        android:id="@+id/spinner_transport"
+        android:id="@+id/spinnerTransport"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@color/cardview_light_background"/>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/questionAccommodation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Hur ska du bo?"
         android:layout_margin="10dp"
         android:textSize="18sp" />
     <Spinner
-        android:id="@+id/spinner_accomodation"
+        android:id="@+id/spinnerAccomodation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@color/cardview_light_background"/>
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/questionActivities"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/what_you_wanna_do"
@@ -62,7 +62,7 @@
         android:layout_margin="10dp"/>
 
     <Spinner
-        android:id="@+id/spinner_activities"
+        android:id="@+id/spinnerActivities"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -81,7 +81,7 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/generate"
+            android:id="@+id/generateNewList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/generate"

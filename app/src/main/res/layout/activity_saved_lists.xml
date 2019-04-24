@@ -9,7 +9,7 @@
     tools:context=".SavedLists">
 
     <ExpandableListView
-        android:id="@+id/saved_list"
+        android:id="@+id/savedList"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"/>
 

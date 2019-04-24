@@ -67,7 +67,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             view = inf.inflate(R.layout.header_layout, null);
         }
 
-        TextView header = view.findViewById(R.id.list_header);
+        TextView header = view.findViewById(R.id.listHeader);
         header.setText(headerInfo.getName().trim());
         return view;
     }

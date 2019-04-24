@@ -16,6 +16,7 @@
         <activity android:name=".ListViewActivity" />
         <activity android:name=".CreateNewAccount" />
         <activity android:name=".StartPage" />
+        <activity android:name=".Login" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

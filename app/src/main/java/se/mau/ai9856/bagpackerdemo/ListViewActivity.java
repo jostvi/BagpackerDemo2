@@ -3,14 +3,9 @@ package se.mau.ai9856.bagpackerdemo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -18,17 +13,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedHashMap;
+
+/**
+ * Class ListViewActivity represent a list wit items. From there, the user can add
+ * a new item to the list.
+ *
+ * @author Johan W
+ */
 
 public class ListViewActivity extends AppCompatActivity {
     private static final String ITEMS = "items";
-    private ExpandableListView expListView;
+    private ExpandableListView expandableListView;
     private LinkedHashMap<String, HeaderInfo> mySection = new LinkedHashMap<>();
     private ArrayList<HeaderInfo> sectionList = new ArrayList<>();
     private ArrayList<ListItem> list = new ArrayList<>();
-    private ExpandableListAdapter expAdapter;
+    private ExpandableListAdapter expandableListAdapter;
     private JSONArray jsonArray;
 
     @Override
@@ -42,9 +42,9 @@ public class ListViewActivity extends AppCompatActivity {
 
         // test av exp. list:
 
-        expListView = findViewById(R.id.expList);
-        expAdapter = new ExpandableListAdapter(ListViewActivity.this, sectionList);
-        expListView.setAdapter(expAdapter);
+        expandableListView = findViewById(R.id.expList);
+        expandableListAdapter = new ExpandableListAdapter(ListViewActivity.this, sectionList);
+        expandableListView.setAdapter(expandableListAdapter);
         setExpandableList();
         expandAll();
     }
@@ -109,16 +109,16 @@ public class ListViewActivity extends AppCompatActivity {
     }
 
     private void expandAll(){
-        int count = expAdapter.getGroupCount();
+        int count = expandableListAdapter.getGroupCount();
         for (int i = 0; i < count; i++){
-            expListView.expandGroup(i);
+            expandableListView.expandGroup(i);
         }
     }
 
     private void collapseAll(){
-        int count = expAdapter.getGroupCount();
+        int count = expandableListAdapter.getGroupCount();
         for (int i = 0; i < count; i++){
-            expListView.collapseGroup(i);
+            expandableListView.collapseGroup(i);
         }
     }
 
@@ -149,6 +149,6 @@ public class ListViewActivity extends AppCompatActivity {
     }
 
     private class AddItemRow {
-        private EditText input = findViewById(R.id.new_item);
+        private EditText input = findViewById(R.id.newItem);
     }
 }

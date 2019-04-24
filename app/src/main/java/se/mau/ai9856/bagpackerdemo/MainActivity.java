@@ -25,14 +25,18 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
     private Button btnGetList;
+    private Button btnLogin;
+    private Button btnCreateAccount;
     private static final String ITEMS = "items";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btnGetList = findViewById(R.id.getListBtn); // ändra id i xml-koden
-        Button btnCreateAccount = findViewById(R.id.btnCreateAccount);
+        btnGetList = findViewById(R.id.btnGetList);
+        btnLogin = (Button)findViewById(R.id.btnLogin);
+        btnCreateAccount = findViewById(R.id.btnCreateAccount);
+
         btnCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,10 +44,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Login.class);
+                startActivity(intent);
+
+            }
+        });
     }
 
-    public void getJSON(View v) {   // byt namn
-        EditText input = findViewById(R.id.password_input); // ändra id i xml
+    public void getList(View v) {
+        EditText input = findViewById(R.id.passwordInput);
         String password = input.getText().toString();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         String url = "http://bagpacker.pythonanywhere.com/get_list/?param1=" + password;
@@ -52,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        String jsonStr = response.toString();
-                        showList(jsonStr);
+                        String jsonString = response.toString();
+                        showList(jsonString);
                     }
                 }, new Response.ErrorListener() {
                     public void onErrorResponse(VolleyError e) {

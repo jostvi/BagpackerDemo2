@@ -9,14 +9,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+/**
+ * This is where the user can log in, username and password are allready saved locally.
+ *
+ * @author Ekaterina K
+ */
+
 public class Login extends AppCompatActivity {
     private EditText loginUsername;
     private EditText loginPassword;
     private Button buttonLogin;
     SharedPreferences sharedPreferences;
-    static final String mypreference = "mypref";
+    static final String mypreference = "myprefrence";
     static final String Name = "nameKey";
-    static final String LÖSENORD = "emailKey";
+    static final String LÖSENORD = "lösenordlKey";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -9,15 +9,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+/**
+ * This is where the user can create a new account. The username and password is stored locally.
+ * From here the user can go to CreateTripActivity
+ *
+ * @author Ekaterina K
+ */
 public class CreateNewAccount extends AppCompatActivity {
     private EditText username;
     private EditText password;
     private Button btnLogin;
 
     SharedPreferences sharedPreferences;
-    static final String mypreference = "mypref";
+    static final String mypreference = "mypreference";
     static final String Name = "nameKey";
-    static final String LÖSENORD = "emailKey";
+    static final String LÖSENORD = "lösenordKey";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
