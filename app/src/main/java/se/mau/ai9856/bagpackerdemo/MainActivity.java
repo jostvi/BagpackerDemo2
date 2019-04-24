@@ -39,6 +39,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+        /*btnLogin.setOnClickListener(new View.OnClickListener() { //btnLogin
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Login.class);
+                startActivity(intent);
+
+            }
+        });*/
+
+
     }
 
     public void getJSON(View v) {   // byt namn
