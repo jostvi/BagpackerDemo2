@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Header {
     private String name;
-    private ArrayList<ListItem> itemList = new ArrayList<>();
+    private ArrayList<Packable> itemList = new ArrayList<>();
 
     public String getName(){
         return name;
@@ -14,9 +14,9 @@ public class Header {
         this.name = name;
     }
 
-    public ArrayList<ListItem> getItemList(){
+    public ArrayList<Packable> getItemList(){
         return itemList;
     }
 
-    public void setItemList(ArrayList<ListItem> itemList){ this.itemList = itemList; }
+    public void setItemList(ArrayList<Packable> itemList){ this.itemList = itemList; }
 }

@@ -42,14 +42,13 @@
         <item>husvagn</item>
         <item>tält</item>
     </string-array>
-    <string-array name="expandable_list_test">
-        <item>byxor</item>
-        <item>strumpor</item>
-        <item>t-shirt</item>
-        <item>linne</item>
-        <item>tunn jacka</item>
-        <item>underbyxor</item>
-        <item>keps</item>
-        <item>sandaler</item>
+    <string-array name="categories">
+        <item>Välj kategori</item>
+        <item>kläder</item>
+        <item>necessär</item>
+        <item>resehandlingar</item>
+        <item>elektronik</item>
+        <item>specialutrustning</item>
+        <item>övrigt</item>
     </string-array>
 </resources>

@@ -8,16 +8,18 @@
     android:background="@color/colorAccent"
     tools:context=".SavedLists">
 
-    <ExpandableListView
-        android:id="@+id/saved_list"
+    <ListView
+        android:id="@+id/savedListsList"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"/>
 
-    <TextView android:id="@android:id/empty"
+    <TextView
+        android:id="@android:id/empty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/screenBackground"
-        android:text="No data"
+        android:text="Du har inga sparade listor :("
         android:textSize="24sp"
         android:textAlignment="center"/>
+
 </LinearLayout>

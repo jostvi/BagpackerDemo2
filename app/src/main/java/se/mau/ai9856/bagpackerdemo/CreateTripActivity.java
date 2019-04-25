@@ -1,41 +1,28 @@
 package se.mau.ai9856.bagpackerdemo;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 public class CreateTripActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    private EditText destination, param2, param3, param4;
+    private EditText destination;
     private TextView log;
-    private String activity, accomodation, transport;
+    private String activity, accommodation, transport;
     private int itemPosition;
     private static final String ITEMS = "items";
-    private ArrayList<String> items = new ArrayList<>();
-    private Spinner spinnerAct;
-    private Spinner spinnerAcc;
-    private Spinner spinnerTrans;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +40,7 @@ public class CreateTripActivity extends AppCompatActivity implements AdapterView
                 itemPosition = parent.getSelectedItemPosition(); // skapa en position per spinner
                 break;
             case R.id.spinner_accomodation:
-                accomodation = (String) parent.getSelectedItem();
+                accommodation = (String) parent.getSelectedItem();
                 break;
             case R.id.spinner_transport:
                 transport = (String) parent.getSelectedItem();
@@ -66,12 +53,13 @@ public class CreateTripActivity extends AppCompatActivity implements AdapterView
 
     public void generateList(View v) {
         if (!(destination.getText().length() > 0 || itemPosition > 0)) {
-            log.setText("Du måste fylla i ALLA fält!");
+            String error = "Du måste fylla i ALLA fält!";
+            log.setText(error);
         } else {
             String url = "http://bagpacker.pythonanywhere.com/android/?param1="
                                                         + destination.getText()
                                                         + "&param2=" + transport
-                                                        + "&param3=" + accomodation
+                                                        + "&param3=" + accommodation
                                                         + "&param4=" + activity;
             String loading = "Laddar...";
             log.setText(loading);
@@ -105,21 +93,21 @@ public class CreateTripActivity extends AppCompatActivity implements AdapterView
     }
 
     private void setUpSpinners() {
-        spinnerAct = findViewById(R.id.spinner_activities);
+        Spinner spinnerAct = findViewById(R.id.spinner_activities);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.activities_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerAct.setAdapter(adapter);
         spinnerAct.setOnItemSelectedListener(this);
 
-        spinnerAcc = findViewById(R.id.spinner_accomodation);
+        Spinner spinnerAcc = findViewById(R.id.spinner_accomodation);
         ArrayAdapter<CharSequence> adapterAcc = ArrayAdapter.createFromResource(this,
                 R.array.accomodation_array, android.R.layout.simple_spinner_item);
         adapterAcc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerAcc.setAdapter(adapterAcc);
         spinnerAcc.setOnItemSelectedListener(this);
 
-        spinnerTrans = findViewById(R.id.spinner_transport);
+        Spinner spinnerTrans = findViewById(R.id.spinner_transport);
         ArrayAdapter<CharSequence> adapterTrans = ArrayAdapter.createFromResource(this,
                 R.array.transport_array, android.R.layout.simple_spinner_item);
         adapterTrans.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

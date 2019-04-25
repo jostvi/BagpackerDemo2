@@ -33,15 +33,25 @@ public class MainActivity extends AppCompatActivity {
         btnGetList = findViewById(R.id.getListBtn); // ändra id i xml-koden
         Button btnCreateAccount = findViewById(R.id.btnCreateAccount);
         btnCreateAccount.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, CreateNewAccount.class);
                 startActivity(intent);
             }
         });
+        Button btnLogIn = findViewById(R.id.btnLogIn);
+        btnLogIn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Login.class);
+                startActivity(intent);
+            }
+        });
     }
 
-    public void getJSON(View v) {   // byt namn
+    public void getChristinasJSON(View v) {   // byt namn
         EditText input = findViewById(R.id.password_input); // ändra id i xml
         String password = input.getText().toString();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -59,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 });
+
         requestQueue.add(request);
         String loading = "laddar...";
         btnGetList.setText(loading);
@@ -80,11 +91,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void generateTest(View v){
+    public void testJSON(View v){
         String jsonStr = "{\"lista\":[{\"item\":\"skor\",\"category\":\"kläder\"}," +
                 "                     {\"item\":\"tisha\",\"category\":\"kläder\"}," +
                 "                     {\"item\":\"tights\",\"category\":\"kläder\"}," +
-                "                     {\"item\":\"pistol\",\"category\":\"vapen\"}," +
+                "                     {\"item\":\"machete\",\"category\":\"vapen\"}," +
                 "                     {\"item\":\"hjärnblödning\",\"category\":\"tillstånd\"}]}";
         showList(jsonStr);
     }

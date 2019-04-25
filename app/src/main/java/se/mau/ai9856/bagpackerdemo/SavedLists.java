@@ -7,11 +7,12 @@ import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
 
-public class SavedLists extends ListActivity {
+public class SavedLists extends AppCompatActivity {
     private ArrayList<String> list = new ArrayList<>();
 
     @Override
@@ -21,6 +22,7 @@ public class SavedLists extends ListActivity {
         list = Database.loadList(this, "SPARAD");
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.row_layout,
                                 R.id.itemName, list);
-        setListAdapter(adapter);
+        ListView savedListsList = findViewById(R.id.savedListsList);
+        savedListsList.setAdapter(adapter);
     }
 }

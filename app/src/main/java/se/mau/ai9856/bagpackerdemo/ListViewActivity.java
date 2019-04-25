@@ -4,33 +4,40 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.Spinner;
 import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 
-public class ListViewActivity extends AppCompatActivity {
+public class ListViewActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static final String ITEMS = "items";
     private ExpandableListView expListView;
-    private LinkedHashMap<String, Header> mySection = new LinkedHashMap<>();
-    private ArrayList<Header> sectionList = new ArrayList<>();
-    private ArrayList<ListItem> list = new ArrayList<>();
+    private LinkedHashMap<String, Header> categorySubList = new LinkedHashMap<>();
+    private ArrayList<Header> categories = new ArrayList<>();
+    private ArrayList<Packable> list = new ArrayList<>();
     private ExpandableListAdapter expAdapter;
-    private JSONArray jsonArray;
+    private EditText etNewItem;
+    private String category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
         expListView = findViewById(R.id.expList);
-        expAdapter = new ExpandableListAdapter(ListViewActivity.this, sectionList);
+        etNewItem = findViewById(R.id.etNewItem);
+        expAdapter = new ExpandableListAdapter(ListViewActivity.this, categories);
         expListView.setAdapter(expAdapter);
         setExpandableList();
+        setUpSpinner();
         expandAll();
     }
 
@@ -42,94 +49,95 @@ public class ListViewActivity extends AppCompatActivity {
         startActivity(resetMain);
     }
 
-    public void addNewItem(View v) {
-        /*String name;
-        if (!newItem.getText().toString().isEmpty()) {
-            name = newItem.getText().toString();
-            list.add(new ListItem(list.size() - 1, name));
+    public void addButtonClicked(View v) {
+        String newItem = etNewItem.getText().toString();
 
-            Collections.sort(list, new Comparator<ListItem>() {
-                @Override
-                public int compare(ListItem o1, ListItem o2) {
-                    return o1.getItemName().compareTo(o2.getItemName());
-                }
-            });
-            list.trimToSize();
-            refreshList(newItem);
-            newItem.setText(null);
-            Toast.makeText(ListViewActivity.this, "Du lade till: " + name, Toast.LENGTH_LONG).show();
-        }*/
+        if (newItem.length() == 0 || category.isEmpty()) {
+            etNewItem.setHint("Du måste döpa din grej!!!");
+        } else {
+            Header header = categorySubList.get(category);
+            ArrayList<Packable> list = header.getItemList();
+            list.add(new Packable(newItem));
+            sortList(list);
+            header.setItemList(list);
+            expAdapter.notifyDataSetChanged();
+            etNewItem.setText("");
+            Toast.makeText(this, "Du lade till: " + newItem, Toast.LENGTH_SHORT).show();
+        }
     }
 
-    public void saveList(){
+    public void saveList() {
         ArrayList<String> stringList = new ArrayList<>();
-        for (ListItem item : list){
+        for (Packable item : list) {
             stringList.add(item.getItemName());
         }
         Database.saveList(this, "SPARAD", stringList);
         Toast.makeText(this, "Lista sparad", Toast.LENGTH_LONG).show();
     }
 
-   /* private void setList() {
-        ArrayList<String> stringList = getIntent().getStringArrayListExtra(ITEMS);
-
-        for (int i = 0; i < stringList.size(); i++) {
-            ListItem item = new ListItem(i, stringList.get(i));
-            list.add(item);
-        }
-        adapter = new CustomAdapter(this, list);
-        //listView.setAdapter(adapter);
-    }*/
-
-    // test exp. list:
-
-    public void setExpandableList(){
-        try{
+    public void setExpandableList() {
+        try {
             JSONObject jsonObject = new JSONObject(getIntent().getStringExtra(ITEMS));
-            jsonArray = jsonObject.getJSONArray("lista");
-        } catch (JSONException e){
+            JSONArray jsonArray = jsonObject.getJSONArray("lista");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jObject = jsonArray.getJSONObject(i);
+                String category = jObject.getString("category");
+                Header header = categorySubList.get(category);
+
+                if (header == null) {
+                    header = new Header();
+                    header.setName(category);
+                    categorySubList.put(category, header);
+                    categories.add(header);
+                }
+                
+                ArrayList<Packable> itemList = header.getItemList();
+                Packable packable = new Packable(jObject.getString("item"));
+                itemList.add(packable);
+                sortList(itemList);
+                header.setItemList(itemList);
+            }
+        } catch (JSONException e) {
             e.printStackTrace();
         }
-        addItem(jsonArray);
     }
 
-    private void expandAll(){
+    private void expandAll() {
         int count = expAdapter.getGroupCount();
-        for (int i = 0; i < count; i++){
+        for (int i = 0; i < count; i++) {
             expListView.expandGroup(i);
         }
     }
 
-    private void collapseAll(){
-        int count = expAdapter.getGroupCount();
-        for (int i = 0; i < count; i++){
-            expListView.collapseGroup(i);
+    public void sortList(ArrayList<Packable> list) {
+        Collections.sort(list, new Comparator<Packable>() {
+            @Override
+            public int compare(Packable o1, Packable o2) {
+                return o1.getItemName().compareTo(o2.getItemName());
+            }
+        });
+    }
+
+    public void setUpSpinner() {
+        Spinner spinner = findViewById(R.id.spChooseCategory);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.categories, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
+        if (parent.getSelectedItemPosition() != 0) {
+            category = (String) parent.getSelectedItem();
+        } else {
+            category = "";
         }
     }
 
-    public void addItem(JSONArray jArray) {
-
-        try{
-            for (int i = 0; i < jArray.length(); i++){
-                JSONObject jObject = jArray.getJSONObject(i);
-                String category = jObject.getString("category");
-                Header header = mySection.get(category);
-                if (header == null) {
-                    header = new Header();
-                    header.setName(category);
-                    mySection.put(category, header);
-                    sectionList.add(header);
-                }
-                ArrayList<ListItem> itemList = header.getItemList();
-                int listSize = itemList.size();
-                listSize++;
-
-                ListItem listItem = new ListItem(listSize, jObject.getString("item"));
-                itemList.add(listItem);
-                header.setItemList(itemList);
-            }
-        }catch(JSONException e){
-            e.printStackTrace();
-        }
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
     }
 }
