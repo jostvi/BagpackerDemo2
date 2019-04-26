@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showSavedLists(View v) {
-        Intent intent = new Intent(this, SavedLists.class);
+        Intent intent = new Intent(this, ShowSavedActivity.class);
         startActivity(intent);
     }
 

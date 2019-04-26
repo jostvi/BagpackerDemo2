@@ -14,9 +14,9 @@ import java.util.ArrayList;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private Context context;
-    private ArrayList<Header> categories;
+    private ArrayList<SubList> categories;
 
-    public ExpandableListAdapter(Context context, ArrayList<Header> categories) {
+    public ExpandableListAdapter(Context context, ArrayList<SubList> categories) {
         this.context = context;
         this.categories = categories;
     }
@@ -33,7 +33,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public Header getGroup(int groupPosition) {
+    public SubList getGroup(int groupPosition) {
         return categories.get(groupPosition);
     }
 
@@ -61,7 +61,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View view, ViewGroup parent) {
-        Header group = getGroup(groupPosition);
+        SubList group = getGroup(groupPosition);
         if (view == null) {
             LayoutInflater inf = (LayoutInflater)
                     context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

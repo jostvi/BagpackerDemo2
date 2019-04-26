@@ -12,7 +12,7 @@ import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
 
-public class SavedLists extends AppCompatActivity {
+public class ShowSavedActivity extends AppCompatActivity {
     private ArrayList<String> list = new ArrayList<>();
 
     @Override

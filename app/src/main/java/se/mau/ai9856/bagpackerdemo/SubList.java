@@ -2,7 +2,7 @@ package se.mau.ai9856.bagpackerdemo;
 
 import java.util.ArrayList;
 
-public class Header {
+public class SubList {
     private String name;
     private ArrayList<Packable> itemList = new ArrayList<>();
 

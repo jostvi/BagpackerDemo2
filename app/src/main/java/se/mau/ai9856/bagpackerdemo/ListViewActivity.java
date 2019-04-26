@@ -21,8 +21,8 @@ import java.util.LinkedHashMap;
 public class ListViewActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static final String ITEMS = "items";
     private ExpandableListView expListView;
-    private LinkedHashMap<String, Header> categorySubList = new LinkedHashMap<>();
-    private ArrayList<Header> categories = new ArrayList<>();
+    private LinkedHashMap<String, SubList> categorySubList = new LinkedHashMap<>();
+    private ArrayList<SubList> categories = new ArrayList<>();
     private ArrayList<Packable> list = new ArrayList<>();
     private ExpandableListAdapter expAdapter;
     private EditText etNewItem;
@@ -55,18 +55,18 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
         if (newItem.length() == 0 || category.isEmpty()) {
             etNewItem.setHint("Du måste döpa din grej!!!");
         } else {
-            Header header = categorySubList.get(category);
-            ArrayList<Packable> list = header.getItemList();
+            SubList subList = categorySubList.get(category);
+            ArrayList<Packable> list = subList.getItemList();
             list.add(new Packable(newItem));
             sortList(list);
-            header.setItemList(list);
+            subList.setItemList(list);
             expAdapter.notifyDataSetChanged();
             etNewItem.setText("");
-            Toast.makeText(this, "Du lade till: " + newItem, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Du har lagt till: " + newItem, Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void saveList() {
+    public void saveList() {                        // SKRIV OM så den sparar ArrayList<SubList> categories
         ArrayList<String> stringList = new ArrayList<>();
         for (Packable item : list) {
             stringList.add(item.getItemName());
@@ -83,20 +83,20 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jObject = jsonArray.getJSONObject(i);
                 String category = jObject.getString("category");
-                Header header = categorySubList.get(category);
+                SubList subList = categorySubList.get(category);
 
-                if (header == null) {
-                    header = new Header();
-                    header.setName(category);
-                    categorySubList.put(category, header);
-                    categories.add(header);
+                if (subList == null) {
+                    subList = new SubList();
+                    subList.setName(category);
+                    categorySubList.put(category, subList);
+                    categories.add(subList);
                 }
                 
-                ArrayList<Packable> itemList = header.getItemList();
+                ArrayList<Packable> itemList = subList.getItemList();
                 Packable packable = new Packable(jObject.getString("item"));
                 itemList.add(packable);
                 sortList(itemList);
-                header.setItemList(itemList);
+                subList.setItemList(itemList);
             }
         } catch (JSONException e) {
             e.printStackTrace();
