@@ -68,6 +68,7 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
                 subList.setName(category);
                 categorySubList.put(category, subList);
                 expList.add(subList);
+                expListView.expandGroup(expList.indexOf(subList));
             }
             ArrayList<Packable> list = subList.getItemList(); // FIXA!
             list.add(new Packable(newItem));

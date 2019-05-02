@@ -22,7 +22,7 @@
                 android:id="@+id/etNewItem"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:hint="Lägg till..."
+                android:hint="Lägg till föremål"
                 android:textColor="@color/cardview_light_background"
                 android:textColorHint="@color/cardview_light_background"
                 android:textSize="24sp" />
@@ -39,7 +39,7 @@
         <Spinner
             android:id="@+id/spChooseCategory"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45sp"
             android:background="@color/cardview_light_background" />
 
     </LinearLayout>
