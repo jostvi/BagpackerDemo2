@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         EditText input = findViewById(R.id.password_input); // ändra id i xml
         String password = input.getText().toString();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        String url = "http://bagpacker.pythonanywhere.com/get_list/?param1=" + password;
+        String url = "https://bagpacker.pythonanywhere.com/get_list/?param1=" + password;
 
         JsonObjectRequest request = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {

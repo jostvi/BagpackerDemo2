@@ -3,6 +3,7 @@ package se.mau.ai9856.bagpackerdemo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -10,20 +11,26 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 public class ListViewActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static final String ITEMS = "items";
     private ExpandableListView expListView;
     private LinkedHashMap<String, SubList> categorySubList = new LinkedHashMap<>();
-    private ArrayList<SubList> categories = new ArrayList<>();
-    private ArrayList<Packable> list = new ArrayList<>();
+    private ArrayList<SubList> expList = new ArrayList<>();
     private ExpandableListAdapter expAdapter;
     private EditText etNewItem;
     private String category;
@@ -34,7 +41,7 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
         setContentView(R.layout.activity_list_view);
         expListView = findViewById(R.id.expList);
         etNewItem = findViewById(R.id.etNewItem);
-        expAdapter = new ExpandableListAdapter(ListViewActivity.this, categories);
+        expAdapter = new ExpandableListAdapter(ListViewActivity.this, expList);
         expListView.setAdapter(expAdapter);
         setExpandableList();
         setUpSpinner();
@@ -56,7 +63,13 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
             etNewItem.setHint("Du måste döpa din grej!!!");
         } else {
             SubList subList = categorySubList.get(category);
-            ArrayList<Packable> list = subList.getItemList();
+            if (subList == null) {
+                subList = new SubList();
+                subList.setName(category);
+                categorySubList.put(category, subList);
+                expList.add(subList);
+            }
+            ArrayList<Packable> list = subList.getItemList(); // FIXA!
             list.add(new Packable(newItem));
             sortList(list);
             subList.setItemList(list);
@@ -66,17 +79,15 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
         }
     }
 
-    public void saveList() {                        // SKRIV OM så den sparar ArrayList<SubList> categories
-        ArrayList<String> stringList = new ArrayList<>();
-        for (Packable item : list) {
-            stringList.add(item.getItemName());
-        }
-        Database.saveList(this, "SPARAD", stringList);
-        Toast.makeText(this, "Lista sparad", Toast.LENGTH_LONG).show();
-    }
+    public void saveList() {
+        String key = "Min lista";
+        Database.saveList(this,key,expList);
+
+        Toast.makeText(this,key + " sparad",Toast.LENGTH_LONG).show();
+}
 
     public void setExpandableList() {
-        try {
+         try {
             JSONObject jsonObject = new JSONObject(getIntent().getStringExtra(ITEMS));
             JSONArray jsonArray = jsonObject.getJSONArray("lista");
 
@@ -89,9 +100,9 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
                     subList = new SubList();
                     subList.setName(category);
                     categorySubList.put(category, subList);
-                    categories.add(subList);
+                    expList.add(subList);
                 }
-                
+
                 ArrayList<Packable> itemList = subList.getItemList();
                 Packable packable = new Packable(jObject.getString("item"));
                 itemList.add(packable);
@@ -111,6 +122,7 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
     }
 
     public void sortList(ArrayList<Packable> list) {
+
         Collections.sort(list, new Comparator<Packable>() {
             @Override
             public int compare(Packable o1, Packable o2) {

@@ -56,7 +56,7 @@ public class CreateTripActivity extends AppCompatActivity implements AdapterView
             String error = "Du måste fylla i ALLA fält!";
             log.setText(error);
         } else {
-            String url = "http://bagpacker.pythonanywhere.com/android/?param1="
+            String url = "https://bagpacker.pythonanywhere.com/android/?param1="
                                                         + destination.getText()
                                                         + "&param2=" + transport
                                                         + "&param3=" + accommodation

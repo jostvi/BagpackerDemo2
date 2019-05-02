@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorAccent"
-    tools:context=".SavedLists">
+    tools:context=".ShowSavedActivity">
 
     <ListView
         android:id="@+id/savedListsList"

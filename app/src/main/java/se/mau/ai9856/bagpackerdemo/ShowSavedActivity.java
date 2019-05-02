@@ -1,28 +1,35 @@
 package se.mau.ai9856.bagpackerdemo;
 
-import android.app.ListActivity;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-
+import android.widget.ExpandableListView;
 import java.util.ArrayList;
 
 public class ShowSavedActivity extends AppCompatActivity {
-    private ArrayList<String> list = new ArrayList<>();
+    private SharedPreferences sharedPreferences;
+    private ExpandableListView expandableListView;
+    private ExpandableListAdapter expandableListAdapter;
+    private ArrayList<SubList> expandableList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_saved_lists);
-        list = Database.loadList(this, "SPARAD");
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.row_layout,
-                                R.id.itemName, list);
-        ListView savedListsList = findViewById(R.id.savedListsList);
-        savedListsList.setAdapter(adapter);
+        expandableList = Database.loadList(this, "Min lista");
+        setContentView(R.layout.activity_list_view);
+        expandableListView = findViewById(R.id.expList);
+        expandableListAdapter = new ExpandableListAdapter
+                (ShowSavedActivity.this, expandableList);
+        expandableListView.setAdapter(expandableListAdapter);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        expandAll();
+    }
+
+    private void expandAll(){
+        int count = expandableListAdapter.getGroupCount();
+        for(int i = 0; i < count; i++){
+            expandableListView.expandGroup(i);
+        }
     }
 }

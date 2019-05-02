@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Login"/>
-        <activity android:name=".SavedLists" />
+        <activity android:name=".ShowSavedActivity" />
         <activity android:name=".CreateTripActivity" />
         <activity android:name=".ListViewActivity" />
         <activity android:name=".CreateNewAccount" />
