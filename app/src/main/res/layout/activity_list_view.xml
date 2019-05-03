@@ -13,28 +13,40 @@
         android:background="@color/colorPrimaryDark"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/etNewItem"
-                android:layout_width="300dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:hint="Lägg till föremål"
                 android:textColor="@color/cardview_light_background"
                 android:textColorHint="@color/cardview_light_background"
-                android:textSize="24sp" />
+                android:textSize="24sp"/>
 
             <ImageButton
+                android:id="@+id/btnAddItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:onClick="addButtonClicked"
+                android:src="@android:drawable/ic_input_add"
+                android:layout_margin="10dp"
+                android:layout_toEndOf="@id/etNewItem"/>
+
+            <ImageButton
+                android:id="@+id/btnSaveList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@color/colorPrimaryDark"
-                android:onClick="addButtonClicked"
-                android:src="@android:drawable/ic_input_add" />
-        </LinearLayout>
+                android:onClick="saveList"
+                android:src="@android:drawable/ic_menu_save"
+                android:layout_alignParentEnd="true"/>
+
+        </RelativeLayout>
 
         <Spinner
             android:id="@+id/spChooseCategory"

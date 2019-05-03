@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private Context context;
     private ArrayList<SubList> categories;
+    private String key = "Min lista";
 
     public ExpandableListAdapter(Context context, ArrayList<SubList> categories) {
         this.context = context;
@@ -125,6 +127,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                     packable.isSelected = false;
                 }
                 notifyDataSetChanged();
+                //Database.saveList(ExpandableListView.this, key, categories);
             }
         });
         holder.tv.setText(packable.getItemName().trim());

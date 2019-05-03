@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -51,7 +52,6 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
     @Override
     public void onBackPressed() {
         Intent resetMain = new Intent(this, MainActivity.class);
-        saveList();
         finish();
         startActivity(resetMain);
     }
@@ -70,20 +70,20 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
                 expList.add(subList);
                 expListView.expandGroup(expList.indexOf(subList));
             }
-            ArrayList<Packable> list = subList.getItemList(); // FIXA!
+            ArrayList<Packable> list = subList.getItemList();
             list.add(new Packable(newItem));
             sortList(list);
             subList.setItemList(list);
             expAdapter.notifyDataSetChanged();
             etNewItem.setText("");
+            etNewItem.setHint("Lägg till föremål");
             Toast.makeText(this, "Du har lagt till: " + newItem, Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void saveList() {
+    public void saveList(View v) {
         String key = "Min lista";
         Database.saveList(this,key,expList);
-
         Toast.makeText(this,key + " sparad",Toast.LENGTH_LONG).show();
 }
 

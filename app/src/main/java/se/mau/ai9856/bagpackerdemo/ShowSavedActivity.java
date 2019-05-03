@@ -2,10 +2,9 @@ package se.mau.ai9856.bagpackerdemo;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.ImageButton;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 
 public class ShowSavedActivity extends AppCompatActivity {
@@ -15,14 +14,15 @@ public class ShowSavedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ArrayList<SubList> expandableList = Database.loadList(this, "Min lista");
-        setContentView(R.layout.activity_list_view);
-        expandableListView = findViewById(R.id.expList);
-        EditText et = findViewById(R.id.etNewItem);
+        String key = "Min lista";
+        ArrayList<SubList> expandableList = Database.loadList(this, key);
+        setContentView(R.layout.activity_show_saved);
+        expandableListView = findViewById(R.id.SavedexpListView);
+        TextView tv = findViewById(R.id.titleTextView);
+        tv.setText(key);
 
         if (expandableList == null){
             expandableList = new ArrayList<>();
-            et.setHint("Du har inga sparade listor :(");
         } else {
             expandableListAdapter = new ExpandableListAdapter
                     (ShowSavedActivity.this, expandableList);
