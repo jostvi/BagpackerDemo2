@@ -15,14 +15,25 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+
 public class CreateTripActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    private static final String ITEMS = "items";
+    private LinkedHashMap<String, SubList> categorySubList = new LinkedHashMap<>();
+    private ArrayList<SubList> expList = new ArrayList<>();
     private EditText destination;
     private TextView log;
     private String activity, accommodation, transport;
     private int itemPosition;
-    private static final String ITEMS = "items";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +85,7 @@ public class CreateTripActivity extends AppCompatActivity implements AdapterView
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        String json = response.toString();
-                        showList(json);
+                        createExpandableList(response);
                     }
                 }, new Response.ErrorListener() {
                     public void onErrorResponse(VolleyError e) {
@@ -86,10 +96,34 @@ public class CreateTripActivity extends AppCompatActivity implements AdapterView
         queue.add(request);
     }
 
-    public void showList(String items) {
-        Intent showListIntent = new Intent(CreateTripActivity.this, ListViewActivity.class);
-        showListIntent.putExtra(ITEMS, items);
-        startActivity(showListIntent);
+    public void createExpandableList(JSONObject json) {
+        try {
+            JSONArray jsonArray = json.getJSONArray("lista");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jObject = jsonArray.getJSONObject(i);
+                String category = jObject.getString("category");
+                SubList subList = categorySubList.get(category);
+
+                if (subList == null) {
+                    subList = new SubList();
+                    subList.setName(category);
+                    categorySubList.put(category, subList);
+                    expList.add(subList);
+                }
+
+                subList.addItem(new Packable(jObject.getString("item")));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(expList);
+        Intent intent = new Intent(this, ListViewActivity.class);
+        intent.putExtra(ITEMS, jsonString);
+
+        startActivity(intent);
     }
 
     private void setUpSpinners() {

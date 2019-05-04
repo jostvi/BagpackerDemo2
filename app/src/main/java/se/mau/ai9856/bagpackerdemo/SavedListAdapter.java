@@ -5,17 +5,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ImageButton;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 
-public class ExpandableListAdapter extends BaseExpandableListAdapter {
+public class SavedListAdapter extends BaseExpandableListAdapter {
     private Context context;
     private ArrayList<SubList> expList;
+    private String key = "Min lista";
 
-    public ExpandableListAdapter(Context context, ArrayList<SubList> expList) {
+    public SavedListAdapter(Context context, ArrayList<SubList> expList) {
         this.context = context;
         this.expList = expList;
     }
@@ -81,11 +82,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             holder = new ViewHolder();
             LayoutInflater childInflater = (LayoutInflater)
                     context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = childInflater.inflate(R.layout.row_layout, null);
+            view = childInflater.inflate(R.layout.saved_row_layout, null);
             holder.tv = view.findViewById(R.id.itemName);
-            holder.btnDelete = view.findViewById(R.id.deleteButton);
+            holder.checks = view.findViewById(R.id.itemCheck);
             view.setTag(holder);
-
         } else {
             if (view.getTag() instanceof ViewHolder) {
                 holder = (ViewHolder) view.getTag();
@@ -93,27 +93,47 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 holder = new ViewHolder();
             }
         }
-        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+        holder.checks.setOnCheckedChangeListener(null);
+        holder.checks.setFocusable(true);
+
+        if (packable.isSelected) {
+            holder.checks.setChecked(true);
+        } else {
+            holder.checks.setChecked(false);
+        }
+
+        holder.checks.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                getGroup(groupPosition).getItemList().remove(packable);
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (packable.isSelected && isChecked) {
+                    holder.checks.setChecked(false);
+                    packable.isSelected = false;
+                } else {
+                    holder.checks.setChecked(true);
+                    packable.isSelected = true;
+                }
+                if (isChecked) {
+                    packable.isSelected = true;
+                } else {
+                    packable.isSelected = false;
+                }
                 notifyDataSetChanged();
-                Toast.makeText(context,"Du har tagit bort " +
-                        packable.getItemName(), Toast.LENGTH_SHORT).show();
+                Database.saveList(context, key, expList);
+                Toast.makeText(context, key + " sparad", Toast.LENGTH_SHORT).show();
             }
         });
-
         holder.tv.setText(packable.getItemName().trim());
         return view;
     }
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return true;
+        return false;
     }
 
     private class ViewHolder {
         private TextView tv;
-        private ImageButton btnDelete;
+        private CheckBox checks;
     }
 }
+

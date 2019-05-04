@@ -3,7 +3,6 @@ package se.mau.ai9856.bagpackerdemo;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ public class Database {
     public static void saveList(Context context, String key, ArrayList<SubList> expList) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences((context));
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("SAVED_LISTS", key);
         Gson gson = new Gson();
         String json = gson.toJson(expList);
         editor.putString(key, json);
@@ -27,7 +25,7 @@ public class Database {
         Gson gson = new Gson();
         String response = prefs.getString(key, "");
 
-        if(response == null){
+        if(response == null){   // ta bort?
             SubList emptyList = new SubList();
             emptyList.setName("Inga sparade listor :(");
             list = new ArrayList<>();
@@ -36,5 +34,12 @@ public class Database {
             list = gson.fromJson(response, new TypeToken<List<SubList>>(){}.getType());
         }
         return list;
+    }
+
+    public static void deleteList(Context context, String key){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.remove(key);
+        editor.apply();
     }
 }

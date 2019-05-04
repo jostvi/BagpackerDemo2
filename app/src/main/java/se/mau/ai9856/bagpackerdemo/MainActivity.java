@@ -6,13 +6,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 
 /**
  * This is where the application starts. From here, the user can choose to retrieve
@@ -25,12 +35,14 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity {
     private Button btnGetList;
     private static final String ITEMS = "items";
+    private LinkedHashMap<String, SubList> categorySubList = new LinkedHashMap<>();
+    private ArrayList<SubList> expList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btnGetList = findViewById(R.id.getListBtn); // ändra id i xml-koden
+        btnGetList = findViewById(R.id.getListBtn);
         Button btnCreateAccount = findViewById(R.id.btnCreateAccount);
         btnCreateAccount.setOnClickListener(new View.OnClickListener() {
 
@@ -41,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         Button btnLogIn = findViewById(R.id.btnLogIn);
-        btnLogIn.setOnClickListener(new View.OnClickListener(){
+        btnLogIn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -51,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void getChristinasJSON(View v) {   // byt namn
-        EditText input = findViewById(R.id.password_input); // ändra id i xml
+    public void getChristinasJSON(View v) {
+        EditText input = findViewById(R.id.password_input);
         String password = input.getText().toString();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         String url = "https://bagpacker.pythonanywhere.com/get_list/?param1=" + password;
@@ -61,8 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        String jsonStr = response.toString();
-                        showList(jsonStr);
+                        createExpandableList(response);
                     }
                 }, new Response.ErrorListener() {
                     public void onErrorResponse(VolleyError e) {
@@ -75,10 +86,34 @@ public class MainActivity extends AppCompatActivity {
         btnGetList.setText(loading);
     }
 
-    public void showList(String items) {
-        Intent showListIntent = new Intent(this, ListViewActivity.class);
-        showListIntent.putExtra(ITEMS, items);
-        startActivity(showListIntent);
+    public void createExpandableList(JSONObject json) {
+        try {
+            JSONArray jsonArray = json.getJSONArray("lista");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jObject = jsonArray.getJSONObject(i);
+                String category = jObject.getString("category");
+                SubList subList = categorySubList.get(category);
+
+                if (subList == null) {
+                    subList = new SubList();
+                    subList.setName(category);
+                    categorySubList.put(category, subList);
+                    expList.add(subList);
+                }
+
+                subList.addItem(new Packable(jObject.getString("item")));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(expList);
+        Intent intent = new Intent(this, ListViewActivity.class);
+        intent.putExtra(ITEMS, jsonString);
+
+        startActivity(intent);
     }
 
     public void createTrip(View v) {
@@ -91,12 +126,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void testJSON(View v){
+    public void testJSON(View v) {
         String jsonStr = "{\"lista\":[{\"item\":\"skor\",\"category\":\"kläder\"}," +
                 "                     {\"item\":\"tisha\",\"category\":\"kläder\"}," +
                 "                     {\"item\":\"tights\",\"category\":\"kläder\"}," +
                 "                     {\"item\":\"machete\",\"category\":\"vapen\"}," +
                 "                     {\"item\":\"hjärnblödning\",\"category\":\"tillstånd\"}]}";
-        showList(jsonStr);
     }
 }
