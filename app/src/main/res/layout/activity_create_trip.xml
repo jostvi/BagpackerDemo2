@@ -69,7 +69,7 @@
         android:background="@color/cardview_light_background"/>
 
     <TextView
-        android:id="@+id/log"
+        android:id="@+id/showDateFrom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="24sp"

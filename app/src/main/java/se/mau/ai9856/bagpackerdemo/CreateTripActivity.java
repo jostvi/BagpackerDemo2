@@ -43,7 +43,7 @@ public class CreateTripActivity extends AppCompatActivity implements AdapterView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_trip);
         setDestination = findViewById(R.id.destination);
-        log = findViewById(R.id.log);
+        log = findViewById(R.id.showDateFrom);
         setUpSpinners();
     }
 
@@ -66,7 +66,7 @@ public class CreateTripActivity extends AppCompatActivity implements AdapterView
     }
 
     public void generateList(View v) {
-        if (!(setDestination.getText().length() > 0 || itemPosition > 0)) {
+        if (!(setDestination.getText().length() > 0) || ! (itemPosition > 0)) {
             log.setText("Du måste fylla i ALLA fält!");
         } else {
             String url = "http://bagpacker.pythonanywhere.com/android/?param1="
@@ -78,6 +78,7 @@ public class CreateTripActivity extends AppCompatActivity implements AdapterView
             log.setText(loading);
             setDestination.setText(null);
             getJSON(url);
+          //  Log.e("hej ", "url" + url);
         }
     }
 
