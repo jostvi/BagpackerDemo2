@@ -14,7 +14,7 @@
         <activity android:name=".Login"/>
         <activity android:name=".ShowSavedActivity" />
         <activity android:name=".CreateTripActivity" />
-        <activity android:name=".ListViewActivity" />
+        <activity android:name=".EditListActivity" />
         <activity android:name=".CreateNewAccount" />
         <activity android:name=".MainActivity">
             <intent-filter>

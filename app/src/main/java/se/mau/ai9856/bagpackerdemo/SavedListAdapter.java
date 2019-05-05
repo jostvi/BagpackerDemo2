@@ -8,13 +8,12 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 import java.util.ArrayList;
 
 public class SavedListAdapter extends BaseExpandableListAdapter {
     private Context context;
     private ArrayList<SubList> expList;
-    private String key = "Min lista";
+    private String key = "Min lista";   // TEST - ska ersättas med användarens namn på listan
 
     public SavedListAdapter(Context context, ArrayList<SubList> expList) {
         this.context = context;
@@ -83,7 +82,8 @@ public class SavedListAdapter extends BaseExpandableListAdapter {
             LayoutInflater childInflater = (LayoutInflater)
                     context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = childInflater.inflate(R.layout.saved_row_layout, null);
-            holder.tv = view.findViewById(R.id.itemName);
+            holder.tvName = view.findViewById(R.id.itemName);
+            holder.tvQuantity = view.findViewById(R.id.itemQuantity);
             holder.checks = view.findViewById(R.id.itemCheck);
             view.setTag(holder);
         } else {
@@ -119,10 +119,15 @@ public class SavedListAdapter extends BaseExpandableListAdapter {
                 }
                 notifyDataSetChanged();
                 Database.saveList(context, key, expList);
-                Toast.makeText(context, key + " sparad", Toast.LENGTH_SHORT).show();
             }
         });
-        holder.tv.setText(packable.getItemName().trim());
+        holder.tvName.setText(packable.getItemName().trim());
+        if(packable.getQuantity() > 1){
+            holder.tvQuantity.setVisibility(View.VISIBLE);
+            holder.tvQuantity.setText("" + packable.getQuantity());
+        } else {
+            holder.tvQuantity.setVisibility(View.INVISIBLE);
+        }
         return view;
     }
 
@@ -132,8 +137,9 @@ public class SavedListAdapter extends BaseExpandableListAdapter {
     }
 
     private class ViewHolder {
-        private TextView tv;
+        private TextView tvName;
         private CheckBox checks;
+        private TextView tvQuantity;
     }
 }
 

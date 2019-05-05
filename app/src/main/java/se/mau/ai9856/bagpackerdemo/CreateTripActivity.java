@@ -22,8 +22,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedHashMap;
 
 public class CreateTripActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -36,8 +34,18 @@ public class CreateTripActivity extends AppCompatActivity implements AdapterView
     private int itemPosition;
 
     @Override
+    public void onRestart(){
+        super.onRestart();
+        initializeComponents();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initializeComponents();
+    }
+
+    private void initializeComponents(){
         setContentView(R.layout.activity_create_trip);
         destination = findViewById(R.id.destination);
         setUpSpinners();
@@ -111,8 +119,8 @@ public class CreateTripActivity extends AppCompatActivity implements AdapterView
                     categorySubList.put(category, subList);
                     expList.add(subList);
                 }
-
-                subList.addItem(new Packable(jObject.getString("item")));
+                int quantity = 1; // TEST
+                subList.addItem(new Packable(jObject.getString("item"), quantity));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -120,7 +128,7 @@ public class CreateTripActivity extends AppCompatActivity implements AdapterView
 
         Gson gson = new Gson();
         String jsonString = gson.toJson(expList);
-        Intent intent = new Intent(this, ListViewActivity.class);
+        Intent intent = new Intent(this, EditListActivity.class);
         intent.putExtra(ITEMS, jsonString);
 
         startActivity(intent);

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/screenBackground"
     android:orientation="vertical"
-    tools:context=".ListViewActivity">
+    tools:context=".EditListActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

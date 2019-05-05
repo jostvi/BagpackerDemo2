@@ -10,40 +10,46 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListViewActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class EditListActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static final String ITEMS = "items";
     private ExpandableListView expListView;
     private ArrayList<SubList> expList;
-    private ExpandableListAdapter expAdapter;
+    private EditableListAdapter adapter;
     private EditText etNewItem;
     private String category;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Intent intent = getIntent();
-        String response = intent.getStringExtra(ITEMS);
-        Gson gson = new Gson();
-        expList = gson.fromJson(response, new TypeToken<List<SubList>>(){}.getType());
-        setContentView(R.layout.activity_list_view);
-        expListView = findViewById(R.id.expListView);
-        etNewItem = findViewById(R.id.etNewItem);
-        expAdapter = new ExpandableListAdapter(ListViewActivity.this, expList);
-        expListView.setAdapter(expAdapter);
-        setUpSpinner();
-        expandAll();
+    public void onRestart() {
+        super.onRestart();
+        initializeComponents();
     }
 
     @Override
-    public void onBackPressed() {
-        Intent resetMain = new Intent(this, MainActivity.class); // skriv om! Nu startas en ny aktivitet varje gång
-        finish();
-        startActivity(resetMain);                      // ändra till NOHISTORY eller nåt
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initializeComponents();
+    }
+
+    private void initializeComponents() {
+        Intent intent = getIntent();
+        String response = intent.getStringExtra(ITEMS);
+        Gson gson = new Gson();
+        expList = gson.fromJson(response, new TypeToken<List<SubList>>() {
+        }.getType());
+        setContentView(R.layout.activity_edit_list);
+        expListView = findViewById(R.id.expListView);
+        etNewItem = findViewById(R.id.etNewItem);
+        adapter = new EditableListAdapter(EditListActivity.this, expList);
+        expListView.setAdapter(adapter);
+        setUpSpinner();
+        expandAll();
     }
 
     public void addButtonClicked(View v) {
@@ -52,8 +58,8 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
         if (newItem.length() == 0 || category.isEmpty()) {
             etNewItem.setHint("Döp din grej!!!");
         } else {
-            for(SubList subList : expList){
-                if(subList.getName().equals(category)){
+            for (SubList subList : expList) {
+                if (subList.getName().equals(category)) {
                     addItem(subList, newItem);
                     itemAdded = true;
                 }
@@ -68,9 +74,9 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
         }
     }
 
-    public void addItem(SubList subList, String newItem){
-        subList.addItem(new Packable(newItem));
-        expAdapter.notifyDataSetChanged();
+    public void addItem(SubList subList, String newItem) {
+        subList.addItem(new Packable(newItem, 1));
+        adapter.notifyDataSetChanged();
         etNewItem.setText("");
         etNewItem.setHint("Lägg till föremål");
         Toast.makeText(this, "Du har lagt till: " + newItem, Toast.LENGTH_SHORT).show();
@@ -78,12 +84,12 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
 
     public void saveList(View v) {
         String key = "Min lista";
-        Database.saveList(this,key,expList);
-        Toast.makeText(this,"\"" + key + "\"" + " sparad",Toast.LENGTH_SHORT).show();
-}
+        Database.saveList(this, key, expList);
+        Toast.makeText(this, "\"" + key + "\"" + " sparad", Toast.LENGTH_SHORT).show();
+    }
 
     private void expandAll() {
-        int count = expAdapter.getGroupCount();
+        int count = adapter.getGroupCount();
         for (int i = 0; i < count; i++) {
             expListView.expandGroup(i);
         }

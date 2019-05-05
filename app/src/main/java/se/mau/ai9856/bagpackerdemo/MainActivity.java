@@ -20,29 +20,38 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedHashMap;
 
 /**
  * This is where the application starts. From here, the user can choose to retrieve
- * a list from a dummy webb-server then go to ListViewActivity, or go to CreateTripActivity to
+ * a list from a dummy webb-server then go to EditListActivity, or go to CreateTripActivity to
  * create a new list, or to..
  *
  * @author Johan W
  */
 
 public class MainActivity extends AppCompatActivity {
-    private Button btnGetList;
+    public Button btnGetList;
     private static final String ITEMS = "items";
     private LinkedHashMap<String, SubList> categorySubList = new LinkedHashMap<>();
     private ArrayList<SubList> expList = new ArrayList<>();
 
     @Override
+    public void onRestart() {
+        super.onRestart();
+        initializeComponents();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initializeComponents();
+    }
+
+    private void initializeComponents() {
         setContentView(R.layout.activity_main);
         btnGetList = findViewById(R.id.getListBtn);
+        btnGetList.setText("Hämta lista");
         Button btnCreateAccount = findViewById(R.id.btnCreateAccount);
         btnCreateAccount.setOnClickListener(new View.OnClickListener() {
 
@@ -86,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         btnGetList.setText(loading);
     }
 
-    public void createExpandableList(JSONObject json) {
+    private void createExpandableList(JSONObject json) {
         try {
             JSONArray jsonArray = json.getJSONArray("lista");
 
@@ -101,8 +110,8 @@ public class MainActivity extends AppCompatActivity {
                     categorySubList.put(category, subList);
                     expList.add(subList);
                 }
-
-                subList.addItem(new Packable(jObject.getString("item")));
+                int quantity = 1;   // TEST. Ska hämtas från json.
+                subList.addItem(new Packable(jObject.getString("item"), quantity));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -110,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
         Gson gson = new Gson();
         String jsonString = gson.toJson(expList);
-        Intent intent = new Intent(this, ListViewActivity.class);
+        Intent intent = new Intent(this, EditListActivity.class);
         intent.putExtra(ITEMS, jsonString);
 
         startActivity(intent);

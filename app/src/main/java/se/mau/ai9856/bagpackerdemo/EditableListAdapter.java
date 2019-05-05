@@ -5,17 +5,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class ExpandableListAdapter extends BaseExpandableListAdapter {
+public class EditableListAdapter extends BaseExpandableListAdapter {
     private Context context;
     private ArrayList<SubList> expList;
 
-    public ExpandableListAdapter(Context context, ArrayList<SubList> expList) {
+    public EditableListAdapter(Context context, ArrayList<SubList> expList) {
         this.context = context;
         this.expList = expList;
     }
@@ -81,9 +82,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             holder = new ViewHolder();
             LayoutInflater childInflater = (LayoutInflater)
                     context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = childInflater.inflate(R.layout.row_layout, null);
-            holder.tv = view.findViewById(R.id.itemName);
+            view = childInflater.inflate(R.layout.editable_row_layout, null);
+            holder.tvName = view.findViewById(R.id.itemName);
             holder.btnDelete = view.findViewById(R.id.deleteButton);
+            holder.btnSubtract = view.findViewById(R.id.subQuantity);
+            holder.btnAdd = view.findViewById(R.id.addQuantity);
+            holder.tvQuantity = view.findViewById(R.id.itemQuantity);
             view.setTag(holder);
 
         } else {
@@ -102,18 +106,35 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                         packable.getItemName(), Toast.LENGTH_SHORT).show();
             }
         });
-
-        holder.tv.setText(packable.getItemName().trim());
+        holder.btnSubtract.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                packable.decrease();
+                notifyDataSetChanged();
+            }
+        });
+        holder.btnAdd.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                packable.increase();
+                notifyDataSetChanged();
+            }
+        });
+        holder.tvName.setText(packable.getItemName().trim());
+        holder.tvQuantity.setText("" + packable.getQuantity());
         return view;
     }
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return true;
+        return false;
     }
 
     private class ViewHolder {
-        private TextView tv;
+        private TextView tvName;
         private ImageButton btnDelete;
+        private Button btnSubtract;
+        private Button btnAdd;
+        private TextView tvQuantity;
     }
 }
