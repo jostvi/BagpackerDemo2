@@ -49,7 +49,7 @@ public class CreateTripActivity extends AppCompatActivity implements AdapterView
         setContentView(R.layout.activity_create_trip);
         destination = findViewById(R.id.destination);
         setUpSpinners();
-        log = findViewById(R.id.log);
+        log = findViewById(R.id.showDateFrom);
     }
 
     public void onItemSelected(AdapterView<?> parent, View v, int pos, long id) {
@@ -71,7 +71,7 @@ public class CreateTripActivity extends AppCompatActivity implements AdapterView
     }
 
     public void generateList(View v) {
-        if (!(destination.getText().length() > 0 || itemPosition > 0)) {
+        if (!(destination.getText().length() > 0) || ! (itemPosition > 0)) { //setDestination istället destination
             String error = "Du måste fylla i ALLA fält!";
             log.setText(error);
         } else {
@@ -84,6 +84,8 @@ public class CreateTripActivity extends AppCompatActivity implements AdapterView
             log.setText(loading);
             destination.setText(null);
             getJSON(url);
+            //  Log.e("hej ", "url" + url);
+
         }
     }
 
