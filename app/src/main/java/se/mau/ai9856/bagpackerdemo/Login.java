@@ -14,9 +14,7 @@ public class Login extends AppCompatActivity {
     private EditText loginPassword;
     private Button buttonLogin;
     SharedPreferences sharedPreferences;
-    static final String mypreference = "mypref";
-    static final String Name = "nameKey";
-    static final String LÖSENORD = "emailKey";
+    private static final String URL = "url";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,15 +25,15 @@ public class Login extends AppCompatActivity {
         loginPassword = (EditText)findViewById(R.id.loginPassword);
         buttonLogin = (Button)findViewById(R.id.buttonLogin);
 
-        sharedPreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
-        sharedPreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(CreateNewAccount.mypreference, Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(CreateNewAccount.mypreference, Context.MODE_PRIVATE);
 
 
-        if(sharedPreferences.contains(Name)){
-            loginUsername.setText(sharedPreferences.getString(Name, ""));
+        if(sharedPreferences.contains(CreateNewAccount.Name)){
+            loginUsername.setText(sharedPreferences.getString(CreateNewAccount.Name, ""));
         }
-        if(sharedPreferences.contains(LÖSENORD)){
-            loginPassword.setText(sharedPreferences.getString(LÖSENORD, ""));
+        if(sharedPreferences.contains(CreateNewAccount.LÖSENORD)){
+            loginPassword.setText(sharedPreferences.getString(CreateNewAccount.LÖSENORD, ""));
         }
         buttonLogin.setOnClickListener (new View.OnClickListener() {
             @Override
