@@ -110,8 +110,9 @@ public class MainActivity extends AppCompatActivity {
                     categorySubList.put(category, subList);
                     expList.add(subList);
                 }
-                int quantity = 1;   // TEST. Ska hämtas från json.
-                subList.addItem(new Packable(jObject.getString("item"), quantity));
+                // int quantity = 1;   // TEST. Ska hämtas från json.
+                subList.addItem(new Packable(jObject.getString("item"),
+                        Integer.parseInt(jObject.getString("quantity"))));
             }
         } catch (JSONException e) {
             e.printStackTrace();
