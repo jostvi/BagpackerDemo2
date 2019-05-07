@@ -7,10 +7,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class TripActivity extends AppCompatActivity {
+
+    private CheckBox checkOutdoor;
+    private CheckBox checkWintersport;
+    private CheckBox checkBeach;
+    private CheckBox checkSightseeing;
+    private CheckBox checkCultureNightlife;
+    private TextView messageToUser;
     private ArrayList<String> selection = new ArrayList<>();
     private String url;
     private static final String URL = "url";
@@ -19,6 +27,14 @@ public class TripActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip2);
+
+        checkOutdoor = findViewById(R.id.checkOutdoor);
+        checkWintersport = findViewById(R.id.checkWintersport);
+        checkBeach = findViewById(R.id.checkBeach);
+        checkSightseeing = findViewById(R.id.checkSightseeing);
+        checkCultureNightlife = findViewById(R.id.checkCultureNightlife);
+        messageToUser = findViewById(R.id.messageToUser);
+
 
         Button btnOk = findViewById(R.id.btnOk);
 
@@ -35,9 +51,15 @@ public class TripActivity extends AppCompatActivity {
                 url = url.substring(0, url.length()-1);
                 url += "]";*/
                 Log.e("ACTIVITY", "url" + url);
-                Intent intent = new Intent(TripActivity.this,ChoosePackinglistName.class );
-                intent.putExtra(URL, url);
-                startActivity(intent);
+                if (!checkOutdoor.isChecked() && !checkWintersport.isChecked()
+                        && !checkBeach.isChecked() && !checkSightseeing.isChecked()
+                        && !checkCultureNightlife.isChecked()){
+                    messageToUser.setText("Välj något");
+                } else {
+                    Intent intent = new Intent(TripActivity.this, ChoosePackinglistName.class);
+                    intent.putExtra(URL, url);
+                    startActivity(intent);
+                }
             }
         });
     }
