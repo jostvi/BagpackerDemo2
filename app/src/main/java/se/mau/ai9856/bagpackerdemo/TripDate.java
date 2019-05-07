@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.timessquare.CalendarPickerView;
@@ -17,11 +18,13 @@ import java.util.List;
 
 import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
+
 public class TripDate extends AppCompatActivity {
     private List<Date> listDate;
     private CalendarPickerView datePicker;
     private Button btnOk;
     private String url;
+    private TextView messageToUser;
     private static final String URL = "url";
     // private String startDate;
     @Override
@@ -30,35 +33,22 @@ public class TripDate extends AppCompatActivity {
         setContentView(R.layout.activity_trip_date2);
 
 
-        //String url = getIntent().getStringExtra(URL);
-
         Date today = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.YEAR, 1);
-
+        messageToUser = findViewById(R.id.messageToUser);
         btnOk = findViewById(R.id.btnOk);
         datePicker = findViewById(R.id.datePicker);
 
         datePicker.init(today, calendar.getTime())
-                .inMode(CalendarPickerView.SelectionMode.RANGE)
-                .withSelectedDate(today);
+                .inMode(CalendarPickerView.SelectionMode.RANGE);
 
 
         datePicker.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
             @Override
             public void onDateSelected(Date date) {
-                // String selectedDate = DateFormat.getDateInstance(DateFormat.FULL).format(date);
                 Calendar calSelected = Calendar.getInstance();
                 calSelected.setTime(date);
-
-               /* String startDatum = "" + calSelected.get(Calendar.DAY_OF_MONTH)
-                           + " " + (calSelected.get(Calendar.MONTH) + 1)
-                            + " " + calSelected.get(Calendar.YEAR);
-                    Toast.makeText(TripDate.this, startDatum, Toast.LENGTH_SHORT).show();
-                String stopDatum = "" + calSelected.get(Calendar.DAY_OF_MONTH)
-                        + " " + (calSelected.get(Calendar.MONTH) + 1)
-                        + " " + calSelected.get(Calendar.YEAR);
-                Toast.makeText(TripDate.this, stopDatum, Toast.LENGTH_SHORT).show();*/
 
                 String selectedDate = "" + calSelected.get(Calendar.DAY_OF_MONTH)
                         + " " + (calSelected.get(Calendar.MONTH) + 1)
@@ -79,7 +69,7 @@ public class TripDate extends AppCompatActivity {
                 String simpleStartDate = sdf.format(startDate);
                 String simpleStoptDate = sdf.format(stopDate);
 
-                url +="&param2="+simpleStartDate + "&param3=" +simpleStoptDate;//tripDate
+                url +="&param2=20" + simpleStartDate + "&param3=20" + simpleStoptDate;//tripDate
                 Log.e("hej ", "url" + url);
 
 
@@ -107,11 +97,19 @@ public class TripDate extends AppCompatActivity {
 
         btnOk.setOnClickListener(new View.OnClickListener(){
 
+
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TripDate.this,Transport.class );
-                intent.putExtra(URL, url);
-                startActivity(intent);
+                String message = "Välj datum";
+                if (datePicker.getSelectedDates().size() == 0 || datePicker.getSelectedDates().size() == 1) {
+                    Toast.makeText(TripDate.this, message, Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Intent intent = new Intent(TripDate.this, Transport.class);
+                    intent.putExtra(URL, url);
+                    startActivity(intent);
+                }
+
 
             }
         });

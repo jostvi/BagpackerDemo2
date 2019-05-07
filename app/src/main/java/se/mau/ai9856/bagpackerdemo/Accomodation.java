@@ -7,11 +7,22 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
+
 public class Accomodation extends AppCompatActivity {
-    private Button btnOk;
+
+    private CheckBox checkHotel;
+    private CheckBox checkApartment;
+    private CheckBox checkWithFriend;
+    private CheckBox checkCaravan;
+    private CheckBox checkTent;
+    private CheckBox checkCottage;
+    private TextView messageToUser;
+
+
     private ArrayList<String> selection = new ArrayList<String>();
     private String url;
     private static final String URL = "url";
@@ -20,8 +31,15 @@ public class Accomodation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accomodation2);
+        checkHotel = findViewById(R.id.checkHotel);
+        checkApartment = findViewById(R.id.checkApartment);
+        checkWithFriend = findViewById(R.id.checkWithFriend);
+        checkCaravan = findViewById(R.id.checkCaravan);
+        checkTent = findViewById(R.id.checkTent);
+        checkCottage = findViewById(R.id.checkCottage);
+        messageToUser = findViewById(R.id.messageToUser);
 
-        btnOk = findViewById(R.id.btnOk);
+        Button btnOk = findViewById(R.id.btnOk);
 
         btnOk.setOnClickListener(new View.OnClickListener(){
 
@@ -29,10 +47,22 @@ public class Accomodation extends AppCompatActivity {
             public void onClick(View v) {
                 url = getIntent().getStringExtra(URL);
                 url+="&param5="+selection;
+                /*url = getIntent().getStringExtra(URL) + "&param5=[";
+                for(String string : selection){
+                    url += "'" + string + "'" + ",";
+                }
+                url = url.substring(0, url.length()-1);
+                url += "]";*/
                 Log.e("hej ", "url" + url);
-                Intent intent = new Intent(Accomodation.this,TripActivity.class );
-                intent.putExtra(URL, url);
-                startActivity(intent);
+                if (!checkHotel.isChecked() && !checkApartment.isChecked()
+                        && !checkWithFriend.isChecked() && !checkCaravan.isChecked()
+                        && !checkTent.isChecked() && !checkCottage.isChecked()) {
+                    messageToUser.setText("Välj något");
+                } else {
+                    Intent intent = new Intent(Accomodation.this, TripActivity.class);
+                    intent.putExtra(URL, url);
+                    startActivity(intent);
+                }
 
             }
         });
@@ -43,57 +73,57 @@ public class Accomodation extends AppCompatActivity {
         switch (view.getId()){
             case R.id.checkHotel:
                 if(checked){
-                    selection.add("Hotell");
+                    selection.add("hotel");
                 }else{
-                    selection.remove("Hotell");
+                    selection.remove("hotel");
                 }
                 break;
 
             case R.id.checkApartment:
                 if(checked){
-                    selection.add("Lägenhet");
+                    selection.add("apartment");
                 }else{
-                    selection.remove("Lägenhet");
+                    selection.remove("apartment");
                 }
                 break;
 
             case R.id.checkWithFriend:
                 if(checked){
-                    selection.add("Hos kompisar");
+                    selection.add("friends");
                 }else{
-                    selection.remove("Hos kompisar");
+                    selection.remove("friends");
                 }
                 break;
 
             case R.id.checkCaravan:
                 if(checked){
-                    selection.add("Husvagn");
+                    selection.add("camper");
                 }else{
-                    selection.remove("Husvagn");
+                    selection.remove("camper");
                 }
                 break;
 
             case R.id.checkBike:
                 if(checked){
-                    selection.add("Cykel");
+                    selection.add("bike");
                 }else{
-                    selection.remove("Cykel");
+                    selection.remove("bike");
                 }
                 break;
 
             case R.id.checkTent:
                 if(checked){
-                    selection.add("Tält");
+                    selection.add("tent");
                 }else{
-                    selection.remove("Tält");
+                    selection.remove("tent");
                 }
                 break;
 
             case R.id.checkCottage:
                 if(checked){
-                    selection.add("Stuga");
+                    selection.add("cottage");
                 }else{
-                    selection.remove("Stuga");
+                    selection.remove("cottage");
                 }
                 break;
 

@@ -48,7 +48,7 @@ public class Destination extends AppCompatActivity {
                 }else{
                     String dest = destination.getText().toString();
                     dest = dest.trim();
-                    String url = "http://bagpacker.pythonanywhere.com/android/?param1="
+                    String url = "https://bagpacker.pythonanywhere.com/android/?param1="
                             + dest;
 
                           /*  + "&param2=" + "" //tripDate

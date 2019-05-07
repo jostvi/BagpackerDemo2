@@ -54,6 +54,13 @@ public class Transport extends AppCompatActivity {
             public void onClick(View v) {
                 url = getIntent().getStringExtra(URL);
                 url+="&param4="+selection;
+
+                /*url = getIntent().getStringExtra(URL) + "&param4=[";
+                for(String string : selection){
+                    url += "'" + string + "'" + ",";
+                }
+                url = url.substring(0, url.length()-1);
+                url += "]";*/
                 Log.e("hej ", "url" + url);
                 //   String url = "http://bagpacker.pythonanywhere.com/android/?param1=" + destination.getText().toString();
 
@@ -79,57 +86,57 @@ public class Transport extends AppCompatActivity {
         switch (view.getId()){
             case R.id.checkCar:
                 if(checked){
-                    selection.add("Bil");
+                    selection.add("car");
                 }else{
-                    selection.remove("Bil");
+                    selection.remove("car");
                 }
                 break;
 
             case R.id.checkTrain:
                 if(checked){
-                    selection.add("Tåg");
+                    selection.add("train");
                 }else{
-                    selection.remove("Tåg");
+                    selection.remove("train");
                 }
                 break;
 
             case R.id.checkFlight:
                 if(checked){
-                    selection.add("Flyg");
+                    selection.add("flight");
                 }else{
-                    selection.remove("Flyg");
+                    selection.remove("flight");
                 }
                 break;
 
             case R.id.checkBus:
                 if(checked){
-                    selection.add("Buss");
+                    selection.add("bus");
                 }else{
-                    selection.remove("Buss");
+                    selection.remove("bus");
                 }
                 break;
 
             case R.id.checkBike:
                 if(checked){
-                    selection.add("Cykel");
+                    selection.add("bike");
                 }else{
-                    selection.remove("Cykel");
+                    selection.remove("bike");
                 }
                 break;
 
             case R.id.checkMotorbike:
                 if(checked){
-                    selection.add("Motoykel");
+                    selection.add("motorbike");
                 }else{
-                    selection.remove("Motocykel");
+                    selection.remove("motorbike");
                 }
                 break;
 
             case R.id.checkBoat:
                 if(checked){
-                    selection.add("Båt");
+                    selection.add("ferry");
                 }else{
-                    selection.remove("Båt");
+                    selection.remove("ferry");
                 }
                 break;
 

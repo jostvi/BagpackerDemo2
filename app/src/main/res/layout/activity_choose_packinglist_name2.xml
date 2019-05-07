@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="OK"
@@ -42,15 +42,10 @@
         android:id="@+id/messageToUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="30dp"
-        android:textColor="@color/colorAccent"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnOk" />
+        android:textColor="@color/colorAccent"
+        android:layout_margin="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/packinglistName"/>
 
 
 </android.support.constraint.ConstraintLayout>
