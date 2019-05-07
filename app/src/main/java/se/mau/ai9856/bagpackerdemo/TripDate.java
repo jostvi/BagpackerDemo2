@@ -108,9 +108,15 @@ public class TripDate extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TripDate.this,Transport.class );
-                intent.putExtra(URL, url);
-                startActivity(intent);
+                String message = "Välj datum";
+                if (datePicker.getSelectedDates().size() == 0 || datePicker.getSelectedDates().size() == 1) {
+                    Toast.makeText(TripDate.this, message, Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Intent intent = new Intent(TripDate.this, Transport.class);
+                    intent.putExtra(URL, url);
+                    startActivity(intent);
+                }
 
             }
         });

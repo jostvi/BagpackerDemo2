@@ -7,10 +7,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class Accomodation extends AppCompatActivity {
+    private CheckBox checkHotel;
+    private CheckBox checkApartment;
+    private CheckBox checkWithFriend;
+    private CheckBox checkCaravan;
+    private CheckBox checkTent;
+    private CheckBox checkCottage;
+    private TextView messageToUser;
     private ArrayList<String> selection = new ArrayList<String>();
     private String url;
     private static final String URL = "url";
@@ -19,6 +27,14 @@ public class Accomodation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accomodation2);
+
+        checkHotel = findViewById(R.id.checkHotel);
+        checkApartment = findViewById(R.id.checkApartment);
+        checkWithFriend = findViewById(R.id.checkWithFriend);
+        checkCaravan = findViewById(R.id.checkCaravan);
+        checkTent = findViewById(R.id.checkTent);
+        checkCottage = findViewById(R.id.checkCottage);
+        messageToUser = findViewById(R.id.messageToUser);
 
         Button btnOk = findViewById(R.id.btnOk);
 
@@ -35,9 +51,15 @@ public class Accomodation extends AppCompatActivity {
                 url = url.substring(0, url.length()-1);
                 url += "]";*/
                 Log.e("hej ", "url" + url);
-                Intent intent = new Intent(Accomodation.this,TripActivity.class );
-                intent.putExtra(URL, url);
-                startActivity(intent);
+                if (!checkHotel.isChecked() && !checkApartment.isChecked()
+                        && !checkWithFriend.isChecked() && !checkCaravan.isChecked()
+                        && !checkTent.isChecked() && !checkCottage.isChecked()) {
+                    messageToUser.setText("Välj något");
+                } else {
+                    Intent intent = new Intent(Accomodation.this, TripActivity.class);
+                    intent.putExtra(URL, url);
+                    startActivity(intent);
+                }
 
             }
         });

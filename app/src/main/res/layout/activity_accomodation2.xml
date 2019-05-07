@@ -117,5 +117,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkCaravan" />
 
+    <TextView
+        android:id="@+id/messageToUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textColor="@color/colorAccent"
+        android:layout_margin="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/btnOk"/>
+
 
 </android.support.constraint.ConstraintLayout>
