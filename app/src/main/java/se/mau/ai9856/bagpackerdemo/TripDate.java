@@ -59,10 +59,10 @@ public class TripDate extends AppCompatActivity {
                         + " " + calSelected.get(Calendar.YEAR);
                 Toast.makeText(TripDate.this, stopDatum, Toast.LENGTH_SHORT).show();*/
 
-                String selectedDate = "" + calSelected.get(Calendar.DAY_OF_MONTH)
+                /*String selectedDate = "" + calSelected.get(Calendar.DAY_OF_MONTH)
                         + " " + (calSelected.get(Calendar.MONTH) + 1)
                         + " " + calSelected.get(Calendar.YEAR);
-                Toast.makeText(TripDate.this, selectedDate, Toast.LENGTH_SHORT).show();
+                Toast.makeText(TripDate.this, selectedDate, Toast.LENGTH_SHORT).show();*/
                 datePicker.getSelectedDates();
                 listDate = datePicker.getSelectedDates();
 

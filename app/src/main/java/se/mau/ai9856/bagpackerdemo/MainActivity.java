@@ -24,14 +24,14 @@ import java.util.LinkedHashMap;
 
 /**
  * This is where the application starts. From here, the user can choose to retrieve
- * a list from a dummy webb-server then go to EditListActivity, or go to CreateTripActivity to
+ * a list from a dummy webb-server then go to EditableListActivity, or go to CreateTripActivity to
  * create a new list, or to..
  *
  * @author Johan W
  */
 
 public class MainActivity extends AppCompatActivity {
-    public Button btnGetList;
+    private Button btnGetList;
     private static final String ITEMS = "items";
     private LinkedHashMap<String, SubList> categorySubList = new LinkedHashMap<>();
     private ArrayList<SubList> expList = new ArrayList<>();
@@ -110,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
                     categorySubList.put(category, subList);
                     expList.add(subList);
                 }
-                // int quantity = 1;   // TEST. Ska hämtas från json.
                 subList.addItem(new Packable(jObject.getString("item"),
                         Integer.parseInt(jObject.getString("quantity"))));
             }
@@ -120,19 +119,19 @@ public class MainActivity extends AppCompatActivity {
 
         Gson gson = new Gson();
         String jsonString = gson.toJson(expList);
-        Intent intent = new Intent(this, EditListActivity.class);
+        Intent intent = new Intent(this, EditableListActivity.class);
         intent.putExtra(ITEMS, jsonString);
 
         startActivity(intent);
     }
 
     public void createTrip(View v) {
-        Intent createTripIntent = new Intent(this, CreateTripActivity.class);
+        Intent createTripIntent = new Intent(this, Destination.class);
         startActivity(createTripIntent);
     }
 
     public void showSavedLists(View v) {
-        Intent intent = new Intent(this, ShowSavedActivity.class);
+        Intent intent = new Intent(this, ShowSavedListActivity.class);
         startActivity(intent);
     }
 

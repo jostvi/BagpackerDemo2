@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -17,13 +18,28 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EditListActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class EditableListActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static final String ITEMS = "items";
+    private static final String NAME = "name";
     private ExpandableListView expListView;
     private ArrayList<SubList> expList;
     private EditableListAdapter adapter;
     private EditText etNewItem;
     private String category;
+    private String name;
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Intent intent = getIntent();
+        if (intent.getStringExtra("ACTIVITY1") != null){
+            intent = new Intent(this, ShowSavedListActivity.class);
+            startActivity(intent);
+        } else {
+            intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+    }
 
     @Override
     public void onRestart() {
@@ -39,17 +55,24 @@ public class EditListActivity extends AppCompatActivity implements AdapterView.O
 
     private void initializeComponents() {
         Intent intent = getIntent();
-        String response = intent.getStringExtra(ITEMS);
+        String list = intent.getStringExtra(ITEMS);
+        name = intent.getStringExtra(NAME);
         Gson gson = new Gson();
-        expList = gson.fromJson(response, new TypeToken<List<SubList>>() {
+        expList = gson.fromJson(list, new TypeToken<List<SubList>>() {
         }.getType());
         setContentView(R.layout.activity_edit_list);
         expListView = findViewById(R.id.expListView);
         etNewItem = findViewById(R.id.etNewItem);
-        adapter = new EditableListAdapter(EditListActivity.this, expList);
+        adapter = new EditableListAdapter(EditableListActivity.this, expList);
         expListView.setAdapter(adapter);
         setUpSpinner();
         expandAll();
+        TextView title = findViewById(R.id.listTitle);
+
+        if(name == null)
+            title.setText(Database.loadName(this,"NAME"));
+        else
+            title.setText(name);
     }
 
     public void addButtonClicked(View v) {
@@ -83,9 +106,9 @@ public class EditListActivity extends AppCompatActivity implements AdapterView.O
     }
 
     public void saveList(View v) {
-        String key = "Min lista";
-        Database.saveList(this, key, expList);
-        Toast.makeText(this, "\"" + key + "\"" + " sparad", Toast.LENGTH_SHORT).show();
+        Database.saveName(this, "NAME", name);
+        Database.saveList(this, "LIST", expList);
+        Toast.makeText(this, "\"" + name + "\"" + " sparad", Toast.LENGTH_SHORT).show();
     }
 
     private void expandAll() {

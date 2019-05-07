@@ -26,24 +26,22 @@ import java.util.LinkedHashMap;
 public class ChoosePackinglistName extends AppCompatActivity {
     private static final String URL = "url";
     private static final String ITEMS = "items";
-
+    private static final String NAME = "name";
+    private EditText packinglistName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_packinglist_name2);
-        final EditText packinglistName = findViewById(R.id.packinglistName);
-        final TextView messageToUser = findViewById(R.id.messageToUser);
         final String url = getIntent().getStringExtra(URL);
+        packinglistName = findViewById(R.id.packinglistName);
         Button btnOk = findViewById(R.id.btnOk);
 
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (packinglistName.getText().length() > 0) {
-                    messageToUser.setText("Genererar packlista");
                     getJSON(url);
                 }
-
             }
         });
     }
@@ -62,6 +60,8 @@ public class ChoosePackinglistName extends AppCompatActivity {
                     }
                 });
         queue.add(request);
+        TextView messageToUser = findViewById(R.id.messageToUser);
+        messageToUser.setText("Genererar packlista");
     }
 
     public void createExpandableList(JSONObject json) {
@@ -90,9 +90,9 @@ public class ChoosePackinglistName extends AppCompatActivity {
 
         Gson gson = new Gson();
         String jsonString = gson.toJson(expList);
-        Intent intent = new Intent(this, EditListActivity.class);
+        Intent intent = new Intent(this, EditableListActivity.class);
         intent.putExtra(ITEMS, jsonString);
-
+        intent.putExtra(NAME, packinglistName.getText().toString().trim());
         startActivity(intent);
     }
 

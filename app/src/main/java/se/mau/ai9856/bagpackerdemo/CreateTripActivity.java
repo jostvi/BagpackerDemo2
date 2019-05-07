@@ -130,7 +130,7 @@ public class CreateTripActivity extends AppCompatActivity implements AdapterView
 
         Gson gson = new Gson();
         String jsonString = gson.toJson(expList);
-        Intent intent = new Intent(this, EditListActivity.class);
+        Intent intent = new Intent(this, EditableListActivity.class);
         intent.putExtra(ITEMS, jsonString);
 
         startActivity(intent);

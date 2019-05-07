@@ -24,19 +24,31 @@ public class Database {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         Gson gson = new Gson();
         String response = prefs.getString(key, "");
+        list = gson.fromJson(response, new TypeToken<List<SubList>>(){}.getType());
 
-        if(response == null){   // ta bort?
-            SubList emptyList = new SubList();
-            emptyList.setName("Inga sparade listor :(");
-            list = new ArrayList<>();
-            list.add(emptyList);
-        } else {
-            list = gson.fromJson(response, new TypeToken<List<SubList>>(){}.getType());
-        }
         return list;
     }
 
     public static void deleteList(Context context, String key){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.remove(key);
+        editor.apply();
+    }
+
+    public static void saveName(Context context, String key, String name){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences((context));
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(key, name);
+        editor.apply();
+    }
+
+    public static String loadName(Context context, String key){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(key, "");
+    }
+
+    public static void deleteName(Context context, String key){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.remove(key);
