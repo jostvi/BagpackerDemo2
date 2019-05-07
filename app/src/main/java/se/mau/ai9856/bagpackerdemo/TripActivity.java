@@ -63,7 +63,6 @@ public class TripActivity extends AppCompatActivity {
                     intent.putExtra(URL, url);
                     startActivity(intent);
                 }
-
             }
         });
     }
