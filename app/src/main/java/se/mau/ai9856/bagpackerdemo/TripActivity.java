@@ -11,8 +11,7 @@ import android.widget.CheckBox;
 import java.util.ArrayList;
 
 public class TripActivity extends AppCompatActivity {
-    private Button btnOk;
-    private ArrayList<String> selection = new ArrayList<String>();
+    private ArrayList<String> selection = new ArrayList<>();
     private String url;
     private static final String URL = "url";
 
@@ -21,7 +20,7 @@ public class TripActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip2);
 
-        btnOk = findViewById(R.id.btnOk);
+        Button btnOk = findViewById(R.id.btnOk);
 
         btnOk.setOnClickListener(new View.OnClickListener(){
 
@@ -29,10 +28,16 @@ public class TripActivity extends AppCompatActivity {
             public void onClick(View v) {
                 url = getIntent().getStringExtra(URL);
                 url+="&param6="+selection;
-                Log.e("hej ", "url" + url);
+                /*url = getIntent().getStringExtra(URL) + "&param6=[";
+                for(String string : selection){
+                    url += "'" + string + "'" + ",";
+                }
+                url = url.substring(0, url.length()-1);
+                url += "]";*/
+                Log.e("ACTIVITY", "url" + url);
                 Intent intent = new Intent(TripActivity.this,ChoosePackinglistName.class );
+                intent.putExtra(URL, url);
                 startActivity(intent);
-
             }
         });
     }
@@ -42,41 +47,41 @@ public class TripActivity extends AppCompatActivity {
         switch (view.getId()){
             case R.id.checkOutdoor:
                 if(checked){
-                    selection.add("Friluftsliv");
+                    selection.add("outdoor");
                 }else{
-                    selection.remove("Friluftsliv");
+                    selection.remove("outdoor");
                 }
                 break;
 
             case R.id.checkWintersport:
                 if(checked){
-                    selection.add("Vintersport");
+                    selection.add("skiing");
                 }else{
-                    selection.remove("Vintersport");
+                    selection.remove("skiing");
                 }
                 break;
 
             case R.id.checkBeach:
                 if(checked){
-                    selection.add("Sol och strand");
+                    selection.add("beach");
                 }else{
-                    selection.remove("Sol och strand");
+                    selection.remove("beach");
                 }
                 break;
 
             case R.id.checkSightseeing:
                 if(checked){
-                    selection.add("Sightseeing");
+                    selection.add("sightseeing");
                 }else{
-                    selection.remove("Sightseeing");
+                    selection.remove("sightseeing");
                 }
                 break;
 
             case R.id.checkCultureNightlife:
                 if(checked){
-                    selection.add("Kultur- och nattliv");
+                    selection.add("culture");
                 }else{
-                    selection.remove("Kultur- och nattliv");
+                    selection.remove("culture");
                 }
                 break;
         }

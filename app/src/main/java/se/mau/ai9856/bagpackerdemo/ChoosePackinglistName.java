@@ -14,53 +14,86 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+
 public class ChoosePackinglistName extends AppCompatActivity {
-    private Button btnOk;
-    private EditText packinglistName;
-    private TextView messageToUser;
+    private static final String URL = "url";
+    private static final String ITEMS = "items";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_packinglist_name2);
+        final EditText packinglistName = findViewById(R.id.packinglistName);
+        final TextView messageToUser = findViewById(R.id.messageToUser);
+        final String url = getIntent().getStringExtra(URL);
+        Button btnOk = findViewById(R.id.btnOk);
 
-        btnOk = findViewById(R.id.btnOk);
-        btnOk.setOnClickListener(new View.OnClickListener(){
-
+        btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(packinglistName.getText().length() > 0){
+                if (packinglistName.getText().length() > 0) {
                     messageToUser.setText("Genererar packlista");
-                    //           getJSON(url);
-
+                    getJSON(url);
                 }
 
             }
         });
-
-     /*   public void getJSON(String url) {
-            RequestQueue queue = Volley.newRequestQueue(this);
-            JsonObjectRequest request = new JsonObjectRequest
-                    (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            String json = response.toString();
-                            showList(json);
-                        }
-                    }, new Response.ErrorListener() {
-                        public void onErrorResponse(VolleyError e) {
-                            e.printStackTrace();
-                        }
-                    });
-            queue.add(request);
-        }
-        public void showList(String items) {
-            Intent showListIntent = new Intent(ChoosePackinglistName.this, ListViewActivity.class);
-            showListIntent.putExtra(ITEMS, items);
-            startActivity(showListIntent);
-        }*/
     }
+
+    public void getJSON(String url) {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        JsonObjectRequest request = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        createExpandableList(response);
+                    }
+                }, new Response.ErrorListener() {
+                    public void onErrorResponse(VolleyError e) {
+                        e.printStackTrace();
+                    }
+                });
+        queue.add(request);
+    }
+
+    public void createExpandableList(JSONObject json) {
+        LinkedHashMap<String, SubList> categorySubList = new LinkedHashMap<>();
+        ArrayList<SubList> expList = new ArrayList<>();
+        try {
+            JSONArray jsonArray = json.getJSONArray("lista");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jObject = jsonArray.getJSONObject(i);
+                String category = jObject.getString("category");
+                SubList subList = categorySubList.get(category);
+
+                if (subList == null) {
+                    subList = new SubList();
+                    subList.setName(category);
+                    categorySubList.put(category, subList);
+                    expList.add(subList);
+                }
+                subList.addItem(new Packable(jObject.getString("item"),
+                        Integer.parseInt(jObject.getString("quantity"))));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(expList);
+        Intent intent = new Intent(this, EditListActivity.class);
+        intent.putExtra(ITEMS, jsonString);
+
+        startActivity(intent);
+    }
+
 }

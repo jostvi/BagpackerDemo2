@@ -40,8 +40,7 @@ public class TripDate extends AppCompatActivity {
         datePicker = findViewById(R.id.datePicker);
 
         datePicker.init(today, calendar.getTime())
-                .inMode(CalendarPickerView.SelectionMode.RANGE)
-                .withSelectedDate(today);
+                .inMode(CalendarPickerView.SelectionMode.RANGE);
 
 
         datePicker.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
@@ -79,7 +78,7 @@ public class TripDate extends AppCompatActivity {
                 String simpleStartDate = sdf.format(startDate);
                 String simpleStoptDate = sdf.format(stopDate);
 
-                url +="&param2="+simpleStartDate + "&param3=" +simpleStoptDate;//tripDate
+                url +="&param2=20" + simpleStartDate + "&param3=20" + simpleStoptDate;//tripDate
                 Log.e("hej ", "url" + url);
 
 
