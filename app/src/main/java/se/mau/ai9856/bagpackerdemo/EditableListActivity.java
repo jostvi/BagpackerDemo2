@@ -105,7 +105,7 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
     }
 
     public void addButtonClicked(View v) {
-        String newItem = etNewItem.getText().toString();
+        String newItem = etNewItem.getText().toString().toLowerCase();
         boolean itemAdded = false;
         if (newItem.length() == 0 || category.isEmpty()) {
             etNewItem.setHint("Döp din grej!!!");

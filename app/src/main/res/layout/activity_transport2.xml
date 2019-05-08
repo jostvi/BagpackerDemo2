@@ -118,6 +118,18 @@
         app:layout_constraintStart_toEndOf="@+id/checkFlight"
         app:layout_constraintTop_toBottomOf="@+id/checkMotorbike" />
 
+    <CheckBox
+        android:id="@+id/checkOther"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="24dp"
+        android:onClick="onCheckboxClicked"
+        android:text="Annat"
+        android:textColor="#8B0000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/checkBus"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoat" />
     <Button
         android:id="@+id/btnOk"
         android:layout_width="wrap_content"
@@ -128,7 +140,7 @@
         android:text="OK"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoat" />
+        app:layout_constraintTop_toBottomOf="@+id/checkOther" />
 
     <TextView
         android:id="@+id/messageToUser"

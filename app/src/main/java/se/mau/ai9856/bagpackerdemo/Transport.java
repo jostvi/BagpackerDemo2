@@ -23,6 +23,7 @@ public class Transport extends AppCompatActivity {
     private CheckBox checkBike;
     private CheckBox checkMotorbike;
     private CheckBox checkBoat;
+    private CheckBox checkOther;
     private Button btnOk;
     private TextView messageToUser;
     private String url;
@@ -43,6 +44,7 @@ public class Transport extends AppCompatActivity {
         checkBike = findViewById(R.id.checkBike);
         checkMotorbike = findViewById(R.id.checkMotorbike);
         checkBoat = findViewById(R.id.checkBoat);
+        checkOther = findViewById(R.id.checkOther);
         btnOk = findViewById(R.id.btnOk);
         messageToUser = findViewById(R.id.messageToUser);
 
@@ -64,7 +66,7 @@ public class Transport extends AppCompatActivity {
 
                 if(!checkCar.isChecked() && !checkTrain.isChecked() && !checkFlight.isChecked()
                         && !checkBus.isChecked() && !checkBike.isChecked() && !checkBoat.isChecked()
-                        && !checkMotorbike.isChecked()) {
+                        && !checkMotorbike.isChecked() && !checkOther.isChecked()) {
                     messageToUser.setText("Välj något");
 
                 }else {
@@ -138,9 +140,13 @@ public class Transport extends AppCompatActivity {
                 }
                 break;
 
-
-
-
+            case R.id.checkOther:
+                if(checked){
+                    selection.add("other");
+                }else{
+                    selection.remove("other");
+                }
+                break;
         }
 
         /*url = getIntent().getStringExtra(URL);
