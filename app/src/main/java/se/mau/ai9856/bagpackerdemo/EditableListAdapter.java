@@ -69,6 +69,7 @@ public class EditableListAdapter extends BaseExpandableListAdapter {
         }
         TextView header = view.findViewById(R.id.list_header);
         header.setText(group.getName().trim());
+
         return view;
     }
 
@@ -122,6 +123,7 @@ public class EditableListAdapter extends BaseExpandableListAdapter {
         });
         holder.tvName.setText(packable.getItemName().trim());
         holder.tvQuantity.setText("" + packable.getQuantity());
+
         return view;
     }
 

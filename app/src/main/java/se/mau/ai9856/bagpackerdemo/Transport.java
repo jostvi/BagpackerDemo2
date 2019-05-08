@@ -52,15 +52,13 @@ public class Transport extends AppCompatActivity {
         btnOk.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                url = getIntent().getStringExtra(URL);
-                url+="&param4="+selection;
-
-                /*url = getIntent().getStringExtra(URL) + "&param4=[";
+//                url = getIntent().getStringExtra(URL);
+//                url+="&param4="+selection;
+                url = getIntent().getStringExtra(URL) + "&param4=";
                 for(String string : selection){
-                    url += "'" + string + "'" + ",";
+                    url += string + ",";
                 }
                 url = url.substring(0, url.length()-1);
-                url += "]";*/
                 Log.e("hej ", "url" + url);
                 //   String url = "http://bagpacker.pythonanywhere.com/android/?param1=" + destination.getText().toString();
 

@@ -42,14 +42,13 @@ public class Accomodation extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                url = getIntent().getStringExtra(URL);
-                url+="&param5="+selection;
-                /*url = getIntent().getStringExtra(URL) + "&param5=[";
+//                url = getIntent().getStringExtra(URL);
+//                url+="&param5="+selection;
+                url = getIntent().getStringExtra(URL) + "&param5=";
                 for(String string : selection){
-                    url += "'" + string + "'" + ",";
+                    url += string + ",";
                 }
                 url = url.substring(0, url.length()-1);
-                url += "]";*/
                 Log.e("hej ", "url" + url);
                 if (!checkHotel.isChecked() && !checkApartment.isChecked()
                         && !checkWithFriend.isChecked() && !checkCaravan.isChecked()

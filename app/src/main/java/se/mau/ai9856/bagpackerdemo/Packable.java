@@ -15,7 +15,7 @@ public class Packable {
     }
 
     public void increase(){
-        if(quantity < 100)
+        if(quantity < 99)
             quantity++;
     }
 

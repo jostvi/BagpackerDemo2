@@ -42,14 +42,13 @@ public class TripActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                url = getIntent().getStringExtra(URL);
-                url+="&param6="+selection;
-                /*url = getIntent().getStringExtra(URL) + "&param6=[";
+//                url = getIntent().getStringExtra(URL);
+//                url+="&param6="+selection;
+                url = getIntent().getStringExtra(URL) + "&param6=";
                 for(String string : selection){
-                    url += "'" + string + "'" + ",";
+                    url += string + ",";
                 }
                 url = url.substring(0, url.length()-1);
-                url += "]";*/
                 Log.e("ACTIVITY", "url" + url);
                 if (!checkOutdoor.isChecked() && !checkWintersport.isChecked()
                         && !checkBeach.isChecked() && !checkSightseeing.isChecked()
