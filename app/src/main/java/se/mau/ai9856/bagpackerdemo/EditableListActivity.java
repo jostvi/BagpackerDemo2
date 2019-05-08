@@ -1,5 +1,7 @@
 package se.mau.ai9856.bagpackerdemo;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -27,17 +29,32 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
     private EditText etNewItem;
     private String category;
     private String name;
+    private boolean saved;
 
     @Override
-    public void onBackPressed(){
-        super.onBackPressed();
-        Intent intent = getIntent();
-        if (intent.getStringExtra("ACTIVITY1") != null){
-            intent = new Intent(this, ShowSavedListActivity.class);
-            startActivity(intent);
+    public void onBackPressed(){  // Skriv om så upprepningar i koden kan tas bort
+        if (!saved){
+            AlertDialog.Builder builder = new AlertDialog.Builder(EditableListActivity.this);
+            builder.setCancelable(true);
+            builder.setMessage("Vill du spara listan?");
+            builder.setNegativeButton("Avbryt", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                    exitEditing();
+                }
+            });
+            builder.setPositiveButton("Spara", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Database.saveName(EditableListActivity.this, "NAME", name);
+                    Database.saveList(EditableListActivity.this, "LIST", expList);
+                    exitEditing();
+                }
+            });
+            builder.show();
         } else {
-            intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            exitEditing();
         }
     }
 
@@ -58,8 +75,7 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
         String list = intent.getStringExtra(ITEMS);
         name = intent.getStringExtra(NAME);
         Gson gson = new Gson();
-        expList = gson.fromJson(list, new TypeToken<List<SubList>>() {
-        }.getType());
+        expList = gson.fromJson(list, new TypeToken<List<SubList>>(){}.getType());
         setContentView(R.layout.activity_edit_list);
         expListView = findViewById(R.id.expListView);
         etNewItem = findViewById(R.id.etNewItem);
@@ -68,11 +84,24 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
         setUpSpinner();
         expandAll();
         TextView title = findViewById(R.id.listTitle);
+        saved = false;
 
-        if(name == null)
-            title.setText(Database.loadName(this,"NAME"));
-        else
+        if(name == null){
+            name = Database.loadName(this, "NAME");
             title.setText(name);
+        } else
+            title.setText(name);
+    }
+
+    private void exitEditing(){
+        Intent intent = getIntent();
+        if (intent.getStringExtra("ACTIVITY1") != null){
+            intent = new Intent(this, ShowSavedListActivity.class);
+            startActivity(intent);
+        } else {
+            intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void addButtonClicked(View v) {
@@ -108,6 +137,7 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
     public void saveList(View v) {
         Database.saveName(this, "NAME", name);
         Database.saveList(this, "LIST", expList);
+        saved = true;
         Toast.makeText(this, "\"" + name + "\"" + " sparad", Toast.LENGTH_SHORT).show();
     }
 

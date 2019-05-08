@@ -13,7 +13,6 @@ import java.util.ArrayList;
 public class SavedListAdapter extends BaseExpandableListAdapter {
     private Context context;
     private ArrayList<SubList> expList;
-    private String key = "Min lista";   // TEST - ska ersättas med användarens namn på listan
 
     public SavedListAdapter(Context context, ArrayList<SubList> expList) {
         this.context = context;
@@ -118,7 +117,7 @@ public class SavedListAdapter extends BaseExpandableListAdapter {
                     packable.isSelected = false;
                 }
                 notifyDataSetChanged();
-                Database.saveList(context, key, expList);
+                Database.saveList(context, "LIST", expList);
             }
         });
         holder.tvName.setText(packable.getItemName().trim());

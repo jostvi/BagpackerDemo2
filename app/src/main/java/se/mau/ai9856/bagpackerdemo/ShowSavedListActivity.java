@@ -1,5 +1,7 @@
 package se.mau.ai9856.bagpackerdemo;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -67,11 +69,24 @@ public class ShowSavedListActivity extends AppCompatActivity {
     }
 
     public void deleteList(View v) {
-        Database.deleteList(this, listKey);
-        Database.deleteName(this, nameKey);
-        finish();
-        Toast.makeText(this, "Du har tagit bort " + "\"" + name + "\"",
-                Toast.LENGTH_LONG).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(ShowSavedListActivity.this);
+        builder.setCancelable(true);
+        builder.setMessage("Är du säker på att du vill radera \"" + name + "\"?");
+        builder.setNegativeButton("Avbryt", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        builder.setPositiveButton("Radera", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Database.deleteList(ShowSavedListActivity.this, listKey);
+                Database.deleteName(ShowSavedListActivity.this, nameKey);
+                finish();
+            }
+        });
+        builder.show();
     }
 
     public void goToEditMode(View v) {
