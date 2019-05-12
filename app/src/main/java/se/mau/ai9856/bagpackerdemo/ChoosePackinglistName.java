@@ -42,11 +42,13 @@ public class ChoosePackinglistName extends AppCompatActivity {
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (packinglistName.getText().length() > 0) {
+                if (packinglistName.getText().length() > 0
+                        && !packinglistName.getText().toString().startsWith(" ")
+                        && packinglistName.getText().length() < 16) {
                     messageToUser.setText("Genererar packlista");
                     getJSON(url);
                 } else {
-                    messageToUser.setText("Ange packlistans namn");
+                    messageToUser.setText("Ange packlistans namn som är mindre än 15 tecken");
                 }
             }
         });
