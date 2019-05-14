@@ -3,6 +3,7 @@ package se.mau.ai9856.bagpackerdemo;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -73,6 +74,14 @@ public class ChoosePackinglistName extends AppCompatActivity {
         ArrayList<SubList> expList = new ArrayList<>();
         try {
             JSONArray jsonArray = json.getJSONArray("lista");
+
+            String dest = json.getString("destination");     // returnerar väder m.m.
+            int minTemp = json.getInt("temp_min");
+            int maxTemp = json.getInt("temp_max");
+            int length = json.getInt("length");
+            String jsonWeather = json.getString("weather_data");
+            Log.e("MAIN", "Destination: " + dest + ", MinTemp: " + minTemp + ", maxTemp" +
+                    maxTemp + ", längd: " + length + " dagar, Väderdata: " + jsonWeather);
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jObject = jsonArray.getJSONObject(i);
