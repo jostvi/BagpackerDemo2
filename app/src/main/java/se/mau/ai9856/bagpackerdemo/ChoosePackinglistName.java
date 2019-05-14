@@ -77,13 +77,13 @@ public class ChoosePackinglistName extends AppCompatActivity {
         try {
             JSONArray jsonArray = json.getJSONArray("lista");
 
-            String dest = json.getString("destination");     // returnerar väder m.m.
+            /*String dest = json.getString("destination");     // LÅT STÅ!!!
             int minTemp = json.getInt("temp_min");
             int maxTemp = json.getInt("temp_max");
             int length = json.getInt("length");
             String jsonWeather = json.getString("weather_data");
             Log.e("MAIN", "Destination: " + dest + ", MinTemp: " + minTemp + ", maxTemp" +
-                    maxTemp + ", längd: " + length + " dagar, Väderdata: " + jsonWeather);
+                    maxTemp + ", längd: " + length + " dagar, Väderdata: " + jsonWeather);*/
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jObject = jsonArray.getJSONObject(i);

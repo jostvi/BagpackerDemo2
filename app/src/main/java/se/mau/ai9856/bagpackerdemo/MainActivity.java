@@ -136,12 +136,4 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ShowSavedListActivity.class);
         startActivity(intent);
     }
-
-    public void testJSON(View v) {
-        String jsonStr = "{\"lista\":[{\"item\":\"skor\",\"category\":\"kläder\"}," +
-                "                     {\"item\":\"tisha\",\"category\":\"kläder\"}," +
-                "                     {\"item\":\"tights\",\"category\":\"kläder\"}," +
-                "                     {\"item\":\"machete\",\"category\":\"vapen\"}," +
-                "                     {\"item\":\"hjärnblödning\",\"category\":\"tillstånd\"}]}";
-    }
 }
