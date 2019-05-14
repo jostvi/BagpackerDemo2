@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class Login extends AppCompatActivity {
     private EditText loginUsername;
@@ -15,6 +16,7 @@ public class Login extends AppCompatActivity {
     private Button buttonLogin;
     SharedPreferences sharedPreferences;
     private static final String URL = "url";
+    private TextView tvInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,7 @@ public class Login extends AppCompatActivity {
         loginUsername = (EditText)findViewById(R.id.loginUsername);
         loginPassword = (EditText)findViewById(R.id.loginPassword);
         buttonLogin = (Button)findViewById(R.id.buttonLogin);
+        tvInfo = findViewById(R.id.tvInfo);
 
         sharedPreferences = getSharedPreferences(CreateNewAccount.mypreference, Context.MODE_PRIVATE);
         sharedPreferences = getSharedPreferences(CreateNewAccount.mypreference, Context.MODE_PRIVATE);
@@ -38,8 +41,14 @@ public class Login extends AppCompatActivity {
         buttonLogin.setOnClickListener (new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (Login.this, ShowSavedListActivity.class);
-                startActivity(intent);
+                if (loginUsername.getText().toString().equals(sharedPreferences.contains(CreateNewAccount.Name))
+                    && loginPassword.getText().toString().equals(sharedPreferences.contains(CreateNewAccount.LÖSENORD))){
+                    Intent intent = new Intent (Login.this, ShowSavedListActivity.class);
+                    startActivity(intent);
+                } else {
+                    tvInfo.setText("lösenord eller användernamn är inte korrekt");
+                }
+
 
 
             }
@@ -50,3 +59,21 @@ public class Login extends AppCompatActivity {
 
 
 }
+
+/*
+{
+        if (loginUsername.getText().equals(sharedPreferences.contains(CreateNewAccount.Name))
+        && loginPassword.getText().equals(sharedPreferences.contains(CreateNewAccount.LÖSENORD))) {
+        Intent intent = new Intent (Login.this, ShowSavedListActivity.class);
+        startActivity(intent);
+
+        } else {
+        tvInfo.setText("Försök igen");
+        }
+                */
+/*Intent intent = new Intent (Login.this, ShowSavedListActivity.class);
+                startActivity(intent);*//*
+
+
+
+        }*/
