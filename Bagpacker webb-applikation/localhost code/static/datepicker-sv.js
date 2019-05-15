@@ -1,5 +1,47 @@
 /* Swedish initialisation for the jQuery UI date picker plugin. */
 /* Written by Anders Ekdahl ( anders@nomadiz.se). */
+
+$( function() {
+	$.datepicker.setDefaults($.datepicker.regional['sv']);
+	var dateFormat = "yy/mm/dd",
+	from = $( "#from" )
+		.datepicker({
+		dateFormat: "yy/mm/dd",
+		showAnim: "slideDown",
+		defaultDate: "+1w",
+		changeMonth: true,
+		numberOfMonths: 1, 
+		minDate: 0
+		})
+		.on( "change", function() {
+		to.datepicker( "option", "minDate", getDate( this ) );
+		}),
+	to = $( "#to" ).datepicker({
+		defaultDate: "+1w",
+		dateFormat: "yy/mm/dd",
+		showAnim: "slideDown",
+		changeMonth: true,
+		numberOfMonths: 2,
+		minDate: 0
+	})
+	.on( "change", function() {
+		from.datepicker( "option", "maxDate", getDate( this ) );
+	
+	});
+	
+	function getDate( element ) {
+	var date;
+	try {
+		date = $.datepicker.parseDate( dateFormat, element.value );
+	} catch( error ) {
+		date = null;
+	}
+
+	return date;
+	}
+} );
+
+
 ( function( factory ) {
 	if ( typeof define === "function" && define.amd ) {
 
