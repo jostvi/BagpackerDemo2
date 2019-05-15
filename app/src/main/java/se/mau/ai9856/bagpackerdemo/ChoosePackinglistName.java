@@ -28,6 +28,7 @@ public class ChoosePackinglistName extends AppCompatActivity {
     private static final String URL = "url";
     private static final String ITEMS = "items";
     private static final String NAME = "name";
+    private static final String INFO = "info";
     private EditText packinglistName;
     private TextView messageToUser;
 
@@ -74,16 +75,19 @@ public class ChoosePackinglistName extends AppCompatActivity {
     public void createExpandableList(JSONObject json) {
         LinkedHashMap<String, SubList> categorySubList = new LinkedHashMap<>();
         ArrayList<SubList> expList = new ArrayList<>();
+        String infoString = "";
+
         try {
             JSONArray jsonArray = json.getJSONArray("lista");
 
-            String dest = json.getString("destination");     // LÅT STÅ!!!
+            String dest = json.getString("destination");
             int minTemp = json.getInt("temp_min");
             int maxTemp = json.getInt("temp_max");
             int length = json.getInt("length");
             String jsonWeather = json.getString("weather_data");
-            Log.e("MAIN", "Destination: " + dest + ", MinTemp: " + minTemp + ", maxTemp" +
-                    maxTemp + ", längd: " + length + " dagar, Väderdata: " + jsonWeather);
+            infoString = "Packlistan för din resa till " + dest + " är baserad på " + jsonWeather
+                    + " väderdata. Temperaturen beräknas ligga mellan " + minTemp + " och "
+                    + maxTemp + " °C";
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jObject = jsonArray.getJSONObject(i);
@@ -108,6 +112,7 @@ public class ChoosePackinglistName extends AppCompatActivity {
         Intent intent = new Intent(this, EditableListActivity.class);
         intent.putExtra(ITEMS, jsonString);
         intent.putExtra(NAME, packinglistName.getText().toString().trim());
+        intent.putExtra(INFO, infoString);
         startActivity(intent);
     }
 

@@ -5,11 +5,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,12 +28,12 @@ import java.util.List;
 public class EditableListActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static final String ITEMS = "items";
     private static final String NAME = "name";
+    private static final String INFO = "info";
     private ExpandableListView expListView;
     private ArrayList<SubList> expList;
     private EditableListAdapter adapter;
     private EditText etNewItem;
-    private String category;
-    private String name;
+    private String category, name, info;
     private boolean saved;
 
     @Override
@@ -49,6 +54,7 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
                 public void onClick(DialogInterface dialogInterface, int i) {
                     Database.saveName(EditableListActivity.this, "NAME", name);
                     Database.saveList(EditableListActivity.this, "LIST", expList);
+                    Database.saveInfo(EditableListActivity.this, "INFO", info);
                     exitEditing();
                 }
             });
@@ -74,6 +80,7 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
         Intent intent = getIntent();
         String list = intent.getStringExtra(ITEMS);
         name = intent.getStringExtra(NAME);
+        info = intent.getStringExtra(INFO);
         Gson gson = new Gson();
         expList = gson.fromJson(list, new TypeToken<List<SubList>>(){}.getType());
         setContentView(R.layout.activity_edit_list);
@@ -86,11 +93,13 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
         TextView title = findViewById(R.id.listTitle);
         saved = false;
 
-        if(name == null){
+        if(name == null){                                   // MARKER: Se över denna lösning
             name = Database.loadName(this, "NAME");
-            title.setText(name);
-        } else
-            title.setText(name);
+        }
+        if(info == null){
+            info = Database.loadInfo(this, "INFO");
+        }
+        title.setText(name);
     }
 
     private void exitEditing(){
@@ -102,6 +111,7 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
             intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
+        finish();
     }
 
     public void addButtonClicked(View v) {
@@ -137,6 +147,7 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
     public void saveList(View v) {
         Database.saveName(this, "NAME", name);
         Database.saveList(this, "LIST", expList);
+        Database.saveInfo(this, "INFO", info);
         saved = true;
         Toast.makeText(this, "\"" + name + "\"" + " sparad", Toast.LENGTH_SHORT).show();
     }
@@ -155,6 +166,26 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+    }
+
+    public void showPopupInfo(View v) {
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.info_popup, null);
+
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true;
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+        TextView popupText = popupWindow.getContentView().findViewById(R.id.popupText);
+        popupText.setText(info);
+        popupWindow.showAtLocation(v, Gravity.TOP, 0, 0);
+        popupView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                popupWindow.dismiss();
+                return true;
+            }
+        });
     }
 
     @Override

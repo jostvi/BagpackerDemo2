@@ -39,6 +39,11 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<SubList> expList = new ArrayList<>();
 
     @Override
+    public void onBackPressed(){
+        System.exit(0);
+    }
+
+    @Override
     public void onRestart() {
         super.onRestart();
         initializeComponents();
