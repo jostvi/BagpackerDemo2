@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -15,7 +16,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,62 +24,39 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-/**
- * This is where the application starts. From here, the user can choose to retrieve
- * a list from a dummy webb-server then go to EditableListActivity, or go to CreateTripActivity to
- * create a new list, or to..
- *
- * @author Johan W
- */
-
-public class MainActivity extends AppCompatActivity {
-    private Button btnGetList;
+public class ChoosePackinglistName extends AppCompatActivity {
+    private static final String URL = "url";
     private static final String ITEMS = "items";
-    private LinkedHashMap<String, SubList> categorySubList = new LinkedHashMap<>();
-    private ArrayList<SubList> expList = new ArrayList<>();
-
-    @Override
-    public void onRestart() {
-        super.onRestart();
-        initializeComponents();
-    }
+    private static final String NAME = "name";
+    private EditText packinglistName;
+    private TextView messageToUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initializeComponents();
-    }
+        setContentView(R.layout.activity_choose_packinglist_name2);
+        final String url = getIntent().getStringExtra(URL);
+        packinglistName = findViewById(R.id.packinglistName);
+        messageToUser = findViewById(R.id.messageToUser);
+        Button btnOk = findViewById(R.id.btnOk);
 
-    private void initializeComponents() {
-        setContentView(R.layout.activity_main);
-        btnGetList = findViewById(R.id.getListBtn);
-        btnGetList.setText("Hämta lista");
-        Button btnCreateAccount = findViewById(R.id.btnCreateAccount);
-        btnCreateAccount.setOnClickListener(new View.OnClickListener() {
-
+        btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, CreateNewAccount.class);
-                startActivity(intent);
-            }
-        });
-        Button btnLogIn = findViewById(R.id.btnLogIn);
-        btnLogIn.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Login.class);
-                startActivity(intent);
+                if (packinglistName.getText().length() > 0
+                        && !packinglistName.getText().toString().startsWith(" ")
+                        && packinglistName.getText().length() < 16) {
+                    messageToUser.setText("Genererar packlista");
+                    getJSON(url);
+                } else {
+                    messageToUser.setText("Ange packlistans namn som är mindre än 15 tecken");
+                }
             }
         });
     }
 
-    public void getChristinasJSON(View v) {
-        EditText input = findViewById(R.id.password_input);
-        String password = input.getText().toString();
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        String url = "https://bagpacker.pythonanywhere.com/get_list/?param1=" + password;
-
+    public void getJSON(String url) {
+        RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest request = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
@@ -91,15 +68,22 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 });
-
-        requestQueue.add(request);
-        String loading = "laddar...";
-        btnGetList.setText(loading);
+        queue.add(request);
     }
 
-    private void createExpandableList(JSONObject json) {
+    public void createExpandableList(JSONObject json) {
+        LinkedHashMap<String, SubList> categorySubList = new LinkedHashMap<>();
+        ArrayList<SubList> expList = new ArrayList<>();
         try {
             JSONArray jsonArray = json.getJSONArray("lista");
+
+            String dest = json.getString("destination");     // LÅT STÅ!!!
+            int minTemp = json.getInt("temp_min");
+            int maxTemp = json.getInt("temp_max");
+            int length = json.getInt("length");
+            String jsonWeather = json.getString("weather_data");
+            Log.e("MAIN", "Destination: " + dest + ", MinTemp: " + minTemp + ", maxTemp" +
+                    maxTemp + ", längd: " + length + " dagar, Väderdata: " + jsonWeather);
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jObject = jsonArray.getJSONObject(i);
@@ -123,17 +107,8 @@ public class MainActivity extends AppCompatActivity {
         String jsonString = gson.toJson(expList);
         Intent intent = new Intent(this, EditableListActivity.class);
         intent.putExtra(ITEMS, jsonString);
-
+        intent.putExtra(NAME, packinglistName.getText().toString().trim());
         startActivity(intent);
     }
 
-    public void createTrip(View v) {
-        Intent createTripIntent = new Intent(this, Destination.class);
-        startActivity(createTripIntent);
-    }
-
-    public void showSavedLists(View v) {
-        Intent intent = new Intent(this, ShowSavedListActivity.class);
-        startActivity(intent);
-    }
 }

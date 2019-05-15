@@ -11,21 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TripDate"></activity>
-        <activity android:name=".TripActivity" />
-        <activity android:name=".Transport" />
-        <activity android:name=".Destination" />
-        <activity android:name=".DatePicker" />
-        <activity android:name=".ChoosePackinglistName" />
-        <activity android:name=".Accomodation" />
-        <activity android:name=".Login" />
-        <activity android:name=".ShowSavedListActivity" />
-        <activity android:name=".EditableListActivity" />
+        <activity android:name=".Login"/>
+        <activity android:name=".ShowSavedActivity" />
+        <activity android:name=".CreateTripActivity" />
+        <activity android:name=".EditListActivity" />
         <activity android:name=".CreateNewAccount" />
+<<<<<<< HEAD
+=======
+        <activity android:name=".StartPage" />
+        <activity android:name=".Login" />
+>>>>>>> Refaktoring, kommenterade några av klasser
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
