@@ -138,7 +138,13 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
         String newItem = etNewItem.getText().toString().toLowerCase().trim();
         boolean itemAdded = false;
         if (newItem.length() == 0 || category.isEmpty()) {
-            etNewItem.setHint("DÖP DIN GREJ");
+
+            etNewItem.setHint("Döp din grej!!!");
+            if (newItem.length() >0 && category.isEmpty()) {
+                Toast.makeText(this, "Välj en kategori",
+                        Toast.LENGTH_LONG).show();
+            }
+
         } else {
             for (SubList subList : expList) {
                 if (subList.getName().equals(category)) {

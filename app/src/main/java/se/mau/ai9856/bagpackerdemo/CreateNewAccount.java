@@ -8,11 +8,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class CreateNewAccount extends AppCompatActivity {
     private EditText username;
     private EditText password;
     private Button btnLogin;
+    private TextView tvInfo;
 
     SharedPreferences sharedPreferences;
     static final String mypreference = "mypref";
@@ -28,16 +30,17 @@ public class CreateNewAccount extends AppCompatActivity {
         username = (EditText)findViewById(R.id.username);
         password = (EditText)findViewById(R.id.password);
         btnLogin = (Button)findViewById(R.id.btnLogin);
+        tvInfo = findViewById(R.id.tvInfo);
 
         sharedPreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
         sharedPreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
 
-        if(sharedPreferences.contains(Name)){
+      /*  if(sharedPreferences.contains(Name)){
             username.setText(sharedPreferences.getString(Name, ""));
         }
         if(sharedPreferences.contains(LÖSENORD)){
             password.setText(sharedPreferences.getString(LÖSENORD, ""));
-        }
+        }*/
         btnLogin.setOnClickListener (new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,10 +48,13 @@ public class CreateNewAccount extends AppCompatActivity {
                 String passwordToURL = password.getText().toString();
                 String url = "http://bagpacker.pythonanywhere.com/android/?param1="
                         +usernameToURL + "&param2=" + passwordToURL;
-                Intent intent = new Intent (CreateNewAccount.this, Destination.class);
-                startActivity(intent);
-
-
+                if (username.getText().toString().length() > 0
+                        && password.getText().toString().length() > 0) {
+                    Intent intent = new Intent(CreateNewAccount.this, Destination.class);
+                    startActivity(intent);
+                } else {
+                    tvInfo.setText("Skriv användarnamn och lösenord");
+                }
             }
         });
     }
@@ -62,7 +68,7 @@ public class CreateNewAccount extends AppCompatActivity {
         editor.putString(Name, name);
         editor.putString(LÖSENORD, passw);
         editor.commit();
-        retrive(v);
+    //    retrive(v);
     }
 
     public void retrive(View v){
@@ -70,7 +76,7 @@ public class CreateNewAccount extends AppCompatActivity {
         if(sharedPreferences.contains(Name)){
             username.setText(sharedPreferences.getString(Name, ""));
         }
-        if(sharedPreferences.contains(LÖSENORD)){
+       if(sharedPreferences.contains(LÖSENORD)){
             password.setText(sharedPreferences.getString(LÖSENORD, ""));
         }
     }

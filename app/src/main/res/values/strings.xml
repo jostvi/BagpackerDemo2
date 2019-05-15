@@ -22,7 +22,7 @@
     <string name="this_date">Ange datum (ÅÅ-MM-DD)</string>
 
     <string-array name="categories">
-        <item>Välj kategori</item>
+        <item>Tryck och välj kategori</item>
         <item>kläder</item>
         <item>necessär</item>
         <item>resehandlingar</item>

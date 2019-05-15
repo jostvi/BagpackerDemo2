@@ -80,7 +80,7 @@
 
         <Spinner
             android:id="@+id/spChooseCategory"
-            android:layout_width="match_parent"
+            android:layout_width="197dp"
             android:layout_height="45sp"
             android:background="@color/cardview_light_background" />
 
