@@ -1,5 +1,5 @@
 '''
-    File name: bagpacker_demo_v.2.py
+    File name: bagpacker_demo_v.3.py
     Author: Christina Knepper
     Python Version: 3.7.1
 '''
@@ -23,27 +23,25 @@ def get_user_input():
     '''Hämtar användarinput från HTML-formuläret, kan snyggas till genom att lägga in värden i dictionary istället för lista'''
     user_input = []
     '''Kolla hur man lägger till namn + value som dictionaries, splitta location!!! bara första ordet!!!'''
-    location = getattr(request.forms,"location")
+    location = getattr(request.forms,"destination")
     user_input.append(location)
+    print(location)
     start = getattr(request.forms, "from")
     user_input.append(start)
+    print(start)
     finish = getattr(request.forms, "to")
     user_input.append(finish)
-
-    transport = []
-
-    if getattr(request.forms, "transport_1") == "bil":
-        transport.append("bil")
-    if getattr(request.forms, "transport_2") == "tåg":
-        transport.append("tåg")
-    if getattr(request.forms, "transport_3") == "flyg":
-        transport.append("flyg")
-   
+    print(finish)
+    transport = request.forms.getall("transport")
     user_input.append(transport)
-    accommodation = getattr(request.forms, "accommodation")
+    print(transport)
+    accommodation = request.forms.getall("accommodation")
     user_input.append(accommodation)
-    activity = getattr(request.forms, "activity")
+    print(accommodation)
+    activity = request.forms.getall("activities")
     user_input.append(activity)
+    print(activity)
+    
 
     return user_input
 
@@ -78,7 +76,8 @@ def current_or_historic_weather_data(user_input):
     else:
         return "historic"
 
-def get_season(user_input):
+def get_season(user_input, geolocation):
+    '''OBS! nya ändringar, hur gör vi när någon är iväg över månadsgränsen, räkna ut hur många dagar i vilken månad?'''
     '''Lägg till i pythonanywhere. Avgör om resan görs sommar eller vintertid, OBS! hur hanterar vi gränsfall?'''
     start = user_input[1]
     finish = user_input[2]
@@ -90,11 +89,28 @@ def get_season(user_input):
     print(month1)
     print(month2)
     month = month1
-    r = range(4,9)
-    if month in r:
-        return "summer"
+    
+    if month in range(3,6):
+        if geolocation[0] <= 0:
+            return "autumn"
+        else:
+            return "spring"
+    elif month in range(6,9):
+        if geolocation[0] <= 0:
+            return "winter"
+        else:
+            return "summer"
+    elif month in range(9,12):
+        if geolocation[0] <= 0:
+            return "spring"
+        else:
+            return "autumn"
     else:
-        return "winter"
+        if geolocation[0] <= 0:
+            return "summer"
+        else:
+            return "winter"
+        
     
 def get_historic_weather_data(zone, season):
     '''Lägg till i pythonanywhere. Hämtar historisk väderdata baserad på klimatzon och årstid'''
@@ -110,11 +126,31 @@ def get_historic_weather_data(zone, season):
         conn.close()
         return forecast[0]
 
-    else:
+    elif season == "summer":
         conn = psycopg2.connect(host="pgserver.mah.se",
                             database="bagpacker", user="ai8134", password="h9rbyai5")
         cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
         cur.execute("SELECT min_temp_summer, max_temp_summer, rain_summer from climate_classification where zone = (%s)", (zone, ))
+        forecast = cur.fetchall()
+        cur.close()
+        conn.close()
+        return forecast[0]
+
+    elif season == "spring":
+        conn = psycopg2.connect(host="pgserver.mah.se",
+                            database="bagpacker", user="ai8134", password="h9rbyai5")
+        cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
+        cur.execute("SELECT min_temp_spring, max_temp_spring, rain_spring from climate_classification where zone = (%s)", (zone, ))
+        forecast = cur.fetchall()
+        cur.close()
+        conn.close()
+        return forecast[0]
+    
+    elif season == "autumn":
+        conn = psycopg2.connect(host="pgserver.mah.se",
+                            database="bagpacker", user="ai8134", password="h9rbyai5")
+        cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
+        cur.execute("SELECT min_temp_autumn, max_temp_autumn, rain_autumn from climate_classification where zone = (%s)", (zone, ))
         forecast = cur.fetchall()
         cur.close()
         conn.close()
@@ -124,7 +160,7 @@ def get_general_items():
     conn = psycopg2.connect(host="pgserver.mah.se",
                             database="bagpacker", user="ai8134", password="h9rbyai5")
     cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
-    cur.execute("SELECT item, weight, category from all_items where general = true")
+    cur.execute("SELECT id, item, weight, category, quantity from all_items where general = true")
     item_list = cur.fetchall()
     cur.close()
     conn.close()
@@ -132,13 +168,13 @@ def get_general_items():
     return item_list
 
 def get_activity_items(user_input):
-
+    '''OBS! Ändring, måste läggas till i pythonanywhere'''
     activity = user_input[5]
 
     conn = psycopg2.connect(host="pgserver.mah.se",
                             database="bagpacker", user="ai8134", password="h9rbyai5")
     cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
-    cur.execute("SELECT item, weight, category FROM all_items LEFT OUTER JOIN activities ON id=item_id WHERE activity = (%s)", (activity, ))
+    cur.execute("SELECT id, item, weight, category, quantity FROM all_items LEFT OUTER JOIN activities ON id=item_id WHERE activity IN ('%s')" % "','".join(activity))
     item_list = cur.fetchall()
     cur.close()
     conn.close()
@@ -146,13 +182,13 @@ def get_activity_items(user_input):
     return item_list
 
 def get_accommodation_items(user_input):
-
+    '''OBS! Ändring, måste läggas till i pythonanywhere'''
     accommodation = user_input[4]
 
     conn = psycopg2.connect(host="pgserver.mah.se",
                             database="bagpacker", user="ai8134", password="h9rbyai5")
     cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
-    cur.execute("SELECT item, weight, category FROM all_items LEFT OUTER JOIN accommodation ON id=item_id WHERE type = (%s)", (accommodation, ))
+    cur.execute("SELECT id, item, weight, category, quantity FROM all_items LEFT OUTER JOIN accommodation ON id=item_id WHERE type IN ('%s')" % "','".join(accommodation))
     item_list = cur.fetchall()
     cur.close()
     conn.close()
@@ -160,13 +196,13 @@ def get_accommodation_items(user_input):
     return item_list
 
 def get_transport_items(user_input):
-
+    '''OBS! Ändring, måste läggas till i pythonanywhere'''
     transport = user_input[3]
 
     conn = psycopg2.connect(host="pgserver.mah.se",
                             database="bagpacker", user="ai8134", password="h9rbyai5")
     cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
-    cur.execute("SELECT item, weight, category FROM all_items LEFT OUTER JOIN transport ON id=item_id WHERE type IN ('%s')" % "','".join(transport))
+    cur.execute("SELECT id, item, weight, category, quantity FROM all_items LEFT OUTER JOIN transport ON id=item_id WHERE type IN ('%s')" % "','".join(transport))
     item_list = cur.fetchall()
     cur.close()
     conn.close()
@@ -202,6 +238,7 @@ def get_weather_forecast(geolocation):
 
     
 def get_temp_items(forecast):
+    '''OBS! lagt till other_dependencies på test för att utesluta att alla items som är temperaturberoende kommer med'''
     '''Hämtar items baserad på min-/max-temperatur på destinationen'''
     fc_temp_min = forecast[0]
     fc_temp_max = forecast[1]
@@ -209,7 +246,7 @@ def get_temp_items(forecast):
     conn = psycopg2.connect(host="pgserver.mah.se",
                             database="bagpacker", user="ai8134", password="h9rbyai5")
     cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
-    cur.execute("SELECT item, weight, category FROM all_items LEFT OUTER JOIN temperature ON id=item_id WHERE (%s BETWEEN temp_min AND temp_max) OR (%s BETWEEN temp_min AND temp_max);", (fc_temp_min, fc_temp_max));
+    cur.execute("SELECT id, item, weight, category, quantity FROM all_items LEFT OUTER JOIN temperature ON id=item_id WHERE ((%s BETWEEN temp_min AND temp_max) OR (%s BETWEEN temp_min AND temp_max)) AND other_dependencies=FALSE;", (fc_temp_min, fc_temp_max));
     item_list = cur.fetchall()
     cur.close()
     conn.close()
@@ -233,9 +270,8 @@ def get_climate_zone(geolocation):
     return zone
 
 
-def create_item_list():
+def create_item_list(user_input):
     '''Lägg till i pythonanywhere. Lägger alla items som har hämtats från databasen i en lista med dictionaries'''
-    user_input = get_user_input()
     length = get_length(user_input)
     current_or_historic = current_or_historic_weather_data(user_input)
     if current_or_historic == "current":
@@ -247,7 +283,7 @@ def create_item_list():
         forecast = get_weather_forecast(geolocation)
     else:
         zone = get_climate_zone(geolocation)
-        season = get_season(user_input)
+        season = get_season(user_input, geolocation)
         forecast = get_historic_weather_data(zone, season)
         
     general_items = get_general_items()
@@ -256,40 +292,41 @@ def create_item_list():
     accommodation_items = get_accommodation_items(user_input)
     transport_items = get_transport_items(user_input)
     all_items = general_items + temp_items + activity_items + accommodation_items + transport_items
+    all_items_without_duplicates = []
+    
+    for sublist in all_items:
+        if sublist not in all_items_without_duplicates:
+            all_items_without_duplicates.append(sublist)
     complete_list = []
-    for item in all_items:
-        item_dict = {"item": item[0], "weight": item[1], "category": item[2]}
+
+    if length >= 14:
+        factor = 14
+    else:
+        factor = length
+    
+    for item in all_items_without_duplicates:
+        quantity = item[4]*factor + 1
+        item_dict = {"id": item[0], "item": item[1], "weight": item[2], "category": item[3], "quantity": round(quantity)}
         complete_list.append(item_dict)
 
+        
+##        item_dict = {"item": item[0], "weight": item[1], "category": item[2]}
+##        complete_list.append(item_dict)
+    
     return complete_list, user_input[0], forecast[0], forecast[1], length, which_data
 
 @route("/")
 def show_form():
     '''Returnerar startsidan, try innehåller ett tillfälligt tillägg för att kunna testa Android applikationen'''
-##    try:
-##        request.query["json"]
-##        db = MySQLdb.connect(host='bagpacker.mysql.pythonanywhere-services.com', user='bagpacker', passwd='bpdb2019', db='bagpacker$bagpacker')
-##        cur = db.cursor()
-##        cur.execute('SELECT item from temperature')
-##        result = cur.fetchall()
-##        cur.close()
-##        db.close()
-##        item_list = []
-##        for i in result:
-##            for x in i:
-##                item_list.append(x)
-##        return json.dumps(item_list)
-##    except:
-##        pass
-##
-
+    
     return template ("index")
 
 @route("/generate_list", method="POST")
 def generate_list():
     '''Genererar packlista utifrån aktuell temperatur,
     kommer att delas upp i fler funktioner i nästa version'''
-    returns = create_item_list()
+    user_input = get_user_input()
+    returns = create_item_list(user_input)
     item_list = returns[0]
     location = returns[1]
     temp_min = returns[2]
@@ -301,6 +338,61 @@ def generate_list():
 
     return template ('test', item_list = item_list, length = length, which_data = which_data,
                      location = location, temp_min = round(temp_min), temp_max = round(temp_max))
+
+
+@route("/android/")
+def generate_list_android():
+    '''Genererar packlista utifrån parametrar som har skickats från Android-appen'''
+
+    user_input = []
+    destination = request.query.param1
+    user_input.append(destination)
+    
+    start = request.query.param2
+    user_input.append(start)
+    
+    finish = request.query.param3
+    user_input.append(finish)
+    
+    transport = request.query.param4
+    transport_list = transport.split(",")
+    user_input.append(transport_list)
+
+    accommodation = request.query.param5
+    accommodation_list = accommodation.split(",")
+    user_input.append(accommodation_list)
+
+    activity = request.query.param6
+    activity_list = activity.split(",")
+    user_input.append(activity_list)
+
+    result = create_item_list(user_input)
+    complete_list = result[0]
+    
+#    geolocation = get_geolocation(destination)
+#    forecast = get_weather_forecast(geolocation)
+#    general_items = get_general_items()
+#    temp_items = get_temp_items(forecast)
+#    transport_items = get_transport_items(transport)
+#    accommodation_items = get_accommodation_items(accommodation)
+#    activity_items = get_activity_items(activity)
+
+
+#    complete_list = general_items + temp_items + transport_items + accommodation_items + activity_items
+#   packlista = []
+#    for item in complete_list:
+#        packlista.append(item)
+    destination = result[1]
+    temp_min = result[2]
+    temp_max = result[3]
+    lenght = result[4]
+    weather_data = result[5]
+
+    the_list = {"lista" : complete_list, "destination" : destination, "temp_min" : temp_min, "temp_max" : temp_max, "length" : length, "weather_data" : weather_data}
+    return json.dumps(the_list)
+ 
+
+
 
 '''OBS! BARA TEST'''
 @route("/get_list/")
@@ -319,30 +411,31 @@ def get_list_from_db():
 
     return returned_list[0]
 
-@route("/save_list/", method="POST")
-def save_list():
-    '''Listan hämtas som sträng från html-formuläret, som har fel format, måste göras om till lista innan den kan picklas, för att göra om till json måste man ha dubbla citationstecken'''
-    item_list_to_save = getattr(request.forms, "saved_list")
-    print(item_list_to_save)
-    print(type(item_list_to_save))
-    test_list = item_list_to_save
-    test = test_list.replace("\'", "\"")
-    print(test)
-    code = random.randint(10000,100000)
-    list_reloaded = json.loads(test)
-    print(list_reloaded)
-    print(type(list_reloaded))
-    '''Detta är en lista nu!!!, skicka till databasen!'''
-    item_list = cloudpickle.dumps(list_reloaded)
-    db = pymysql.connect(host='bagpacker.mysql.pythonanywhere-services.com', user='bagpacker', password='bpdb2019', db='bagpacker$bagpacker')
-    cur = db.cursor()
-    cur.execute('INSERT into saved_lists VALUES (%s, %s)', (code, item_list))
-    db.commit()
-    cur.close()
-    db.close()
-
-    return template ('code', code = code)
-    
+## Tillfällig lösning: lista sparas som sträng och kan hämtas med hjälp av en kod
+##@route("/save_list/", method="POST")
+##def save_list():
+##    '''Listan hämtas som sträng från html-formuläret, som har fel format, måste göras om till lista innan den kan picklas, för att göra om till json måste man ha dubbla citationstecken'''
+##    item_list_to_save = getattr(request.forms, "saved_list")
+##    print(item_list_to_save)
+##    print(type(item_list_to_save))
+##    test_list = item_list_to_save
+##    test = test_list.replace("\'", "\"")
+##    print(test)
+##    code = random.randint(10000,100000)
+##    list_reloaded = json.loads(test)
+##    print(list_reloaded)
+##    print(type(list_reloaded))
+##    '''Detta är en lista nu!!!, skicka till databasen!'''
+##    item_list = cloudpickle.dumps(list_reloaded)
+##    db = pymysql.connect(host='bagpacker.mysql.pythonanywhere-services.com', user='bagpacker', password='bpdb2019', db='bagpacker$bagpacker')
+##    cur = db.cursor()
+##    cur.execute('INSERT into saved_lists VALUES (%s, %s)', (code, item_list))
+##    db.commit()
+##    cur.close()
+##    db.close()
+##
+##    return template ('code', code = code)
+##    
 
 @route("/static/<filename>")
 def static_files(filename):
