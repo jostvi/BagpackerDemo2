@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -22,7 +21,7 @@ import org.json.JSONObject;
 public class Destination extends AppCompatActivity {
     private EditText destination;
     private TextView messageToUser;
-    private String url, dest;
+    private String url, valUrl, dest;
     private boolean validationOk = false;
     private static final String URL = "url";
 
@@ -42,7 +41,7 @@ public class Destination extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dest = destination.getText().toString().trim();
-                url = "https://bagpacker.pythonanywhere.com/validate/?destination="
+                valUrl = "https://bagpacker.pythonanywhere.com/validate/?destination="
                         + dest;
                 char[] chars = dest.toCharArray();
                 boolean containNums = false;
@@ -56,13 +55,26 @@ public class Destination extends AppCompatActivity {
                     destination.setText("");
                     messageToUser.setText("OGILTIG INMATNING \n(siffror är INTE ok)");
                 } else {
-                    validate(url);
+                    validate(valUrl);
                 }
             }
         });
     }
 
     private void validate(String url) {
+        /*PlacesClient places = new PlacesClient("OFFLENX550",
+                "03915e4200417c80047eaf5c6451301b");
+        PlacesQuery query = new PlacesQuery();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line
+        ,query.;
+        destination.setAdapter(adapter);
+
+        places.searchAsync(query, new CompletionHandler() {
+            @Override
+            public void requestCompleted(@Nullable JSONObject jsonObject, @Nullable AlgoliaException e) {
+                destination.showDropDown();
+            }
+        });*/
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest request = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -93,6 +105,7 @@ public class Destination extends AppCompatActivity {
     }
 
     private void proceed() {
+        url = "https://bagpacker.pythonanywhere.com/android/?param1=" + dest;
         Intent intent = new Intent(Destination.this, TripDate.class);
         intent.putExtra(URL, url);
         startActivity(intent);

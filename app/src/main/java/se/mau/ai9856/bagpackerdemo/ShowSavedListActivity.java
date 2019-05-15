@@ -96,7 +96,8 @@ public class ShowSavedListActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 Database.deleteList(ShowSavedListActivity.this, listKey);
                 Database.deleteName(ShowSavedListActivity.this, nameKey);
-                finish();
+                Intent intent = new Intent(ShowSavedListActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
         builder.show();

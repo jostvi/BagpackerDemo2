@@ -20,7 +20,6 @@
         <activity android:name=".Accomodation" />
         <activity android:name=".Login" />
         <activity android:name=".ShowSavedListActivity" />
-        <activity android:name=".CreateTripActivity" />
         <activity android:name=".EditableListActivity" />
         <activity android:name=".CreateNewAccount" />
         <activity android:name=".MainActivity">
