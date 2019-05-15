@@ -35,19 +35,19 @@ public class Login extends AppCompatActivity {
         if(sharedPreferences.contains(CreateNewAccount.Name)){
             loginUsername.setText(sharedPreferences.getString(CreateNewAccount.Name, ""));
         }
-        if(sharedPreferences.contains(CreateNewAccount.LÖSENORD)){
+        /*if(sharedPreferences.contains(CreateNewAccount.LÖSENORD)){
             loginPassword.setText(sharedPreferences.getString(CreateNewAccount.LÖSENORD, ""));
-        }
+        }*/
         buttonLogin.setOnClickListener (new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (loginUsername.getText().toString().equals(sharedPreferences.contains(CreateNewAccount.Name))
-                    && loginPassword.getText().toString().equals(sharedPreferences.contains(CreateNewAccount.LÖSENORD))){
+                    && loginPassword.getText().toString().equals(sharedPreferences.contains(CreateNewAccount.LÖSENORD))) {
                     Intent intent = new Intent (Login.this, ShowSavedListActivity.class);
                     startActivity(intent);
                 } else {
-                    tvInfo.setText("lösenord eller användernamn är inte korrekt");
-                }
+                    tvInfo.setText("Lösenord eller användernamn är inte korrekt");
+               }
 
 
 

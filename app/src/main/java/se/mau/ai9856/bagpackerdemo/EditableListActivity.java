@@ -109,6 +109,10 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
         boolean itemAdded = false;
         if (newItem.length() == 0 || category.isEmpty()) {
             etNewItem.setHint("Döp din grej!!!");
+            if (newItem.length() >0 && category.isEmpty()) {
+                Toast.makeText(this, "Välj en kategori",
+                        Toast.LENGTH_LONG).show();
+            }
         } else {
             for (SubList subList : expList) {
                 if (subList.getName().equals(category)) {

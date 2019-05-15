@@ -43,7 +43,7 @@
         <item>tält</item>
     </string-array>
     <string-array name="categories">
-        <item>Välj kategori</item>
+        <item>Tryck och välj kategori</item>
         <item>kläder</item>
         <item>necessär</item>
         <item>resehandlingar</item>
