@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -38,8 +40,8 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
     protected static boolean saved;
 
     @Override
-    public void onBackPressed(){
-        if (!saved){
+    public void onBackPressed() {
+        if (!saved) {
             AlertDialog.Builder builder = new AlertDialog.Builder(EditableListActivity.this);
             builder.setCancelable(true);
             builder.setMessage("Vill du spara listan?");
@@ -81,36 +83,48 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
         name = intent.getStringExtra(NAME);
         info = intent.getStringExtra(INFO);
         Gson gson = new Gson();
-        expList = gson.fromJson(list, new TypeToken<List<SubList>>(){}.getType());
+        expList = gson.fromJson(list, new TypeToken<List<SubList>>() {
+        }.getType());
         setContentView(R.layout.activity_edit_list);
         expListView = findViewById(R.id.expListView);
         etNewItem = findViewById(R.id.etNewItem);
         adapter = new EditableListAdapter(EditableListActivity.this, expList);
         expListView.setAdapter(adapter);
-        TextView title = findViewById(R.id.listTitle);
         saved = false;
         ImageButton btnSaveList = findViewById(R.id.btnSaveList);
-        btnSaveList.setOnClickListener(new View.OnClickListener(){
-
+        btnSaveList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 saveList();
             }
         });
-        if(name == null){                                   // MARKER: Se över denna lösning
+        etNewItem.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                boolean handled = false;
+                if(i == EditorInfo.IME_ACTION_DONE){
+                    addItem();
+                    handled = true;
+                }
+                return handled;
+            }
+        });
+        if (name == null) {                                   // MARKER: Se över denna lösning
             name = Database.loadName(this, "NAME");
         }
-        if(info == null){
+        if (info == null) {
             info = Database.loadInfo(this, "INFO");
         }
+
+        TextView title = findViewById(R.id.listTitle);
         title.setText(name);
         setUpSpinner();
         expandAll();
     }
 
-    private void exitEditing(){
+    private void exitEditing() {
         Intent intent = getIntent();
-        if (intent.getStringExtra("ACTIVITY1") != null){
+        if (intent.getStringExtra("ACTIVITY1") != null) {
             intent = new Intent(this, ShowSavedListActivity.class);
             startActivity(intent);
         } else {
@@ -120,8 +134,8 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
         finish();
     }
 
-    public void addButtonClicked(View v) {
-        String newItem = etNewItem.getText().toString().toLowerCase();
+    public void addItem() {
+        String newItem = etNewItem.getText().toString().toLowerCase().trim();
         boolean itemAdded = false;
         if (newItem.length() == 0 || category.isEmpty()) {
             etNewItem.setHint("DÖP DIN GREJ");
