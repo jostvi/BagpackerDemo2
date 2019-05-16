@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
@@ -34,10 +35,10 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
     private EditableListAdapter adapter;
     private EditText etNewItem;
     private String category, name, info;
-    private boolean saved;
+    protected static boolean saved;
 
     @Override
-    public void onBackPressed(){  // Skriv om så upprepningar i koden kan tas bort
+    public void onBackPressed(){
         if (!saved){
             AlertDialog.Builder builder = new AlertDialog.Builder(EditableListActivity.this);
             builder.setCancelable(true);
@@ -52,9 +53,7 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
             builder.setPositiveButton("Spara", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    Database.saveName(EditableListActivity.this, "NAME", name);
-                    Database.saveList(EditableListActivity.this, "LIST", expList);
-                    Database.saveInfo(EditableListActivity.this, "INFO", info);
+                    saveList();
                     exitEditing();
                 }
             });
@@ -88,11 +87,16 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
         etNewItem = findViewById(R.id.etNewItem);
         adapter = new EditableListAdapter(EditableListActivity.this, expList);
         expListView.setAdapter(adapter);
-        setUpSpinner();
-        expandAll();
         TextView title = findViewById(R.id.listTitle);
         saved = false;
+        ImageButton btnSaveList = findViewById(R.id.btnSaveList);
+        btnSaveList.setOnClickListener(new View.OnClickListener(){
 
+            @Override
+            public void onClick(View view) {
+                saveList();
+            }
+        });
         if(name == null){                                   // MARKER: Se över denna lösning
             name = Database.loadName(this, "NAME");
         }
@@ -100,6 +104,8 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
             info = Database.loadInfo(this, "INFO");
         }
         title.setText(name);
+        setUpSpinner();
+        expandAll();
     }
 
     private void exitEditing(){
@@ -118,7 +124,7 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
         String newItem = etNewItem.getText().toString().toLowerCase();
         boolean itemAdded = false;
         if (newItem.length() == 0 || category.isEmpty()) {
-            etNewItem.setHint("Döp din grej!!!");
+            etNewItem.setHint("DÖP DIN GREJ");
         } else {
             for (SubList subList : expList) {
                 if (subList.getName().equals(category)) {
@@ -142,14 +148,15 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
         etNewItem.setText("");
         etNewItem.setHint("Lägg till föremål");
         Toast.makeText(this, "Du har lagt till: " + newItem, Toast.LENGTH_SHORT).show();
+        saved = false;
     }
 
-    public void saveList(View v) {
+    public void saveList() {
         Database.saveName(this, "NAME", name);
         Database.saveList(this, "LIST", expList);
         Database.saveInfo(this, "INFO", info);
-        saved = true;
         Toast.makeText(this, "\"" + name + "\"" + " sparad", Toast.LENGTH_SHORT).show();
+        saved = true;
     }
 
     private void expandAll() {
@@ -199,5 +206,5 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-    }
+    }      // Lägg till felmeddelande (om ingen kategori är vald)?
 }
