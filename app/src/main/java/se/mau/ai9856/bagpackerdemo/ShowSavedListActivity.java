@@ -24,7 +24,9 @@ public class ShowSavedListActivity extends AppCompatActivity {
     private final static String ITEMS = "items";
     private ExpandableListView expandableListView;
     private SavedListAdapter savedListAdapter;
+
     private String listKey, nameKey, infoKey, name, info;
+
     private Button btnLogOut;
 
     @Override
@@ -38,6 +40,7 @@ public class ShowSavedListActivity extends AppCompatActivity {
     public void onRestart() {
         super.onRestart();
         initializeComponents();
+
     }
 
     @Override
@@ -55,6 +58,7 @@ public class ShowSavedListActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     private void initializeComponents() {

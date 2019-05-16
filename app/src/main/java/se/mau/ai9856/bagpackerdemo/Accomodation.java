@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class Accomodation extends AppCompatActivity {
     private CheckBox checkTent;
     private CheckBox checkCottage;
     private TextView messageToUser;
+    private ImageButton arrowBack;
     private ArrayList<String> selection = new ArrayList<String>();
     private String url;
     private static final String URL = "url";
@@ -35,6 +37,17 @@ public class Accomodation extends AppCompatActivity {
         checkTent = findViewById(R.id.checkTent);
         checkCottage = findViewById(R.id.checkCottage);
         messageToUser = findViewById(R.id.messageToUser);
+        arrowBack = findViewById(R.id.arrowBack);
+
+        arrowBack.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Accomodation.this, Transport.class);
+                startActivity(intent);
+
+            }
+        });
 
         Button btnOk = findViewById(R.id.btnOk);
 

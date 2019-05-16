@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ public class ChoosePackinglistName extends AppCompatActivity {
     private static final String INFO = "info";
     private EditText packinglistName;
     private TextView messageToUser;
+    private ImageButton arrowBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,18 +34,31 @@ public class ChoosePackinglistName extends AppCompatActivity {
         final String url = getIntent().getStringExtra(URL);
         packinglistName = findViewById(R.id.packinglistName);
         messageToUser = findViewById(R.id.messageToUser);
+
+        arrowBack = findViewById(R.id.arrowBack);
+        arrowBack.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChoosePackinglistName.this, TripActivity.class);
+                startActivity(intent);
+
+            }
+        });
         Button btnOk = findViewById(R.id.btnOk);
 
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (packinglistName.getText().length() > 0
-                        && !packinglistName.getText().toString().startsWith(" ") // Använd trim() istället
+
+                     && !packinglistName.getText().toString().startsWith(" ")
                         && packinglistName.getText().length() < 16) {
-                    messageToUser.setText("Genererar packlista...");
+                    messageToUser.setText("Genererar packlista");
                     getJSON(url);
                 } else {
-                    messageToUser.setText("Ange packlistans namn (max 15 tecken)");
+                    messageToUser.setText("Ange packlistans namn som är mindre än 15 tecken");
+
                 }
             }
         });

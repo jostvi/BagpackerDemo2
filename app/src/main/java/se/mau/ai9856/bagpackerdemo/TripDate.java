@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.squareup.timessquare.CalendarPickerView;
@@ -21,6 +22,7 @@ public class TripDate extends AppCompatActivity {
     private List<Date> listDate;
     private CalendarPickerView datePicker;
     private Button btnOk;
+    private ImageButton arrowBack;
     private String url;
     private static final String URL = "url";
     // private String startDate;
@@ -37,6 +39,7 @@ public class TripDate extends AppCompatActivity {
         calendar.add(Calendar.YEAR, 1);
 
         btnOk = findViewById(R.id.btnOk);
+        arrowBack = findViewById(R.id.arrowBack);
         datePicker = findViewById(R.id.datePicker);
 
         datePicker.init(today, calendar.getTime())
@@ -100,6 +103,17 @@ public class TripDate extends AppCompatActivity {
 
         //   String startDate = listDate.get(0).toString();
         //  String stopDate = listDate.get(listDate.size()-1).toString();
+
+
+        arrowBack.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TripDate.this, Destination.class);
+                startActivity(intent);
+
+            }
+        });
 
 
 

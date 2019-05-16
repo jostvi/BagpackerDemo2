@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class TripActivity extends AppCompatActivity {
     private CheckBox checkSightseeing;
     private CheckBox checkCultureNightlife;
     private TextView messageToUser;
+    private ImageButton arrowBack;
     private ArrayList<String> selection = new ArrayList<>();
     private String url;
     private static final String URL = "url";
@@ -34,6 +36,17 @@ public class TripActivity extends AppCompatActivity {
         checkSightseeing = findViewById(R.id.checkSightseeing);
         checkCultureNightlife = findViewById(R.id.checkCultureNightlife);
         messageToUser = findViewById(R.id.messageToUser);
+        arrowBack = findViewById(R.id.arrowBack);
+
+        arrowBack.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TripActivity.this, Accomodation.class);
+                startActivity(intent);
+
+            }
+        });
 
 
         Button btnOk = findViewById(R.id.btnOk);

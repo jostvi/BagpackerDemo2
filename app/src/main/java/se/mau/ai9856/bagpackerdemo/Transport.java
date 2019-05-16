@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.net.URL;
@@ -25,6 +26,7 @@ public class Transport extends AppCompatActivity {
     private CheckBox checkBoat;
     private CheckBox checkOther;
     private Button btnOk;
+    private ImageButton arrowBack;
     private TextView messageToUser;
     private String url;
     private static final String URL = "url";
@@ -47,6 +49,17 @@ public class Transport extends AppCompatActivity {
         checkOther = findViewById(R.id.checkOther);
         btnOk = findViewById(R.id.btnOk);
         messageToUser = findViewById(R.id.messageToUser);
+        arrowBack = findViewById(R.id.arrowBack);
+
+        arrowBack.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Transport.this, TripDate.class);
+                startActivity(intent);
+
+            }
+        });
 
 
 

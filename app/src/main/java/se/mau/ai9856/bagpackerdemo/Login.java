@@ -43,14 +43,13 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (loginUsername.getText().toString().equals(sharedPreferences.contains(CreateNewAccount.Name))
-                    && loginPassword.getText().toString().equals(sharedPreferences.contains(CreateNewAccount.LÖSENORD))){
+                        && loginPassword.getText().toString().equals(sharedPreferences.contains(CreateNewAccount.LÖSENORD))){
+
                     Intent intent = new Intent (Login.this, ShowSavedListActivity.class);
                     startActivity(intent);
                 } else {
                     tvInfo.setText("lösenord eller användernamn är inte korrekt");
                 }
-
-
 
 
             }
