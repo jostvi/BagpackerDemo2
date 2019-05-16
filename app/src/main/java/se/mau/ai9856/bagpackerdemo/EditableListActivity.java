@@ -226,5 +226,14 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-    }      // Lägg till felmeddelande (om ingen kategori är vald)?
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+     //   outState.put
+    }
+
 }

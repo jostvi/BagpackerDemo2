@@ -49,6 +49,7 @@ public class TripActivity extends AppCompatActivity {
         });
 
 
+
         Button btnOk = findViewById(R.id.btnOk);
 
         btnOk.setOnClickListener(new View.OnClickListener(){
