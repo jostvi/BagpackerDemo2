@@ -198,13 +198,17 @@ button {
 
 
 #navlist > a:hover {
-  background-color: #FB005B;;
+  background-color: #FB005B;
   color: white !important;
 }
 
 /*icons*/
 .picpadding {
-	padding-left: 10px;
+	padding-left: 15px;
+}
+
+.picpaddingXL {
+	padding-left: 25px;
 }
 
 .image-checkbox {
@@ -229,12 +233,11 @@ button {
 }
 
 .image-checkbox-checked {
-    /* border-color: #4783B0; */
     opacity: 1.0;
 }
 .image-checkbox .glyphicon {
   position: absolute;
-  color: #4A79A3;
+  color: #FB005B;
   padding: 5px;
   top: 0;
   right: 20%;
@@ -251,19 +254,21 @@ button {
 
 #info {
   font-size: 32px;
-  color: #ED2A92;
+  color:  #FB005B;
 }
 
 #popover-link {
   text-decoration: none;
 }
 
-ooter {
+footer {
   text-align: center;
   color: white;
   margin-top: 20px;
+  background-color: rgba(255, 255, 255, 0.6);
 }
 
+/* result */
 #grid-wrapper {
   margin: auto;
   padding: 0 50px 50px 50px 50px;
@@ -273,7 +278,7 @@ ooter {
 
 .sticky {
 position: sticky;
-background-color: #255E69;
+background-color: #FB005B;
 color: white;
 padding: 10px;
 top: 0;
@@ -289,7 +294,7 @@ display: block;
 }
 
 .table_div {
-display:table;
+  display:table;
   width:100%;
 }
 
@@ -309,7 +314,7 @@ padding-bottom: 10px;
 }
 
 .input_quantity {
-width: 40px;
+width: 60px;
 border-radius: 12px;
 border: none;
 text-align: right;
@@ -321,7 +326,7 @@ text-align: right;
   height: auto;
   border-radius: 10px;
   box-shadow: 0 0 10px grey;
-  padding: 10px 20px 10px 20px;
+  padding: 40px 20px 10px 20px;
   margin: 40px auto 40px auto;
   font-size: 18px;
   background-color: white;
@@ -353,7 +358,7 @@ padding-left: 10px;
   box-align: center;
   margin: auto;
   margin-top: 10px;
-  background-color: #ED2A92;
+  background-color: #FB005B;
   border: none;
   color: white;
   padding: 10px;
@@ -361,7 +366,7 @@ padding-left: 10px;
   text-decoration: none;
   font-size: 18px;
   cursor: pointer;
-  border-radius: 12px;
+  border-radius: 3px;
   box-shadow: 0 0 15px;
 }
 

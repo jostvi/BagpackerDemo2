@@ -4,7 +4,7 @@
     Python Version: 3.7.1
 '''
 
-from bottle import default_app, route, run, template, static_file, request, redirect, error
+from bottle import default_app, route, run, template, static_file, request, redirect, error, post
 from geopy.geocoders import Nominatim
 from pyowm import OWM
 from statistics import mean
@@ -269,6 +269,14 @@ def get_climate_zone(geolocation):
     print(zone)
     return zone
 
+def get_weight(complete_list):
+    weight_list = []
+    for item in complete_list:
+        item_weight = item["weight"]*item["quantity"]
+        weight_list.append(item_weight)
+    total_weight = sum(weight_list)
+    print(total_weight)
+    return round(total_weight, 2)
 
 def create_item_list(user_input):
     '''Lägg till i pythonanywhere. Lägger alla items som har hämtats från databasen i en lista med dictionaries'''
@@ -309,12 +317,14 @@ def create_item_list(user_input):
         item_dict = {"id": item[0], "item": item[1], "weight": item[2], "category": item[3], "quantity": round(quantity)}
         complete_list.append(item_dict)
 
+    total_weight = get_weight(complete_list)
+
         
 ##        item_dict = {"item": item[0], "weight": item[1], "category": item[2]}
 ##        complete_list.append(item_dict)
     
-    return complete_list, user_input[0], forecast[0], forecast[1], length, which_data
-
+    return complete_list, user_input[0], forecast[0], forecast[1], length, which_data, total_weight
+        
 @route("/")
 def show_startpage():
 
@@ -359,12 +369,12 @@ def generate_list():
     temp_min = returns[2]
     temp_max = returns[3]
     length = returns[4]
-    which_data= returns[5]
+    which_data = returns[5]
+    total_weight = returns[6]
 ##    return json.dumps(item_list)
 
-
     return template ('test', item_list = item_list, length = length, which_data = which_data,
-                     location = location, temp_min = round(temp_min), temp_max = round(temp_max))
+                     location = location, temp_min = round(temp_min), temp_max = round(temp_max), total_weight = total_weight)
 
 
 @route("/android/")
@@ -396,19 +406,6 @@ def generate_list_android():
     result = create_item_list(user_input)
     complete_list = result[0]
     
-#    geolocation = get_geolocation(destination)
-#    forecast = get_weather_forecast(geolocation)
-#    general_items = get_general_items()
-#    temp_items = get_temp_items(forecast)
-#    transport_items = get_transport_items(transport)
-#    accommodation_items = get_accommodation_items(accommodation)
-#    activity_items = get_activity_items(activity)
-
-
-#    complete_list = general_items + temp_items + transport_items + accommodation_items + activity_items
-#   packlista = []
-#    for item in complete_list:
-#        packlista.append(item)
     destination = result[1]
     temp_min = result[2]
     temp_max = result[3]
