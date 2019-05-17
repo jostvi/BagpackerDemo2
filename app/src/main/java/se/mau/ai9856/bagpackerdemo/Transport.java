@@ -31,6 +31,7 @@ public class Transport extends AppCompatActivity {
     private String url;
     private static final String URL = "url";
     private ArrayList<String> selection = new ArrayList<String>();
+    private DataManager dataManager;
 
 
     @Override
@@ -69,6 +70,7 @@ public class Transport extends AppCompatActivity {
             public void onClick(View v) {
 //                url = getIntent().getStringExtra(URL);
 //                url+="&param4="+selection;
+
                 url = getIntent().getStringExtra(URL) + "&param4=";
                 for(String string : selection){
                     url += string + ",";
