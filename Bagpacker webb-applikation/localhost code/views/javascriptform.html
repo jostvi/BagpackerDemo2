@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="sv" >
+
+<head>
+        <meta charset="UTF-8">
+        <title>Bagpacker</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/static/style.css">
+        <link rel='shortcut icon' type='image/x-icon' href="/static/favicon.png">
+        <link href="https://fonts.googleapis.com/css?family=Didact+Gothic|Loved+by+the+King|Sue+Ellen+Francisco" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js' type='text/javascript'></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.12.1.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <!-- Kalender -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js' type='text/javascript'></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.12.1.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <!-- Icons -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!-- Form validation -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+        <link href="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/theme-default.min.css"
+        rel="stylesheet" type="text/css" />
+
+</head>
+
+
+<body>
+        <header>
+                <nav>
+                        <a href="/"><img src="/static/BackpackerLogotyp.png" alt="Bagpacker" id="headerpic"></a>
+                        <div id="navlist">
+                                <a href="/" class="active">Ny packlista</a>
+                                <a href="/new_task">Hämta packlista</a>
+                                <a href="/edit_list">Packtips</a>
+                                <a href="/delete_list">Om oss</a>
+                        </div>      
+                </nav>
+        </header>
+        <main>
+                <form id="multi-step-form" action= "/generate_list" method="POST">
+                <div class="step">
+                        <h1>Ange resmål</h1>
+                        <input type="text" placeholder="Vart ska du resa?" id="destination" autocomplete="off" oninput="this.className = ''" name="destination">
+                        <p id="destination-error"></p>
+                        <script src="https://cdn.jsdelivr.net/npm/places.js@1.16.1"></script>
+                                <script>
+                                        const fixedOptions = {
+                                                appId: 'plUWMO59XHQR',
+                                                apiKey: '7e343f5d1071965e1e0c0a929ef1444b',
+                                                container: document.querySelector('#destination'),
+                                        };
+                                        
+                                        const reconfigurableOptions = {
+                                                language: ['sv'], 
+                                                type: ['city'], 
+                                                aroundLatLngViaIP: false 
+                                        };
+                                        const placesInstance = places(fixedOptions).configure(reconfigurableOptions);
+                                </script>
+                </div>
+                <div class="step">
+                        <h1>Datum</h1>
+                        <label for="from">Från</label>
+                        <input type="text" id="from" placeholder="åååå/mm/dd" name="from" required autocomplete="off" data-validation="date" data-validation-format="yyyy/mm/dd" data-validation-error-msg="Du måste ange ett datum i formatet åå/mm/dd" data-validation-error-msg-container="#from-error" oninput="this.className = ''">
+                        <p id="from-error"></p>
+                        <label for="to">till</label>
+                        <input type="text" id="to" placeholder="åååå/mm/dd" name="to" required autocomplete="off" data-validation="date" data-validation-format="yyyy/mm/dd" data-validation-error-msg="Du måste ange ett datum i formatet åå/mm/dd" data-validation-error-msg-container="#to-error" oninput="this.className = ''">
+                        <p id="to-error"></p>
+                        <script>
+                        /*Kalender */
+
+                        $( function() {
+                                $.datepicker.setDefaults($.datepicker.regional['sv']);
+                                var dateFormat = "yy/mm/dd",
+                                from = $( "#from" )
+                                        .datepicker({
+                                        dateFormat: "yy/mm/dd",
+                                        showAnim: "slideDown",
+                                        defaultDate: "0",
+                                        changeMonth: true,
+                                        numberOfMonths: 1, 
+                                        minDate: 0
+                                        })
+                                        .on( "change", function() {
+                                        to.datepicker( "option", "minDate", getDate( this ) );
+                                        }),
+                                to = $( "#to" ).datepicker({
+                                        defaultDate: "+1w",
+                                        dateFormat: "yy/mm/dd",
+                                        showAnim: "slideDown",
+                                        changeMonth: true,
+                                        numberOfMonths: 2,
+                                        minDate: 0
+                                })
+                                .on( "change", function() {
+                                        from.datepicker( "option", "maxDate", getDate( this ) );
+                                
+                                });
+                                
+                                function getDate( element ) {
+                                var date;
+                                try {
+                                        date = $.datepicker.parseDate( dateFormat, element.value );
+                                } catch( error ) {
+                                        date = null;
+                                }
+
+                                return date;
+                                }
+                        } );
+                        /* Swedish initialisation for the jQuery UI date picker plugin. */
+                        /* Written by Anders Ekdahl ( anders@nomadiz.se). */
+                        ( function( factory ) {
+                                if ( typeof define === "function" && define.amd ) {
+
+                                        // AMD. Register as an anonymous module.
+                                        define( [ "../widgets/datepicker" ], factory );
+                                } else {
+
+                                        // Browser globals
+                                        factory( jQuery.datepicker );
+                                }
+                        }( function( datepicker ) {
+
+                        datepicker.regional.sv = {
+                                closeText: "Stäng",
+                                prevText: "&#xAB;Förra",
+                                nextText: "Nästa&#xBB;",
+                                currentText: "Idag",
+                                monthNames: [ "januari","februari","mars","april","maj","juni",
+                                "juli","augusti","september","oktober","november","december" ],
+                                monthNamesShort: [ "jan.","feb.","mars","apr.","maj","juni",
+                                "juli","aug.","sep.","okt.","nov.","dec." ],
+                                dayNamesShort: [ "sön","mån","tis","ons","tor","fre","lör" ],
+                                dayNames: [ "söndag","måndag","tisdag","onsdag","torsdag","fredag","lördag" ],
+                                dayNamesMin: [ "sö","må","ti","on","to","fr","lö" ],
+                                weekHeader: "Ve",
+                                dateFormat: "yy-mm-dd",
+                                firstDay: 1,
+                                isRTL: false,
+                                showMonthAfterYear: false,
+                                yearSuffix: "" };
+                        datepicker.setDefaults( datepicker.regional.sv );
+
+                        return datepicker.regional.sv;
+
+                        } ) );
+                        </script>
+                </div>
+                <div class="step" onmouseover="validateTransportCheckboxes()">
+                        <h1>Transport</h1>
+                        <div class="col-xs-4 col-sm-3 col-md-3 nopad text-center">
+                        <label class="image-checkbox transport">
+                                <img class="img-responsive" src="static/airplane.png" />
+                                <input type="checkbox" id="transport1" name="transport" value="flight">Flyg
+                                <i class="glyphicon glyphicon-ok hidden"></i>
+                        </label>
+                        </div>
+                        <div class="col-xs-4 col-sm-3 col-md-3 nopad text-center">
+                                <label class="image-checkbox transport">
+                                        <img class="img-responsive" src="static/car.png" />
+                                        <input type="checkbox" id="transport2" name="transport" value="car" />Bil
+                                        <i class="glyphicon glyphicon-ok hidden"></i>
+                                </label>
+                        </div>
+                        <div class="col-xs-4 col-sm-3 col-md-3 nopad text-center">
+                                <label class="image-checkbox transport">
+                                        <img class="img-responsive" src="static/bus.png" />
+                                        <input type="checkbox" id="transport3" name="transport" value="bus" />Buss
+                                        <i class="glyphicon glyphicon-ok hidden"></i>
+                                </label>
+                        </div>
+                        <div class="col-xs-4 col-sm-3 col-md-3 nopad text-center">
+                                <label class="image-checkbox transport">
+                                        <img class="img-responsive" src="static/train.png" />
+                                        <input type="checkbox" id="transport4" name="transport" value="train" />Tåg
+                                        <i class="glyphicon glyphicon-ok hidden"></i>
+                                </label>
+                        </div>
+                        <div class="col-xs-4 col-sm-3 col-md-3 nopad text-center">
+                                <label class="image-checkbox transport">
+                                        <img class="img-responsive" src="static/boat.png" />Färja
+                                        <input type="checkbox" id="transport5" name="transport" value="ferry" />
+                                        <i class="glyphicon glyphicon-ok hidden"></i>
+                                </label>
+                        </div>
+                        <div class="col-xs-4 col-sm-3 col-md-3 nopad text-center">
+                                <label class="image-checkbox transport">
+                                        <img class="img-responsive" src="static/bike.png" />Cykel
+                                        <input type="checkbox" id="transport6" name="transport" value="bike" />
+                                        <i class="glyphicon glyphicon-ok hidden"></i>
+                                </label>
+                        </div>
+                        <div class="col-xs-4 col-sm-3 col-md-3 nopad text-center">
+                                <label class="image-checkbox transport">
+                                        <img class="img-responsive picpadding" src="static/motorbike.png"/>Motorcykel
+                                        <input type="checkbox" id="transport7" name="transport" value="motorbike" />
+                                        <i class="glyphicon glyphicon-ok hidden"></i>
+                                </label>
+                        </div>
+                        <div class="col-xs-4 col-sm-3 col-md-3 text-center">
+                                <label class="image-checkbox transport">
+                                        <img class="img-responsive" src="static/rocket.png" />Annat
+                                        <input type="checkbox" id="transport8" name="transport" value="other" />
+                                        <i class="glyphicon glyphicon-ok hidden"></i>
+                                </label>
+                        </div>
+                        <p id="transport_validation"></p>
+                </div>
+                <div class="step" onmouseover="validateAccoCheckboxes()">
+                        <h1>Boende</h1>
+                        <div class="col-xs-4 col-sm-3 col-md-3 nopad text-center">
+                        <label class="image-checkbox">
+                                <img class="img-responsive" src="static/hotel.png" />
+                                <input type="checkbox" id="accommodation1" name="accommodation" value="hotel" />Hotell
+                                <i class="glyphicon glyphicon-ok hidden"></i>
+                        </label>
+                        </div>
+                        <div class="col-xs-4 col-sm-3 col-md-3 nopad text-center">
+                                <label class="image-checkbox">
+                                        <img class="img-responsive picpadding" src="static/apartment.png" />
+                                        <input type="checkbox" id="accommodation2" name="accommodation" value="apartment" />Lägenhet
+                                        <i class="glyphicon glyphicon-ok hidden"></i>
+                                </label>
+                        </div>
+                        <div class="col-xs-4 col-sm-3 col-md-3 nopad text-center">
+                                <label class="image-checkbox">
+                                        <img class="img-responsive picpaddingXL" src="static/sofa.png"/>
+                                        <input type="checkbox" id="accommodation3" name="accommodation" value="friends" />Hos kompisar
+                                        <i class="glyphicon glyphicon-ok hidden"></i>
+                                </label>
+                        </div>
+                        <div class="col-xs-4 col-sm-3 col-md-3 nopad text-center">
+                                <label class="image-checkbox">
+                                        <img class="img-responsive" src="static/hostel.png"/>Hostel
+                                        <input type="checkbox" id="accommodation4" name="accommodation" value="hostel" />
+                                        <i class="glyphicon glyphicon-ok hidden"></i>
+                                </label>
+                        </div>
+                        <div class="col-xs-4 col-sm-3 col-md-3 nopad text-center">
+                                <label class="image-checkbox">
+                                        <img class="img-responsive" src="static/tent.png" />Tält
+                                        <input type="checkbox" id="accommodation5" name="accommodation" value="tent" />
+                                        <i class="glyphicon glyphicon-ok hidden"></i>
+                                </label>
+                        </div>
+                        <div class="col-xs-4 col-sm-3 col-md-3 nopad text-center">
+                                <label class="image-checkbox">
+                                        <img class="img-responsive picpaddingXL" src="static/camper.png"/>
+                                        <input type="checkbox" id="accommodation6" name="accommodation" value="camper" />Husbil/-vagn
+                                        <i class="glyphicon glyphicon-ok hidden"></i>
+                                </label>
+                        </div>
+                        <div class="col-xs-4 col-sm-3 col-md-3 nopad text-center">
+                                <label class="image-checkbox">
+                                        <img class="img-responsive" src="static/cabin.png" />Stuga
+                                        <input type="checkbox" id="accommodation7" name="accommodation" value="cottage" />
+                                        <i class="glyphicon glyphicon-ok hidden"></i>
+                                </label>
+                        </div>
+                        <div class="col-xs-4 col-sm-3 col-md-3 text-center">
+                                <label class="image-checkbox">
+                                        <img class="img-responsive" src="static/palace.png" />Annat
+                                        <input type="checkbox" id="accommodation8" name="accommodation" value="other" />
+                                        <i class="glyphicon glyphicon-ok hidden"></i>
+                                </label>
+                        </div>
+                        <p id="accommodation_validation"></p>
+                </div>
+                
+                <div class="step" onmouseover="validateActivityCheckboxes()">
+                <h1>Aktiviteter</h1>
+                <div class="col-xs-4 col-sm-3 col-md-3 nopad text-center">
+                        <label class="image-checkbox">
+                                <img class="img-responsive picpadding" src="static/outdoor.png"/>
+                                <input type="checkbox" id="activity1" name="activities" value="outdoor" />Friluftsliv
+                                <i class="glyphicon glyphicon-ok hidden"></i>
+                        </label>
+                </div>
+                <div class="col-xs-4 col-sm-3 col-md-3 nopad text-center">
+                        <label class="image-checkbox">
+                                <img class="img-responsive picpadding" src="static/skiing.png"/>
+                                <input type="checkbox" id="activity2" name="activities" value="skiing" />Vintersport
+                                <i class="glyphicon glyphicon-ok hidden"></i>
+                        </label>
+                </div>
+                <div class="col-xs-4 col-sm-3 col-md-3 nopad text-center">
+                        <label class="image-checkbox">
+                                <img class="img-responsive picpaddingXL" src="static/trainer.png" />
+                                <input type="checkbox" id="activity3" name="activities" value="training" />Träning/motion
+                                <i class="glyphicon glyphicon-ok hidden"></i>
+                        </label>
+                </div>
+                <div class="col-xs-4 col-sm-3 col-md-3 nopad text-center">
+                        <label class="image-checkbox">
+                                <img class="img-responsive picpadding" src="static/beach.png"/>Sol och bad
+                                <input type="checkbox" id="activity4" name="activities" value="beach" />
+                                <i class="glyphicon glyphicon-ok hidden"></i>
+                        </label>
+                </div>
+                <div class="col-xs-4 col-sm-3 col-md-3 nopad text-center">
+                        <label class="image-checkbox">
+                                <img class="img-responsive picpadding" src="static/sights.png" id="sights" />Sightseeing
+                                <input type="checkbox" id="activity5" name="activities" value="sightseeing" />
+                                <i class="glyphicon glyphicon-ok hidden"></i>
+                        </label>
+                </div>
+                <div class="col-xs-4 col-sm-3 col-md-3 nopad text-center">
+                        <label class="image-checkbox">
+                                <img class="img-responsive" src="static/theater.png" />Kultur
+                                <input type="checkbox" id="activity6" name="activities" value="culture" />
+                                <i class="glyphicon glyphicon-ok hidden"></i>
+                        </label>
+                </div>
+                <div class="col-xs-4 col-sm-3 col-md-3 nopad text-center">
+                        <label class="image-checkbox">
+                                <img class="img-responsive" src="static/nattliv.png" />Nattliv
+                                <input type="checkbox" id="activity7" name="activities" value="nightlife" />
+                                <i class="glyphicon glyphicon-ok hidden"></i>
+                        </label>
+                </div>
+                <div class="col-xs-4 col-sm-3 col-md-3 text-center">
+                        <label class="image-checkbox">
+                                <img class="img-responsive" src="static/flying.png" />Annat
+                                <input type="checkbox" id="activity8" name="activities" value="other" />
+                                <i class="glyphicon glyphicon-ok hidden"></i>
+                        </label>
+                </div>
+                <p id="activity_validation"></p>
+                </div>
+                <div>
+                <div>
+                        <button type="button" id="prevBtn" onclick="nextPrev(-1)">Föregående</button>
+                        <button type="button" id="nextBtn" onclick="nextPrev(1)">Nästa</button>
+                </div>
+                </div>
+                <div style="text-align:center;margin-top:40px">
+                        <span class="dots"></span>
+                        <span class="dots"></span>
+                        <span class="dots"></span>
+                        <span class="dots"></span>
+                        <span class="dots"></span>
+                </div>
+                
+                </form>
+        </main>
+        
+        <script src="/static/jquery.js"></script>
+        <script src="/static/script.js"></script>
+        <!-- Validation script-->
+        <script>
+
+         $.validate({
+                lang : 'sv',
+                modules : 'security', 
+                form : '#multi-step-form', 
+               /*  onError : function($form) {
+                alert('Validation of form '+$form.attr('id')+' failed!');
+                },
+                onSuccess : function($form) {
+                alert('The form '+$form.attr('id')+' is valid!');
+                return false; // Will stop the submission of the form
+                },
+                onValidate : function($form) {
+                        alert('The form '+$form.attr('id')+' is invalid!');
+                      return {
+                element : $('#destination'),
+                message : 'This input has an invalid value for some reason'
+              }
+            }, */
+          });
+         
+         /* if (document.getElementsByClassName("error")) {
+                document.getElementById("nextBtn").disabled = true;
+         }
+         else {
+                document.getElementById("nextBtn").disabled = false;
+         } */
+        </script>
+</body>
+
+</html>
