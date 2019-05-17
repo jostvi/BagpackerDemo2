@@ -1,5 +1,6 @@
 package se.mau.ai9856.bagpackerdemo;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,6 +38,8 @@ public class Destination extends AppCompatActivity {
 
     private void initializeComponents() {
         setContentView(R.layout.activity_destination2);
+        TextView bulletDestination=findViewById(R.id.page1);
+        bulletDestination.setTextColor(getResources().getColor(R.color.colorPink));
         btnOk = findViewById(R.id.btnOk);
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override

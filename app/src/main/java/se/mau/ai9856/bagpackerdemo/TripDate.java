@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.timessquare.CalendarPickerView;
@@ -28,6 +29,10 @@ public class TripDate extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_date2);
+        TextView bulletDate=findViewById(R.id.page2);
+        bulletDate.setTextColor(getResources().getColor(R.color.colorPink));
+        TextView bulletDestination=findViewById(R.id.page1);
+        bulletDestination.setTextColor(getResources().getColor(R.color.colorPink));
 
 
         //String url = getIntent().getStringExtra(URL);

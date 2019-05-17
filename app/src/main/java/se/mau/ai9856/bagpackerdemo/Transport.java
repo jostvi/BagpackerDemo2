@@ -1,5 +1,6 @@
 package se.mau.ai9856.bagpackerdemo;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,10 +32,17 @@ public class Transport extends AppCompatActivity {
     private ArrayList<String> selection = new ArrayList<String>();
 
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transport2);
+        TextView bulletDate=findViewById(R.id.page2);
+        bulletDate.setTextColor(getResources().getColor(R.color.colorPink));
+        TextView bulletDestination=findViewById(R.id.page1);
+        bulletDestination.setTextColor(getResources().getColor(R.color.colorPink));
+        TextView bulletTransport=findViewById(R.id.page3);
+        bulletTransport.setTextColor(getResources().getColor(R.color.colorPink));
 
         questionTransport = findViewById(R.id.questionTransport);
         checkCar = findViewById(R.id.checkCar);

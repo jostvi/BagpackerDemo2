@@ -7,7 +7,7 @@
     android:orientation="horizontal"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
-    android:background="@color/screenBackground">
+    android:background="@color/colorYellow">
 
 
     <ImageButton
@@ -15,7 +15,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="10dp"
-        android:background="@color/screenBackground"
+        android:background="@color/colorYellow"
         android:src="@android:drawable/ic_delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/itemName"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:fontFamily="sans-serif"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorPink"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/subQuantity"
@@ -59,7 +59,7 @@
         android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorPink"
         android:textSize="24sp"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"

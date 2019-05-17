@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeComponents() {
         setContentView(R.layout.activity_main);
-        btnGetList = findViewById(R.id.getListBtn);
-        btnGetList.setText("Hämta lista");
+        //btnGetList = findViewById(R.id.getListBtn);
+        //btnGetList.setText("Hämta lista");
         Button btnCreateAccount = findViewById(R.id.btnCreateAccount);
         btnCreateAccount.setOnClickListener(new View.OnClickListener() {
 
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void getListFromServer(View v) {
+    /*public void getListFromServer(View v) {
         EditText input = findViewById(R.id.password_input);
         final String password = input.getText().toString().trim();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         requestQueue.add(request);
         String loading = "Laddar...";
         btnGetList.setText(loading);
-    }
+    }*/
 
     public void showExpandableList(List list) {
         Intent intent = new Intent(this, EditableListActivity.class);
