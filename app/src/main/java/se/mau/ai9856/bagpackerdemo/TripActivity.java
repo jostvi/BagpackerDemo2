@@ -17,7 +17,9 @@ public class TripActivity extends AppCompatActivity {
     private CheckBox checkWintersport;
     private CheckBox checkBeach;
     private CheckBox checkSightseeing;
-    private CheckBox checkCultureNightlife;
+    private CheckBox checkCulture;
+    private CheckBox checkNightlife;
+    private CheckBox checkOther;
     private TextView messageToUser;
     private ArrayList<String> selection = new ArrayList<>();
     private String url;
@@ -32,7 +34,9 @@ public class TripActivity extends AppCompatActivity {
         checkWintersport = findViewById(R.id.checkWintersport);
         checkBeach = findViewById(R.id.checkBeach);
         checkSightseeing = findViewById(R.id.checkSightseeing);
-        checkCultureNightlife = findViewById(R.id.checkCultureNightlife);
+        checkCulture = findViewById(R.id.checkCulture);
+        checkNightlife = findViewById(R.id.checkNightlife);
+        checkOther = findViewById(R.id.otherActivity);
         messageToUser = findViewById(R.id.messageToUser);
 
 
@@ -49,10 +53,10 @@ public class TripActivity extends AppCompatActivity {
                     url += string + ",";
                 }
                 url = url.substring(0, url.length()-1);
-                Log.e("ACTIVITY", "url" + url);
                 if (!checkOutdoor.isChecked() && !checkWintersport.isChecked()
                         && !checkBeach.isChecked() && !checkSightseeing.isChecked()
-                        && !checkCultureNightlife.isChecked()){
+                        && !checkCulture.isChecked() && !checkNightlife.isChecked()
+                        && !checkOther.isChecked()){
                     messageToUser.setText("Välj något");
                 } else {
                     Intent intent = new Intent(TripActivity.this, ChoosePackinglistName.class);
@@ -98,11 +102,27 @@ public class TripActivity extends AppCompatActivity {
                 }
                 break;
 
-            case R.id.checkCultureNightlife:
+            case R.id.checkCulture:
                 if(checked){
                     selection.add("culture");
                 }else{
                     selection.remove("culture");
+                }
+                break;
+
+            case R.id.checkNightlife:
+                if(checked){
+                    selection.add("nightlife");
+                }else{
+                    selection.remove("nightlife");
+                }
+                break;
+
+            case R.id.otherActivity:
+                if(checked){
+                    selection.add("other");
+                }else{
+                    selection.remove("other");
                 }
                 break;
         }

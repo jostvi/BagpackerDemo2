@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         requestQueue.add(request);
         String loading = "Laddar...";
         btnGetList.setText(loading);
-    }*/
+    }
 
     public void showExpandableList(List list) {
         Intent intent = new Intent(this, EditableListActivity.class);
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(NAME, list.getName());
         intent.putExtra(INFO, list.getInfo());
         startActivity(intent);
-    }
+    }*/
 
     public void createTrip(View v) {
         Intent createTripIntent = new Intent(this, Destination.class);

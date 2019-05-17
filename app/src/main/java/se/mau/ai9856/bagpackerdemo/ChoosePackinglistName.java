@@ -76,43 +76,5 @@ public class ChoosePackinglistName extends AppCompatActivity {
         intent.putExtra(NAME, list.getName());
         intent.putExtra(INFO, list.getInfo());
         startActivity(intent);
-        //List list = new List(json, packinglistName.getText().toString().trim());
-        /*LinkedHashMap<String, SubList> categorySubList = new LinkedHashMap<>();
-        ArrayList<SubList> expList = new ArrayList<>();
-        String infoString = "";
-
-        try {
-            JSONArray jsonArray = json.getJSONArray("lista");
-
-            String dest = json.getString("destination");
-            int minTemp = json.getInt("temp_min");
-            int maxTemp = json.getInt("temp_max");
-            // int length = json.getInt("length");
-            String jsonWeather = json.getString("weather_data");
-            infoString = "Packlistan för din resa till " + dest + " är baserad på " + jsonWeather
-                    + " väderdata. Temperaturen beräknas ligga mellan " + minTemp + " och "
-                    + maxTemp + " °C";
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jObject = jsonArray.getJSONObject(i);
-                String category = jObject.getString("category");
-                SubList subList = categorySubList.get(category);
-
-                if (subList == null) {
-                    subList = new SubList();
-                    subList.setName(category);
-                    categorySubList.put(category, subList);
-                    expList.add(subList);
-                }
-                subList.addItem(new Packable(jObject.getString("item"),
-                        Integer.parseInt(jObject.getString("quantity"))));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        Gson gson = new Gson();
-        String jsonString = gson.toJson(expList);*/
     }
-
 }

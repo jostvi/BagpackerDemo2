@@ -52,7 +52,7 @@ public class Transport extends AppCompatActivity {
         checkBike = findViewById(R.id.checkBike);
         checkMotorbike = findViewById(R.id.checkMotorbike);
         checkBoat = findViewById(R.id.checkBoat);
-        checkOther = findViewById(R.id.checkOther);
+        checkOther = findViewById(R.id.otherTransport);
         btnOk = findViewById(R.id.btnOk);
         messageToUser = findViewById(R.id.messageToUser);
 
@@ -69,8 +69,6 @@ public class Transport extends AppCompatActivity {
                     url += string + ",";
                 }
                 url = url.substring(0, url.length()-1);
-                Log.e("hej ", "url" + url);
-                //   String url = "http://bagpacker.pythonanywhere.com/android/?param1=" + destination.getText().toString();
 
                 if(!checkCar.isChecked() && !checkTrain.isChecked() && !checkFlight.isChecked()
                         && !checkBus.isChecked() && !checkBike.isChecked() && !checkBoat.isChecked()
@@ -148,7 +146,7 @@ public class Transport extends AppCompatActivity {
                 }
                 break;
 
-            case R.id.checkOther:
+            case R.id.otherTransport:
                 if(checked){
                     selection.add("other");
                 }else{

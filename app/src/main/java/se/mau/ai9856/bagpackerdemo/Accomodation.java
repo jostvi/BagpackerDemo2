@@ -18,6 +18,7 @@ public class Accomodation extends AppCompatActivity {
     private CheckBox checkCaravan;
     private CheckBox checkTent;
     private CheckBox checkCottage;
+    private CheckBox checkOther;
     private TextView messageToUser;
     private ArrayList<String> selection = new ArrayList<String>();
     private String url;
@@ -42,6 +43,7 @@ public class Accomodation extends AppCompatActivity {
         checkCaravan = findViewById(R.id.checkCaravan);
         checkTent = findViewById(R.id.checkTent);
         checkCottage = findViewById(R.id.checkCottage);
+        checkOther = findViewById(R.id.otherAccommodation);
         messageToUser = findViewById(R.id.messageToUser);
 
         Button btnOk = findViewById(R.id.btnOk);
@@ -57,10 +59,9 @@ public class Accomodation extends AppCompatActivity {
                     url += string + ",";
                 }
                 url = url.substring(0, url.length()-1);
-                Log.e("hej ", "url" + url);
                 if (!checkHotel.isChecked() && !checkApartment.isChecked()
                         && !checkWithFriend.isChecked() && !checkCaravan.isChecked()
-                        && !checkTent.isChecked() && !checkCottage.isChecked()) {
+                        && !checkTent.isChecked() && !checkCottage.isChecked() && !checkOther.isChecked()){
                     messageToUser.setText("Välj något");
                 } else {
                     Intent intent = new Intent(Accomodation.this, TripActivity.class);
@@ -131,9 +132,13 @@ public class Accomodation extends AppCompatActivity {
                 }
                 break;
 
-
-
-
+            case R.id.otherAccommodation:
+                if(checked){
+                    selection.add("other");
+                }else{
+                    selection.remove("other");
+                }
+                break;
         }
     }
 }
