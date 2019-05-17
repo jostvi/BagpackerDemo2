@@ -66,9 +66,8 @@ public class EditableListAdapter extends BaseExpandableListAdapter {
                     context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inf.inflate(R.layout.header_layout, null);
         }
-        TextView header = view.findViewById(R.id.list_header);
-        header.setText(group.getName().trim());
-
+        TextView categoryName = view.findViewById(R.id.categoryName);
+        categoryName.setText(group.getName().trim());
         return view;
     }
 

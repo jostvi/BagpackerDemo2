@@ -24,8 +24,10 @@ public class ShowSavedListActivity extends AppCompatActivity {
     private final static String ITEMS = "items";
     private ExpandableListView expandableListView;
     private SavedListAdapter savedListAdapter;
-    private String listKey, nameKey, infoKey, name, info;
-    private Button btnLogOut;
+    private String name, info;
+    private final String listKey = "LIST";
+    private final String nameKey = "NAME";
+    private final String infoKey = "INFO";
 
     @Override
     public void onBackPressed() {
@@ -44,7 +46,7 @@ public class ShowSavedListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initializeComponents();
-        btnLogOut = findViewById(R.id.btnLogOut);
+        Button btnLogOut = findViewById(R.id.btnLogOut);
         btnLogOut.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -58,9 +60,6 @@ public class ShowSavedListActivity extends AppCompatActivity {
     }
 
     private void initializeComponents() {
-        listKey = "LIST";                       // MARKER: Skriv ev om som i Editable list
-        nameKey = "NAME";
-        infoKey = "INFO";
         name = Database.loadName(this, nameKey);
         info = Database.loadInfo(this, infoKey);
         ArrayList<SubList> expandableList = Database.loadList(this, listKey);

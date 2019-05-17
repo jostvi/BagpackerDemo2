@@ -65,8 +65,20 @@ public class SavedListAdapter extends BaseExpandableListAdapter {
                     context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inf.inflate(R.layout.header_layout, null);
         }
-        TextView header = view.findViewById(R.id.list_header);
+        TextView header = view.findViewById(R.id.categoryName);
         header.setText(group.getName().trim());
+        TextView categoryTotal = view.findViewById(R.id.categoryTotal);
+        int childCount = getChildrenCount(groupPosition);
+        int selectedChildren = 0;
+        for(int i = 0; i < childCount; i++){
+            if(getChild(groupPosition, i).isSelected){
+                selectedChildren++;
+            }
+        }
+        categoryTotal.setText(selectedChildren + "/" + childCount);
+        if(selectedChildren == childCount){
+
+        }
         return view;
     }
 

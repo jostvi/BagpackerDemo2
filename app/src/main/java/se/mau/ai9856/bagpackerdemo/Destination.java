@@ -37,6 +37,14 @@ public class Destination extends AppCompatActivity {
 
     private void initializeComponents() {
         setContentView(R.layout.activity_destination2);
+        btnOk = findViewById(R.id.btnOk);
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                proceed();
+            }
+        });
+        btnOk.setEnabled(false);
         destination = findViewById(R.id.destination);
         destination.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,14 +69,6 @@ public class Destination extends AppCompatActivity {
         });
         messageToUser = findViewById(R.id.messageToUser);
         messageToUser.setText("");
-
-        btnOk = findViewById(R.id.btnOk);
-        btnOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                proceed();
-            }
-        });
     }
 
     private void validate(String url) {
