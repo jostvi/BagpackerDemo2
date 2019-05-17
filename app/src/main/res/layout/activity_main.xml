@@ -15,7 +15,8 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-smallcaps"
-        android:onClick="getChristinasJSON"
+        android:onClick="getListFromServer"
+        android:text="Hämta lista"
         android:textAlignment="center"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         android:textColor="@android:color/background_light"
@@ -26,6 +27,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+<<<<<<< HEAD
         app:layout_constraintTop_toTopOf="parent"
 
         app:layout_constraintVertical_bias="0.382" />
@@ -38,6 +40,17 @@
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/colorYellow"
         android:fontFamily="@font/didact_gothic"
+=======
+        app:layout_constraintTop_toTopOf="@id/textView"
+        app:layout_constraintVertical_bias="0.382"/>
+
+    <Button
+        android:id="@+id/new_trip"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-smallcaps"
+>>>>>>> cd2a9e486782558232913b4de43cd4c25096200d
         android:onClick="createTrip"
         android:text="Ny resa"
         android:textAlignment="center"
@@ -49,8 +62,13 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+<<<<<<< HEAD
         app:layout_constraintTop_toBottomOf="@id/logotyp_bild"
         app:layout_constraintVertical_bias="0.032" />
+=======
+        app:layout_constraintTop_toBottomOf="@id/getListBtn"
+        app:layout_constraintVertical_bias="0.0" />
+>>>>>>> cd2a9e486782558232913b4de43cd4c25096200d
 
     <Button
         android:id="@+id/show_saved"
@@ -166,12 +184,22 @@
         android:layout_width="200sp"
         android:layout_height="wrap_content"
         android:layout_marginStart="104dp"
+<<<<<<< HEAD
         android:text="60907"
         android:textColor="@color/colorAccent"
         android:textSize="50sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/getListBtn"
         app:layout_constraintStart_toStartOf="parent" />
+=======
+        android:hint="Ange lösenord"
+        android:textColor="@color/colorAccent"
+        android:textSize="22sp"
+        app:layout_constraintTop_toBottomOf="@id/textView"
+        app:layout_constraintBottom_toTopOf="@id/getListBtn"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+>>>>>>> cd2a9e486782558232913b4de43cd4c25096200d
 
 
 </android.support.constraint.ConstraintLayout>

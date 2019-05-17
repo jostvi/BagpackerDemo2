@@ -5,9 +5,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,11 +24,11 @@ public class ShowSavedListActivity extends AppCompatActivity {
     private final static String ITEMS = "items";
     private ExpandableListView expandableListView;
     private SavedListAdapter savedListAdapter;
-    private String listKey, nameKey, name;
+    private String listKey, nameKey, infoKey, name, info;
     private Button btnLogOut;
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
@@ -53,14 +58,17 @@ public class ShowSavedListActivity extends AppCompatActivity {
     }
 
     private void initializeComponents() {
-        listKey = "LIST";
+        listKey = "LIST";                       // MARKER: Skriv ev om som i Editable list
         nameKey = "NAME";
+        infoKey = "INFO";
         name = Database.loadName(this, nameKey);
+        info = Database.loadInfo(this, infoKey);
         ArrayList<SubList> expandableList = Database.loadList(this, listKey);
         setContentView(R.layout.activity_show_saved);
         expandableListView = findViewById(R.id.SavedexpListView);
-        TextView tv = findViewById(R.id.titleTextView);
-        tv.setText(name);
+        TextView title = findViewById(R.id.titleTextView);
+
+        title.setText(name);
 
         if (expandableList == null) {
             finish();
@@ -96,7 +104,9 @@ public class ShowSavedListActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 Database.deleteList(ShowSavedListActivity.this, listKey);
                 Database.deleteName(ShowSavedListActivity.this, nameKey);
-                finish();
+                Database.deleteInfo(ShowSavedListActivity.this, infoKey);
+                Intent intent = new Intent(ShowSavedListActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
         builder.show();
@@ -106,8 +116,28 @@ public class ShowSavedListActivity extends AppCompatActivity {
         Intent intent = new Intent(this, EditableListActivity.class);
         Gson gson = new Gson();
         String json = gson.toJson(Database.loadList(this, listKey));
-        intent.putExtra(ITEMS, json);
+        intent.putExtra(ITEMS, json);                       // MARKER: Skicka även med name?
         intent.putExtra("ACTIVITY1", "halloj");
         startActivity(intent);
+    }
+
+    public void showPopupInfo(View v) {
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.info_popup, null);
+
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true;
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+        TextView popupText = popupWindow.getContentView().findViewById(R.id.popupText);
+        popupText.setText(info);
+        popupWindow.showAtLocation(v, Gravity.TOP, 0, 0);
+        popupView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                popupWindow.dismiss();
+                return true;
+            }
+        });
     }
 }

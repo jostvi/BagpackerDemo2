@@ -15,7 +15,6 @@ import java.util.ArrayList;
 public class EditableListAdapter extends BaseExpandableListAdapter {
     private Context context;
     private ArrayList<SubList> expList;
-
     public EditableListAdapter(Context context, ArrayList<SubList> expList) {
         this.context = context;
         this.expList = expList;
@@ -101,10 +100,15 @@ public class EditableListAdapter extends BaseExpandableListAdapter {
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getGroup(groupPosition).getItemList().remove(packable);
+                SubList subList = getGroup(groupPosition);
+                subList.getItemList().remove(packable);
+                if (subList.getItemList().isEmpty()){
+                    expList.remove(subList);
+                }
                 notifyDataSetChanged();
                 Toast.makeText(context,"Du har tagit bort " +
                         packable.getItemName(), Toast.LENGTH_SHORT).show();
+                EditableListActivity.saved = false;
             }
         });
         holder.btnSubtract.setOnClickListener(new View.OnClickListener(){
@@ -112,6 +116,7 @@ public class EditableListAdapter extends BaseExpandableListAdapter {
             public void onClick(View view){
                 packable.decrease();
                 notifyDataSetChanged();
+                EditableListActivity.saved = false;
             }
         });
         holder.btnAdd.setOnClickListener(new View.OnClickListener(){
@@ -119,6 +124,7 @@ public class EditableListAdapter extends BaseExpandableListAdapter {
             public void onClick(View view){
                 packable.increase();
                 notifyDataSetChanged();
+                EditableListActivity.saved = false;
             }
         });
         holder.tvName.setText(packable.getItemName().trim());
