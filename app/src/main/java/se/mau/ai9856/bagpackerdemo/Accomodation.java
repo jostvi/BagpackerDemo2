@@ -27,6 +27,14 @@ public class Accomodation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accomodation2);
+        TextView bulletDate=findViewById(R.id.page2);
+        bulletDate.setTextColor(getResources().getColor(R.color.colorPink));
+        TextView bulletDestination=findViewById(R.id.page1);
+        bulletDestination.setTextColor(getResources().getColor(R.color.colorPink));
+        TextView bulletTransport=findViewById(R.id.page3);
+        bulletTransport.setTextColor(getResources().getColor(R.color.colorPink));
+        TextView bulletAccomodation=findViewById(R.id.page4);
+        bulletAccomodation.setTextColor(getResources().getColor(R.color.colorPink));
 
         checkHotel = findViewById(R.id.checkHotel);
         checkApartment = findViewById(R.id.checkApartment);

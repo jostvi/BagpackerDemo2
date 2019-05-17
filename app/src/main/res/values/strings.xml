@@ -20,6 +20,7 @@
     <string name="delete_listItem">-</string>
     <string name="when_then">När ska du resa?</string>
     <string name="this_date">Ange datum (ÅÅ-MM-DD)</string>
+    <string name="bullet">\u25CF</string>
     <string-array name="activities_array">
         <item>Välj en aktivitet</item>
         <item>friluftsliv</item>

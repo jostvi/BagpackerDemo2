@@ -1,5 +1,6 @@
 package se.mau.ai9856.bagpackerdemo;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,6 +34,9 @@ public class Destination extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_destination2);
+        TextView bulletDestination=findViewById(R.id.page1);
+        bulletDestination.setTextColor(getResources().getColor(R.color.colorPink));
+
 
         questionDestination = findViewById(R.id.questionDestination);
         destination= findViewById(R.id.destination);
@@ -61,15 +65,11 @@ public class Destination extends AppCompatActivity {
                     Intent intent = new Intent(Destination.this,TripDate.class );
                     intent.putExtra(URL, url);
                     startActivity(intent);
-
-
                 }
 
             }
         });
 
     }
-
-
 
 }

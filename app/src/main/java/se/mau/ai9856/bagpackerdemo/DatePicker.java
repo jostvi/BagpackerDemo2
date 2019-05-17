@@ -1,5 +1,6 @@
 package se.mau.ai9856.bagpackerdemo;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ public class DatePicker extends AppCompatActivity implements DatePickerDialog.On
     private TextView showDateTill;
 
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +28,6 @@ public class DatePicker extends AppCompatActivity implements DatePickerDialog.On
         btnTill = findViewById(R.id.btnTill);*/
         showDateFrom = findViewById(R.id.showDateFrom);
         showDateTill = findViewById(R.id.showDateTill);
-
-
         findViewById(R.id.btnFrom).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
