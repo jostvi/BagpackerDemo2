@@ -316,10 +316,37 @@ def create_item_list(user_input):
     return complete_list, user_input[0], forecast[0], forecast[1], length, which_data
 
 @route("/")
-def show_form():
-    '''Returnerar startsidan, try innehåller ett tillfälligt tillägg för att kunna testa Android applikationen'''
-    
+def show_startpage():
+
     return template ("index")
+
+@route("/newlist")
+def show_form():
+    '''Returnerar formulär'''
+    
+    return template ("javascriptform")
+
+@route("/validate_destination", method="POST")
+def validate_destination():
+
+    #destination = getattr(request.forms, "destination")
+    destination = json.loads(request.body.read())['destination']
+    #destination = getattr(request.body, "destination")
+    print(destination)
+    geolocator = Nominatim(user_agent = "Bagpacker")
+    geolocation = geolocator.geocode(destination)
+
+    try:
+        print(geolocation.latitude, geolocation.longitude)
+        message = {"valid" : True}
+        print(json.dumps(message))
+        return json.dumps(message)
+
+    except:
+        message = {"valid" : False, "message" : "Destinationen du har angett är inte giltig."}
+        print(json.dumps(message))
+        return json.dumps(message)
+    
 
 @route("/generate_list", method="POST")
 def generate_list():

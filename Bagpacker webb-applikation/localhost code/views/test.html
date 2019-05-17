@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="/static/style.css" rel="stylesheet">
         <link rel='shortcut icon' type='image/x-icon' href="/static/favicon.png">
-        <link href="https://fonts.googleapis.com/css?family=Lobster|Roboto+Condensed" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Didact+Gothic|Loved+by+the+King|Sue+Ellen+Francisco" rel="stylesheet">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <!-- jQuery library -->
@@ -26,6 +26,18 @@
 </head>
 
 <body>
+    <header>
+            <nav>
+                    <a href="/"><img src="/static/BackpackerLogotyp.png" alt="Bagpacker" id="headerpic"></a>
+                    <div id="navlist">
+                            <a href="/" class="active">Ny packlista</a>
+                            <a href="/new_task">Hämta packlista</a>
+                            <a href="/edit_list">Packtips</a>
+                            <a href="/delete_list">Om oss</a>
+                    </div>      
+            </nav>
+    </header>
+
     <main id="packlista">
         <h1>Din packlista<a href="#" id="popover-link" data-toggle="popover" title="Så här har vi genererat packlistan" data-html="true" data-content="Packlistan för din resa till {{location}} är baserad på {{which_data}} väderdata. Temperaturen beräknas ligga mellan {{temp_min}} och {{temp_max}} °C" data-placement="right" data-trigger="hover"> <i class="fas fa-info-circle" id="info"></i></a></h1>
 
