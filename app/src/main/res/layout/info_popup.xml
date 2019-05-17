@@ -10,8 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_margin="30dp"
-        android:textSize="22sp"
+        android:layout_margin="5dp"
+        android:textSize="12sp"
         />
 
 </RelativeLayout>

@@ -1,13 +1,17 @@
 package se.mau.ai9856.bagpackerdemo;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -21,7 +25,8 @@ import org.json.JSONObject;
 public class Destination extends AppCompatActivity {
     private EditText destination;
     private TextView messageToUser;
-    private String url, valUrl, dest;
+    private String valUrl, dest;
+    private Button btnOk;
     private boolean validationOk = false;
     private static final String URL = "url";
 
@@ -33,79 +38,81 @@ public class Destination extends AppCompatActivity {
 
     private void initializeComponents() {
         setContentView(R.layout.activity_destination2);
-        destination = findViewById(R.id.destination);
-        Button btnOk = findViewById(R.id.btnOk);
-        messageToUser = findViewById(R.id.messageToUser);
-        messageToUser.setText("");
+        TextView bulletDestination=findViewById(R.id.page1);
+        bulletDestination.setTextColor(getResources().getColor(R.color.colorPink));
+        btnOk = findViewById(R.id.btnOk);
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dest = destination.getText().toString().trim();
-                valUrl = "https://bagpacker.pythonanywhere.com/validate/?destination="
-                        + dest;
-                char[] chars = dest.toCharArray();
-                boolean containNums = false;
-
-                for (int i = 0; i < (chars.length - 1) && (!containNums); i++) {
-                    if ("0123456789".indexOf(chars[i]) >= 0) {
-                        containNums = true;
-                    }
-                }
-                if (containNums) {
-                    destination.setText("");
-                    messageToUser.setText("OGILTIG INMATNING \n(siffror är INTE ok)");
-                } else {
-                    validate(valUrl);
-                }
+                proceed();
             }
         });
+        btnOk.setEnabled(false);
+        destination = findViewById(R.id.destination);
+        destination.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                destination.setText("");
+                btnOk.setEnabled(false);
+            }
+        });
+        destination.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    dest = destination.getText().toString().trim();
+                    valUrl = "https://bagpacker.pythonanywhere.com/validate/?destination="
+                            + dest;
+                    validate(valUrl);
+                    handled = true;
+                }
+                return handled;
+            }
+        });
+        messageToUser = findViewById(R.id.messageToUser);
+        messageToUser.setText("");
     }
 
     private void validate(String url) {
-        /*PlacesClient places = new PlacesClient("OFFLENX550",
-                "03915e4200417c80047eaf5c6451301b");
-        PlacesQuery query = new PlacesQuery();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line
-        ,query.;
-        destination.setAdapter(adapter);
-
-        places.searchAsync(query, new CompletionHandler() {
-            @Override
-            public void requestCompleted(@Nullable JSONObject jsonObject, @Nullable AlgoliaException e) {
-                destination.showDropDown();
-            }
-        });*/
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest request = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            validationOk = response.getBoolean("destination");
+                            validationOk = response.getBoolean("valid");
+                            messageToUser.setText("");
                         } catch (JSONException e) {
-                            cancel();
                             e.printStackTrace();
+                            cancel();
                         }
                         if (validationOk) {
-                            proceed();
+                            try {
+                                String[] fullResponse = response.getString("destination").split(",");
+                                String shortResponse = fullResponse[0] + "," + fullResponse[fullResponse.length - 1];
+                                destination.setText(shortResponse);
+                                btnOk.setEnabled(true);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         } else {
-                            messageToUser.setText("");
                             destination.setText("");
-                            messageToUser.setText("OGILTIG INMATNING \n(du måste ange en stad)");
+                            messageToUser.setText("OGILTIG INMATNING \n(du måste ange en plats)");
                         }
                     }
                 }, new Response.ErrorListener() {
                     public void onErrorResponse(VolleyError e) {
-                        cancel();
                         e.printStackTrace();
+                        cancel();
                     }
                 });
         queue.add(request);
-        messageToUser.setText("Validerar...");
+        messageToUser.setText("Letar efter plats...");
     }
 
     private void proceed() {
-        url = "https://bagpacker.pythonanywhere.com/android/?param1=" + dest;
+        String url = "https://bagpacker.pythonanywhere.com/android/?param1=" + dest;
         Intent intent = new Intent(Destination.this, TripDate.class);
         intent.putExtra(URL, url);
         startActivity(intent);

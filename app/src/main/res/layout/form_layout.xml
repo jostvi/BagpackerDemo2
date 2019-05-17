@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ChoosePackinglistName">
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"
         android:background="@color/cardview_shadow_end_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:gravity="center"
-            android:text="1"
+            android:text="@string/bullet"
+            android:textColor="@color/colorYellow"
             android:textSize="20sp" />
 
         <TextView
@@ -32,7 +33,8 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/page1"
             android:gravity="center"
-            android:text="2"
+            android:text="@string/bullet"
+            android:textColor="@color/colorYellow"
             android:textSize="20sp" />
 
         <TextView
@@ -41,7 +43,8 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/page2"
             android:gravity="center"
-            android:text="3"
+            android:text="@string/bullet"
+            android:textColor="@color/colorYellow"
             android:textSize="20sp" />
 
         <TextView
@@ -50,7 +53,8 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/page3"
             android:gravity="center"
-            android:text="4"
+            android:text="@string/bullet"
+            android:textColor="@color/colorYellow"
             android:textSize="20sp" />
 
         <TextView
@@ -59,68 +63,36 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/page4"
             android:gravity="center"
-            android:text="5"
+            android:text="@string/bullet"
+            android:textColor="@color/colorYellow"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/page6"
-            android:layout_width="30dp"
+            android:layout_width="29dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:layout_toRightOf="@+id/page5"
-            android:background="@color/screenBackground"
             android:gravity="center"
-
-            android:text="6"
+            android:text="@string/bullet"
+            android:textColor="@color/colorYellow"
             android:textSize="20sp" />
 
 
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/packinglistName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        android:ems="10"
-        android:hint="Ange packlistans titel (max 15 tecken)"
-        android:inputType="textPersonName"
-        android:maxLength="15"
-        android:textColor="#A52A2A"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/btnOk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:text="OK"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.801"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/destination"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/messageToUser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:textColor="@color/colorAccent"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/packinglistName" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -8,7 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Database {
+public class Database { // Gör om till totalt 3 (eller 4) metoder
 
     public static void saveList(Context context, String key, ArrayList<SubList> expList) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences((context));
@@ -49,6 +49,25 @@ public class Database {
     }
 
     public static void deleteName(Context context, String key){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.remove(key);
+        editor.apply();
+    }
+
+    public static void saveInfo(Context context, String key, String info) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences((context));
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(key, info);
+        editor.apply();
+    }
+
+    public static String loadInfo(Context context, String key){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(key, "");
+    }
+
+    public static void deleteInfo(Context context, String key){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.remove(key);
