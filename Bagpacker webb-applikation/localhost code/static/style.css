@@ -117,8 +117,15 @@ button {
   }
 
   #to, #from {
-    display: inline;
+    width: 30% !important;
+    display: inline-flexbox;
   }
+
+  .datefields {
+    display: inline;
+    padding-right: 10%;
+  }
+  
 
   #fetch {
     background-color: #FB005B;
@@ -274,6 +281,33 @@ footer {
   padding: 0 50px 50px 50px 50px;
   display: grid;
   grid-template-columns: 33.3% 33.3% 33.3%;
+  grid-template-areas:
+  'clothes hygiene traveldocs'
+  'electronics specials misc'
+}
+
+#clothes {
+  grid-area: clothes;
+}
+
+#hygiene {
+  grid-area: hygiene;
+}
+
+#traveldocs{
+  grid-area: traveldocs;
+}
+
+#electronics {
+  grid-area: electronics;
+}
+
+#specials {
+  grid-area: specials;
+}
+
+#misc {
+  grid-area: misc;
 }
 
 .sticky {
@@ -302,7 +336,6 @@ display: block;
 display:table-cell;
 text-align:left;
 padding-left: 15px;
-padding-bottom: 10px;
 
 }
 
@@ -310,7 +343,6 @@ padding-bottom: 10px;
 display:table-cell;
 text-align:right;
 padding-right: 5px;
-padding-bottom: 10px;
 }
 
 .input_quantity {
@@ -320,11 +352,14 @@ border: none;
 text-align: right;
 }
 
-
+#tripinfo {
+  margin-left: 10%;
+  margin-right: 10%;
+}
 #packlista {
   width: 80%;
   height: auto;
-  border-radius: 10px;
+  border-radius: 3px;
   box-shadow: 0 0 10px grey;
   padding: 40px 20px 10px 20px;
   margin: 40px auto 40px auto;
@@ -332,6 +367,11 @@ text-align: right;
   background-color: white;
 }
 
+.listicon {
+  height: 30px;
+  width: auto;
+  padding-right: 10px;
+}
 .grid-category {
 height: 400px;
 overflow: auto;
@@ -432,3 +472,69 @@ padding-left: 10px;
 
 /* The styles of the Algolia Places input footer on hover */
 .ap-footer:hover {}
+
+
+@media (max-width: 1100px) {
+  #grid-wrapper {
+    margin: auto;
+    padding: 0 50px 50px 50px 50px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-areas:
+    'clothes hygiene' 
+    'traveldocs electronics'
+    'specials misc'
+  }
+}
+
+@media (max-width: 750px) {
+  #grid-wrapper {
+    width: 80%;
+    padding: 0 50px 50px 50px 50px;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-areas:
+    'clothes'
+    'hygiene'
+    'traveldocs'
+    'electronics'
+    'specials' 
+    'misc'
+  }
+}
+
+@media (max-width: 500px) {
+  #grid-wrapper {
+    width: 100%;
+  }
+} 
+
+@media print {
+  #grid-wrapper {
+    width: 100%;
+    grid-template-columns: 33.3% 33.3% 33.3%;
+    grid-template-areas:
+    'clothes hygiene traveldocs'
+    'electronics specials misc'
+  }
+  .grid-category {
+    height: auto;
+  }
+
+  #navlist {
+    display: none;
+  }
+
+  footer {
+    display: none;
+  }
+
+  #button {
+    display: none;
+  }
+
+  #packlista {
+    margin-top: 0;
+    width: 100%;
+  }
+}

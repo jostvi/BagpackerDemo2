@@ -28,22 +28,26 @@
 <body>
     <header>
             <nav>
-                    <a href="/"><img src="/static/BackpackerLogotyp.png" alt="Bagpacker" id="headerpic"></a>
+                    <a href="/newlist"><img src="/static/BackpackerLogotyp.png" alt="Bagpacker" id="headerpic"></a>
                     <div id="navlist">
-                            <a href="/" class="active">Ny packlista</a>
-                            <a href="/new_task">Hämta packlista</a>
-                            <a href="/edit_list">Packtips</a>
-                            <a href="/delete_list">Om oss</a>
+                            <a href="/newlist" class="active">Ny packlista</a>
+                            <a href="/">Hämta packlista</a>
+                            <a href="/">Packtips</a>
+                            <a href="/">Om oss</a>
                     </div>      
             </nav>
     </header>
 
     <main id="packlista">
-        <h1>Din packlista<a href="#" id="popover-link" data-toggle="popover" title="Så här har vi genererat packlistan" data-html="true" data-content="Packlistan för din resa till {{location}} är baserad på {{which_data}} väderdata. Temperaturen beräknas ligga mellan {{temp_min}} och {{temp_max}} °C. Din packning väger {{total_weight}} kilo." data-placement="right" data-trigger="hover"> <i class="fas fa-info-circle" id="info"></i></a></h1>
-
+        <h1>Din packlista<a href="#" id="popover-link" data-toggle="popover" title="Så här har vi genererat packlistan" data-html="true" data-content="Packlistan för din resa till {{location}} är baserad på {{which_data}} väderdata. Temperaturen beräknas ligga mellan {{temp_min}} och {{temp_max}} °C. Regnrisken är {{rain_risk}}. Din packning väger {{total_weight}} kilo." data-placement="right" data-trigger="hover"> <i class="fas fa-info-circle" id="info"></i></a></h1>
+        <div id="tripinfo">    
+            <p><img src="/static/destination.png" class="listicon"> Destination: {{location}} <img src="/static/calendar.png" class="listicon"> Datum: </p>
+            <p><img src="/static/thermometer.png" class="listicon">Väder: i genomsnitt °C (min: {{temp_min}}°C, max: {{temp_max}}°C) <img src="/static/umbrella.png" class="listicon"> Regnrisk: {{rain_risk}}</p> 
+            <p><img src="/static/weight.png" class="listicon"> Din packning väger {{total_weight}} kg.</p>
+        </div>
         <div id="grid-wrapper">
-            <div class="grid-category">
-                <h2 class="sticky">Kläder</h2>
+            <div class="grid-category" id="clothes">
+                <h2 class="sticky"><img src="/static/clothes.png" class="listicon">Kläder</h2>
                 <div class="margin-top">
                     % for item in item_list:
                         %if item['category'] == "kläder":
@@ -59,8 +63,8 @@
                     %end
                 </div>
             </div>
-            <div class="grid-category">
-                <h2 class="sticky">Hygienartiklar</h2>
+            <div class="grid-category" id="hygiene">
+                <h2 class="sticky"><img src="/static/toothpaste.png" class="listicon">Hygienartiklar</h2>
                 <div class="margin-top">
                     % for item in item_list:
                         %if item['category'] == "necessär":
@@ -76,8 +80,8 @@
                     %end
                 </div>
             </div>
-            <div class="grid-category">
-                <h2 class="sticky">Resehandlingar</h2>
+            <div class="grid-category" id="traveldocs">
+                <h2 class="sticky"><img src="/static/passport.png" class="listicon">Resehandlingar</h2>
                 <div class="margin-top">
                     % for item in item_list:
                         %if item['category'] == "resehandlingar":
@@ -93,8 +97,8 @@
                     %end
                 </div>
             </div>
-            <div class="grid-category">   
-                <h2 class="sticky">Elektronik</h2>
+            <div class="grid-category" id="electronics">   
+                <h2 class="sticky"><img src="/static/electronics.png" class="listicon">Elektronik</h2>
                 <div class="margin-top">
                     % for item in item_list:
                         %if item['category'] == "elektronik":
@@ -110,8 +114,8 @@
                     %end
                 </div>
             </div>
-            <div class="grid-category">   
-                <h2 class="sticky">Specialutrustning</h2>
+            <div class="grid-category" id="specials">   
+                <h2 class="sticky"><img src="/static/knife.png" class="listicon">Specialutrustning</h2>
                 <div class="margin-top">
                     % for item in item_list:
                         %if item['category'] == "specialutrustning":
@@ -127,8 +131,8 @@
                     %end
                 </div>
             </div>
-            <div class="grid-category">
-                <h2 class="sticky">Övrigt</h2>
+            <div class="grid-category" id="misc">
+                <h2 class="sticky"><img src="/static/pencil.png" class="listicon">Övrigt</h2>
                 <div class="margin-top">
                     % for item in item_list:
                         %if item['category'] == "övrigt":

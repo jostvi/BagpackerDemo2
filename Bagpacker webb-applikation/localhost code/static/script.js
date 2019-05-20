@@ -142,4 +142,3 @@ function validateActivityCheckboxes() {
         document.getElementById("nextBtn").disabled = false;
     }
 }
-
