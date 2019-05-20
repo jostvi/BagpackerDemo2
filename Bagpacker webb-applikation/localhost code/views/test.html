@@ -47,24 +47,38 @@
         </div>
         <div id="grid-wrapper">
             <div class="grid-category" id="clothes">
-                <h2 class="sticky"><img src="/static/clothes.png" class="listicon">Kläder</h2>
+                <h2 class="sticky">Kläder<input type="image" src="/static/arrows.png" alt="Submit" class="styledFunction"
+						id="myFunction1"></h2>
                 <div class="margin-top">
+                <div class="table_div" id="kat1">  
+                    <ul id="item_list1">  
                     % for item in item_list:
                         %if item['category'] == "kläder":
-                        <div class="table_div">
-                            <div class="align_left">
+                                <li>
+                                    <div class="align_left">
+                                        <i class="fas fa-check-circle"></i><span class="item_checkbox">{{item['item']}}</span>
+                                    </div>
+                                    <div class="align_right">
+                                        <input type="number" class="input_quantity" name="quantity" min="1" value="{{item['quantity']}}">
+                                    </div>
+                                </li>
+                            
+                            <!-- <div class="align_left">
                                 <i class="fas fa-check-circle"></i><span class="item_checkbox">{{item['item']}}</span>
                             </div>
                             <div class="align_right">
                                 <input type="number" class="input_quantity" name="quantity" min="1" value="{{item['quantity']}}">
-                            </div>
-                        </div>
+                            </div> -->
+                       
                         %end
                     %end
+                    </ul>
+                </div>
+                    <input type="image" src="/static/add-button.gif" alt="Add" class="btn-item" id="btn-item1">
                 </div>
             </div>
             <div class="grid-category" id="hygiene">
-                <h2 class="sticky"><img src="/static/toothpaste.png" class="listicon">Hygienartiklar</h2>
+                <h2 class="sticky">Hygienartiklar</h2>
                 <div class="margin-top">
                     % for item in item_list:
                         %if item['category'] == "necessär":
@@ -81,7 +95,7 @@
                 </div>
             </div>
             <div class="grid-category" id="traveldocs">
-                <h2 class="sticky"><img src="/static/passport.png" class="listicon">Resehandlingar</h2>
+                <h2 class="sticky">Resehandlingar</h2>
                 <div class="margin-top">
                     % for item in item_list:
                         %if item['category'] == "resehandlingar":
@@ -98,7 +112,7 @@
                 </div>
             </div>
             <div class="grid-category" id="electronics">   
-                <h2 class="sticky"><img src="/static/electronics.png" class="listicon">Elektronik</h2>
+                <h2 class="sticky">Elektronik</h2>
                 <div class="margin-top">
                     % for item in item_list:
                         %if item['category'] == "elektronik":
@@ -115,7 +129,7 @@
                 </div>
             </div>
             <div class="grid-category" id="specials">   
-                <h2 class="sticky"><img src="/static/knife.png" class="listicon">Specialutrustning</h2>
+                <h2 class="sticky">Specialutrustning</h2>
                 <div class="margin-top">
                     % for item in item_list:
                         %if item['category'] == "specialutrustning":
@@ -132,7 +146,7 @@
                 </div>
             </div>
             <div class="grid-category" id="misc">
-                <h2 class="sticky"><img src="/static/pencil.png" class="listicon">Övrigt</h2>
+                <h2 class="sticky">Övrigt</h2>
                 <div class="margin-top">
                     % for item in item_list:
                         %if item['category'] == "övrigt":
@@ -161,7 +175,7 @@
     </footer>
     
     
-
+    <script src="/static/jquery_script.js"></script>
 </body>
     
     

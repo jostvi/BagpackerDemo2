@@ -379,6 +379,8 @@ def generate_list():
     else:
         rain_risk = "låg"
 
+    print(item_list)
+
     return template ('test', item_list = item_list, length = length, which_data = which_data,
                      location = location, temp_min = round(temp_min), temp_max = round(temp_max), total_weight = total_weight, rain_risk = rain_risk)
 
@@ -506,10 +508,10 @@ def save_list():
 def static_files(filename):
     return static_file (filename, root="static")
 
-##
-##@error(404)
-##def error404(error):
-##    return template ("error")
+
+@error(404)
+def error404(error):
+   return template ("error")
 
 
 run(host="localhost", port=8080, debug=True)

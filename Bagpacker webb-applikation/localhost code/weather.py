@@ -1,5 +1,6 @@
 from geopy.geocoders import Nominatim
 from pyowm import OWM
+import requests, json
 from statistics import mean
 import psycopg2
 import psycopg2.extras
