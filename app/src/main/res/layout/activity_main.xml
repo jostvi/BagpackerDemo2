@@ -166,6 +166,8 @@
         android:scaleType="fitCenter"
         android:textColor="@color/colorAccent"
         android:textSize="18sp"
+        android:imeOptions="actionSearch"
+        android:inputType="numberSigned"
         app:layout_constraintEnd_toEndOf="@+id/show_saved"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/show_saved"

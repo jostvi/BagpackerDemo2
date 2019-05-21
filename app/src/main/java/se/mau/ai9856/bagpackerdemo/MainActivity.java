@@ -1,12 +1,17 @@
 package se.mau.ai9856.bagpackerdemo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -29,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String ITEMS = "items";
     private static final String NAME = "name";
     private static final String INFO = "info";
-    private Button btnGetList;
 
     @Override
     public void onBackPressed(){
@@ -53,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //btnGetList = findViewById(R.id.getListBtn);
         //btnGetList.setText("Hämta lista");
+        EditText codeInput = findViewById(R.id.password_input);
         Button btnCreateAccount = findViewById(R.id.btnCreateAccount);
         btnCreateAccount.setOnClickListener(new View.OnClickListener() {
 
@@ -71,11 +76,27 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        codeInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    getListFromServer();
+                    handled = true;
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+                return handled;
+            }
+        });
     }
 
-    /*public void getListFromServer(View v) {
-        EditText input = findViewById(R.id.password_input);
-        final String password = input.getText().toString().trim();
+
+
+    public void getListFromServer() {
+        EditText codeInput = findViewById(R.id.password_input);
+        final String password = codeInput.getText().toString().trim();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         String url = "https://bagpacker.pythonanywhere.com/get_list/?param1=" + password;
 
@@ -89,14 +110,11 @@ public class MainActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
                     public void onErrorResponse(VolleyError e) {
                         e.printStackTrace();
-                        Toast.makeText(MainActivity.this,"Fel vid hämtning \nFörsök igen senare", Toast.LENGTH_LONG).show();
-                        btnGetList.setText("Hämta lista");
+                        Toast.makeText(MainActivity.this,"Fel vid hämtning \nSkrev du rätt lösenord?", Toast.LENGTH_LONG).show();
                     }
                 });
 
         requestQueue.add(request);
-        String loading = "Laddar...";
-        btnGetList.setText(loading);
     }
 
     public void showExpandableList(List list) {
@@ -105,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(NAME, list.getName());
         intent.putExtra(INFO, list.getInfo());
         startActivity(intent);
-    }*/
+    }
 
     public void createTrip(View v) {
         Intent createTripIntent = new Intent(this, Destination.class);
