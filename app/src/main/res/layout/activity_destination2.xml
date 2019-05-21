@@ -6,14 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".Destination">
 
-
     <include
         android:id="@+id/include"
         layout="@layout/form_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        tools:layout_editor_absoluteY="0dp"/>
 
     <TextView
         android:id="@+id/questionDestination"
@@ -57,7 +56,7 @@
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="@+id/questionDestination"
         app:layout_constraintStart_toStartOf="@+id/questionDestination"
-        app:layout_constraintTop_toBottomOf="@+id/questionDestination" />
+        app:layout_constraintTop_toBottomOf="@+id/questionDestination"/>
 
     <TextView
         android:id="@+id/messageToUser"
@@ -68,5 +67,18 @@
         app:layout_constraintStart_toEndOf="@+id/include"
         app:layout_constraintStart_toStartOf="@+id/questionDestination"
         app:layout_constraintTop_toBottomOf="@+id/destination"/>
+
+    <ProgressBar
+        android:id="@+id/progressLoader"
+        style="@android:style/Widget.Holo.Light.ProgressBar.Inverse"
+        android:layout_width="226dp"
+        android:layout_height="65dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/questionDestination"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="@+id/questionDestination"
+        app:layout_constraintTop_toBottomOf="@+id/messageToUser"/>
 
 </android.support.constraint.ConstraintLayout>

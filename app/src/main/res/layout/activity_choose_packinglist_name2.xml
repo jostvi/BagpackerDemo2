@@ -17,7 +17,7 @@
     <EditText
         android:id="@+id/packinglistName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="120dp"
         android:layout_marginEnd="32dp"
@@ -42,22 +42,22 @@
         android:scaleType="fitCenter"
         android:textColor="@color/colorAccent"
         android:textSize="24sp"
-        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@id/packinglistName"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/packinglistName"
         app:layout_constraintTop_toBottomOf="@id/packinglistName" />
 
     <ProgressBar
-        android:id="@+id/progress_loader"
+        android:id="@+id/progressLoader"
         style="@android:style/Widget.Holo.Light.ProgressBar.Inverse"
         android:layout_width="226dp"
         android:layout_height="65dp"
         android:layout_centerInParent="true"
         android:layout_marginBottom="288dp"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/include"
-        tools:layout_editor_absoluteX="92dp" />
+        app:layout_constraintEnd_toEndOf="@+id/packinglistName"
+        app:layout_constraintStart_toStartOf="@+id/packinglistName" />
 
 
 </android.support.constraint.ConstraintLayout>
