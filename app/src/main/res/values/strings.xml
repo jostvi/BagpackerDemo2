@@ -20,36 +20,15 @@
     <string name="delete_listItem">-</string>
     <string name="when_then">När ska du resa?</string>
     <string name="this_date">Ange datum (ÅÅ-MM-DD)</string>
-    <string-array name="activities_array">
-        <item>Välj en aktivitet</item>
-        <item>friluftsliv</item>
-        <item>vintersport</item>
-        <item>sol och bad</item>
-        <item>sightseeing</item>
-        <item>kultur- och nattliv</item>
-    </string-array>
-    <string-array name="transport_array">
-        <item>Välj färdmedel</item>
-        <item>bil</item>
-        <item>tåg</item>
-        <item>flyg</item>
-    </string-array>
-    <string-array name="accomodation_array">
-        <item>Välj boende</item>
-        <item>hotell</item>
-        <item>apartment</item>
-        <item>hos kompisar</item>
-        <item>husvagn</item>
-        <item>tält</item>
-    </string-array>
-    <string-array name="expandable_list_test">
-        <item>byxor</item>
-        <item>strumpor</item>
-        <item>t-shirt</item>
-        <item>linne</item>
-        <item>tunn jacka</item>
-        <item>underbyxor</item>
-        <item>keps</item>
-        <item>sandaler</item>
+    <string name="bullet">\u25CF</string>
+    <string-array name="categories">
+        <item>Välj kategori</item>
+        <item>kläder</item>
+        <item>necessär</item>
+        <item>resehandlingar</item>
+        <item>elektronik</item>
+        <item>specialutrustning</item>
+        <item>till barnet</item>
+        <item>övrigt</item>
     </string-array>
 </resources>
