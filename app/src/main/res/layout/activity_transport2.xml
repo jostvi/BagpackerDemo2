@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Transport">
+
+    <include
+        android:id="@+id/include2"
+        layout="@layout/form_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="2dp" />
+
+
+    <TextView
+        android:id="@+id/questionTransport"
+        android:layout_width="310dp"
+        android:layout_height="95dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:ems="10"
+        android:text="Hur ska du ta dig till ditt resmål?"
+        android:textColor="#8B0000"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.162"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/include2"
+        app:layout_constraintVertical_bias="0.196" />
+
+    <CheckBox
+        android:id="@+id/checkCar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="30dp"
+        android:text="Bil"
+        android:textSize="20dp"
+        android:textColor="#8B0000"
+        android:onClick="onCheckboxClicked"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/questionTransport" />
+
+    <CheckBox
+        android:id="@+id/checkTrain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="25dp"
+        android:text="Tåg"
+        android:textSize="20dp"
+        android:textColor="#8B0000"
+        android:onClick="onCheckboxClicked"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkCar" />
+
+    <CheckBox
+        android:id="@+id/checkFlight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="25dp"
+        android:text="Flyg"
+        android:textSize="20sp"
+        android:textColor="#8B0000"
+        android:onClick="onCheckboxClicked"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkTrain" />
+
+    <CheckBox
+        android:id="@+id/checkBus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="25sp"
+        android:text="Buss"
+        android:textSize="20sp"
+        android:textColor="#8B0000"
+        android:onClick="onCheckboxClicked"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkFlight" />
+
+    <CheckBox
+        android:id="@+id/checkBike"
+        android:layout_width="94dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="28dp"
+        android:text="Cykel"
+        android:textColor="#8B0000"
+        android:onClick="onCheckboxClicked"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/checkBus"
+        app:layout_constraintTop_toBottomOf="@+id/questionTransport" />
+
+    <CheckBox
+        android:id="@+id/checkMotorbike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="25dp"
+        android:text="Motorcykel"
+        android:textSize="20sp"
+        android:textColor="#A52A2A"
+        android:onClick="onCheckboxClicked"
+        app:layout_constraintStart_toEndOf="@+id/checkTrain"
+        app:layout_constraintTop_toBottomOf="@+id/checkBike" />
+
+    <CheckBox
+        android:id="@+id/checkBoat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="25dp"
+        android:text="Båt"
+        android:textSize="20sp"
+        android:textColor="#8B0000"
+        android:onClick="onCheckboxClicked"
+        app:layout_constraintStart_toEndOf="@+id/checkFlight"
+        app:layout_constraintTop_toBottomOf="@+id/checkMotorbike" />
+
+    <CheckBox
+        android:id="@+id/otherTransport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="24dp"
+        android:onClick="onCheckboxClicked"
+        android:text="Annat"
+        android:textColor="#8B0000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/checkBus"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoat" />
+
+
+    <TextView
+        android:id="@+id/messageToUser"
+        android:layout_width="396dp"
+        android:layout_height="46dp"
+        android:layout_margin="10dp"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="7dp"
+        tools:layout_editor_absoluteY="440dp" />
+
+</android.support.constraint.ConstraintLayout>

@@ -18,6 +18,7 @@ public class CreateNewAccount extends AppCompatActivity {
     static final String mypreference = "mypref";
     static final String Name = "nameKey";
     static final String LÖSENORD = "emailKey";
+    private static final String URL = "url";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,11 @@ public class CreateNewAccount extends AppCompatActivity {
         btnLogin.setOnClickListener (new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (CreateNewAccount.this, CreateTripActivity.class);
+                String usernameToURL = username.getText().toString();
+                String passwordToURL = password.getText().toString();
+                String url = "http://bagpacker.pythonanywhere.com/android/?param1="
+                        +usernameToURL + "&param2=" + passwordToURL;
+                Intent intent = new Intent (CreateNewAccount.this, Destination.class);
                 startActivity(intent);
 
 
