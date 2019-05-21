@@ -20,33 +20,42 @@
     <string name="delete_listItem">-</string>
     <string name="when_then">När ska du resa?</string>
     <string name="this_date">Ange datum (ÅÅ-MM-DD)</string>
-<<<<<<< HEAD
     <string name="bullet">\u25CF</string>
-    <string-array name="activities_array">
-        <item>Välj en aktivitet</item>
-        <item>friluftsliv</item>
-        <item>vintersport</item>
-        <item>sol och bad</item>
-        <item>sightseeing</item>
-        <item>kultur- och nattliv</item>
-    </string-array>
-    <string-array name="transport_array">
-        <item>Välj färdmedel</item>
-        <item>bil</item>
-        <item>tåg</item>
-        <item>flyg</item>
-    </string-array>
-    <string-array name="accomodation_array">
-        <item>Välj boende</item>
-        <item>hotell</item>
-        <item>apartment</item>
-        <item>hos kompisar</item>
-        <item>husvagn</item>
-        <item>tält</item>
-    </string-array>
-=======
+    <string name="question_destination">Vart ska du resa?</string>
+    <string name="question_date">Mellan vilka datum ska du resa?</string>
+    <string name="question_transport">Hur ska du ta dig till resemål?</string>
+    <string name="question_accomodation">Hur ska du bo?</string>
+    <string name="question_activity">Vilka aktiviteter planerar du?</string>
+    <string name="car">Bil</string>
+    <string name="train">Tåg</string>
+    <string name="flight">Flyg</string>
+    <string name="bus">Buss</string>
+    <string name="bike">Cykel</string>
+    <string name="motorbike">Motorcykel</string>
+    <string name="boat">Båt</string>
+    <string name="other">Annat</string>
+    <string name="hotel">Hotell</string>
+    <string name="withFriend">Hos kompisar</string>
+    <string name="caravan">Husvagn</string>
+    <string name="apartment">Lägenhet</string>
+    <string name="tent">Tält</string>
+    <string name="cottage">Stuga</string>
 
->>>>>>> cd2a9e486782558232913b4de43cd4c25096200d
+
+
+    Lägenhet
+    Hos kompisar
+    Husvagn
+    Tält
+
+
+
+
+
+
+
+
+
     <string-array name="categories">
         <item>Välj kategori</item>
         <item>kläder</item>

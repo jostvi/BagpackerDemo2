@@ -27,6 +27,14 @@ public class TripActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip2);
+        TextView bulletDate=findViewById(R.id.page2);
+        bulletDate.setTextColor(getResources().getColor(R.color.colorPink));
+        TextView bulletTransport=findViewById(R.id.page3);
+        bulletTransport.setTextColor(getResources().getColor(R.color.colorPink));
+        TextView bulletAccomodation=findViewById(R.id.page4);
+        bulletAccomodation.setTextColor(getResources().getColor(R.color.colorPink));
+        TextView bulletActivity=findViewById(R.id.page5);
+        bulletActivity.setTextColor(getResources().getColor(R.color.colorPink));
 
         checkOutdoor = findViewById(R.id.checkOutdoor);
         checkWintersport = findViewById(R.id.checkWintersport);

@@ -33,24 +33,29 @@ public class Destination extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-<<<<<<< HEAD
         setContentView(R.layout.activity_destination2);
-        TextView bulletDestination=findViewById(R.id.page1);
+        TextView bulletDestination = findViewById(R.id.page1);
         bulletDestination.setTextColor(getResources().getColor(R.color.colorPink));
-
-=======
-        initializeComponents();
     }
->>>>>>> cd2a9e486782558232913b4de43cd4c25096200d
 
     private void initializeComponents() {
         setContentView(R.layout.activity_destination2);
+        btnOk = findViewById(R.id.btnOk);
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                proceed();
+            }
+        });
+        btnOk.setEnabled(false);
         destination = findViewById(R.id.destination);
         destination.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 destination.setText("");
                 btnOk.setEnabled(false);
+
             }
         });
         destination.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -69,37 +74,6 @@ public class Destination extends AppCompatActivity {
         });
         messageToUser = findViewById(R.id.messageToUser);
         messageToUser.setText("");
-
-        btnOk = findViewById(R.id.btnOk);
-        btnOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-<<<<<<< HEAD
-                if (destination.getText().length() == 0) {
-                    messageToUser.setText("Ange resemål");
-                }else{
-                    String dest = destination.getText().toString();
-                    dest = dest.trim();
-                    String url = "https://bagpacker.pythonanywhere.com/android/?param1="
-                            + dest;
-
-                          /*  + "&param2=" + "" //tripDate
-                            + "&param3=" + "" //transport
-                            + "&param4=" + "" //accomodation
-                            + "&param5=" + ""; //tripactivity*/
-
-
-
-                    Intent intent = new Intent(Destination.this,TripDate.class );
-                    intent.putExtra(URL, url);
-                    startActivity(intent);
-                }
-
-=======
-                proceed();
->>>>>>> cd2a9e486782558232913b4de43cd4c25096200d
-            }
-        });
     }
 
     private void validate(String url) {
@@ -139,8 +113,6 @@ public class Destination extends AppCompatActivity {
         messageToUser.setText("Letar efter plats...");
     }
 
-<<<<<<< HEAD
-=======
     private void proceed() {
         String url = "https://bagpacker.pythonanywhere.com/android/?param1=" + dest;
         Intent intent = new Intent(Destination.this, TripDate.class);
@@ -159,5 +131,4 @@ public class Destination extends AppCompatActivity {
         super.onResume();
         initializeComponents();
     }
->>>>>>> cd2a9e486782558232913b4de43cd4c25096200d
 }
