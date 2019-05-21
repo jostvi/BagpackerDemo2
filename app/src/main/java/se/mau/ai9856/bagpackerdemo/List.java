@@ -1,7 +1,5 @@
 package se.mau.ai9856.bagpackerdemo;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONException;
