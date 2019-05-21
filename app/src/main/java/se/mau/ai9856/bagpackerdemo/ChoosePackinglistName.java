@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,7 @@ public class ChoosePackinglistName extends AppCompatActivity {
         packinglistName = findViewById(R.id.packinglistName);
         messageToUser = findViewById(R.id.messageToUser);
         Button btnOk = findViewById(R.id.btnOk);
+        final ProgressBar progressBar = findViewById(R.id.progressLoader);
 
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +52,8 @@ public class ChoosePackinglistName extends AppCompatActivity {
                 if (packinglistName.getText().length() > 0
                         && !packinglistName.getText().toString().startsWith(" ") // Använd trim() istället
                         && packinglistName.getText().length() < 16) {
-                    messageToUser.setText("Genererar packlista...");
+                    progressBar.setVisibility(View.VISIBLE);
+//                    messageToUser.setText("Genererar packlista...");
                     getJSON(url);
                 } else {
                     messageToUser.setText("Ange packlistans namn (max 15 tecken)");

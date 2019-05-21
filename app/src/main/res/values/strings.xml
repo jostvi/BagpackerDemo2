@@ -41,7 +41,7 @@
     <string name="apartment">Lägenhet</string>
     <string name="tent">Tält</string>
     <string name="cottage">Stuga</string>
-    <string name="hintPackingList">Ange packlistekod</string>
+    <string name="hintPackingList">Min kod</string>
     <string name="textLogin">Logga in</string>
 
     <string-array name="categories">
