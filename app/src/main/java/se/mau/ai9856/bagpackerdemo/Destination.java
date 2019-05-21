@@ -1,12 +1,13 @@
 package se.mau.ai9856.bagpackerdemo;
 
-import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -36,15 +37,17 @@ public class Destination extends AppCompatActivity {
         setContentView(R.layout.activity_destination2);
         TextView bulletDestination = findViewById(R.id.page1);
         bulletDestination.setTextColor(getResources().getColor(R.color.colorPink));
+        initializeComponents();
     }
 
     private void initializeComponents() {
         setContentView(R.layout.activity_destination2);
+        TextView bulletDestination=findViewById(R.id.page1);
+        bulletDestination.setTextColor(getResources().getColor(R.color.colorPink));
         btnOk = findViewById(R.id.btnOk);
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 proceed();
             }
         });
@@ -68,6 +71,8 @@ public class Destination extends AppCompatActivity {
                             + dest;
                     validate(valUrl);
                     handled = true;
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
                 return handled;
             }
@@ -94,6 +99,7 @@ public class Destination extends AppCompatActivity {
                                 String[] fullResponse = response.getString("destination").split(",");
                                 String shortResponse = fullResponse[0] + "," + fullResponse[fullResponse.length - 1];
                                 destination.setText(shortResponse);
+                                dest = fullResponse[0];
                                 btnOk.setEnabled(true);
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -123,7 +129,7 @@ public class Destination extends AppCompatActivity {
     private void cancel() {
         Intent intent = new Intent(Destination.this, MainActivity.class);
         startActivity(intent);
-        Toast.makeText(Destination.this, "FEL VID HÄMTNING", Toast.LENGTH_LONG).show();
+        Toast.makeText(Destination.this, "ERROR: FEL VID HÄMTNING", Toast.LENGTH_LONG).show();
     }
 
     @Override

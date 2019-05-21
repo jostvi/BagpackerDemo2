@@ -50,7 +50,7 @@
         android:textColor="#8B0000"
         android:onClick="onCheckboxClicked"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/questionAccomodation" />
+        app:layout_constraintTop_toBottomOf="@id/questionAccomodation" />
 
     <CheckBox
         android:id="@+id/checkWintersport"
@@ -63,7 +63,7 @@
         android:textColor="#8B0000"
         android:onClick="onCheckboxClicked"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkOutdoor" />
+        app:layout_constraintTop_toBottomOf="@id/checkOutdoor" />
 
     <CheckBox
         android:id="@+id/checkBeach"
@@ -76,7 +76,7 @@
         android:textColor="#8B0000"
         android:onClick="onCheckboxClicked"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkWintersport" />
+        app:layout_constraintTop_toBottomOf="@id/checkWintersport" />
 
     <CheckBox
         android:id="@+id/checkSightseeing"
@@ -89,20 +89,46 @@
         android:textColor="#8B0000"
         android:onClick="onCheckboxClicked"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBeach" />
+        app:layout_constraintTop_toBottomOf="@id/checkBeach" />
 
     <CheckBox
-        android:id="@+id/checkCultureNightlife"
+        android:id="@+id/checkCulture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginTop="25dp"
-        android:text="Kultur- och nattliv"
+        android:text="Kultur"
         android:textSize="20dp"
         android:textColor="#8B0000"
         android:onClick="onCheckboxClicked"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkSightseeing" />
+        app:layout_constraintTop_toBottomOf="@id/checkSightseeing" />
+
+    <CheckBox
+        android:id="@+id/checkNightlife"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="25dp"
+        android:text="Nattliv"
+        android:textSize="20dp"
+        android:textColor="#8B0000"
+        android:onClick="onCheckboxClicked"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/checkCulture" />
+
+    <CheckBox
+        android:id="@+id/otherActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="25dp"
+        android:text="Annat"
+        android:textSize="20dp"
+        android:textColor="#8B0000"
+        android:onClick="onCheckboxClicked"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkNightlife" />
 
 
     <TextView

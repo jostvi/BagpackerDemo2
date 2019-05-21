@@ -1,0 +1,177 @@
+<!doctype html>
+
+<html lang="sv">
+<head>
+
+        <title>Bagpacker</title>
+        <meta charset="utf8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/static/style.css" rel="stylesheet">
+        <link rel='shortcut icon' type='image/x-icon' href="/static/favicon.png">
+        <link href="https://fonts.googleapis.com/css?family=Didact+Gothic|Loved+by+the+King|Sue+Ellen+Francisco" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script>
+                $(document).ready(function(){
+                  $('[data-toggle="popover"]').popover(); 
+                });
+        </script>
+                
+</head>
+
+<body>
+    <header>
+            <nav>
+                    <a href="/newlist"><img src="/static/BackpackerLogotyp.png" alt="Bagpacker" id="headerpic"></a>
+                    <div id="navlist">
+                            <a href="/newlist" class="active">Ny packlista</a>
+                            <a href="/">Hämta packlista</a>
+                            <a href="/">Packtips</a>
+                            <a href="/">Om oss</a>
+                    </div>      
+            </nav>
+    </header>
+
+    <main id="packlista">
+        <h1>Din packlista<a href="#" id="popover-link" data-toggle="popover" title="Så här har vi genererat packlistan" data-html="true" data-content="Packlistan för din resa till {{location}} är baserad på {{which_data}} väderdata. Temperaturen beräknas ligga mellan {{temp_min}} och {{temp_max}} °C. Regnrisken är {{rain_risk}}. Din packning väger {{total_weight}} kilo." data-placement="right" data-trigger="hover"> <i class="fas fa-info-circle" id="info"></i></a></h1>
+        <div id="grid-wrapper">
+            <div class="grid-category" id="clothes">
+                <h2 class="sticky">Kläder<input type="image" src="/static/arrows.png" alt="arrow" class="styledFunction" id="myFunction1"></h2>
+                    
+                <div class="margin-top">
+                <div class="table_div" id="kat1">  
+                    <ul id="item_list1">  
+                    % for item in item_list:
+                        %if item['category'] == "kläder":
+                                <li>
+                                    <div class="align_left">
+                                        <i class="fas fa-check-circle"></i><span class="item_checkbox">{{item['item']}}</span>
+                                    </div>
+                                    <div class="align_right">
+                                        <input type="number" class="input_quantity" name="quantity" min="1" value="{{item['quantity']}}">
+                                    </div>
+                                </li>
+                        <!-- <div class="table_div">
+                            <div class="align_left">
+                                <i class="fas fa-check-circle"></i><span class="item_checkbox">{{item['item']}}</span>
+                            </div>
+                            <div class="align_right">
+                                <input type="number" class="input_quantity" name="quantity" min="1" value="{{item['quantity']}}">
+                            </div>
+                        </div> -->
+                        %end
+                    %end
+                    </ul>
+                </div>
+                    <input type="image" src="/static/add-button.gif" alt="Add" class="btn-item" id="btn-item1">
+                </div>
+            </div>
+            <div class="grid-category" id="hygiene">
+                <h2 class="sticky">Hygienartiklar</h2>
+                <div class="margin-top">
+                    % for item in item_list:
+                        %if item['category'] == "necessär":
+                        <div class="table_div">
+                            <div class="align_left">
+                                <i class="fas fa-check-circle"></i><span class="item_checkbox">{{item['item']}}</span>
+                            </div>
+                            <div class="align_right">
+                                <input type="number" class="input_quantity" name="quantity" min="1" value="{{item['quantity']}}">
+                            </div>
+                        </div>
+                        %end
+                    %end
+                </div>
+            </div>
+            <div class="grid-category" id="traveldocs">
+                <h2 class="sticky">Resehandlingar</h2>
+                <div class="margin-top">
+                    % for item in item_list:
+                        %if item['category'] == "resehandlingar":
+                        <div class="table_div">
+                            <div class="align_left">
+                                <i class="fas fa-check-circle"></i><span class="item_checkbox">{{item['item']}}</span>
+                            </div>
+                            <div class="align_right">
+                                <input type="number" class="input_quantity" name="quantity" min="1" value="{{item['quantity']}}">
+                            </div>
+                        </div>
+                        %end
+                    %end
+                </div>
+            </div>
+            <div class="grid-category" id="electronics">   
+                <h2 class="sticky">Elektronik</h2>
+                <div class="margin-top">
+                    % for item in item_list:
+                        %if item['category'] == "elektronik":
+                        <div class="table_div">
+                            <div class="align_left">
+                                <i class="fas fa-check-circle"></i><span class="item_checkbox">{{item['item']}}</span>
+                            </div>
+                            <div class="align_right">
+                                <input type="number" class="input_quantity" name="quantity" min="1" value="{{item['quantity']}}">
+                            </div>
+                        </div>
+                        %end
+                    %end
+                </div>
+            </div>
+            <div class="grid-category" id="specials">   
+                <h2 class="sticky">Specialutrustning</h2>
+                <div class="margin-top">
+                    % for item in item_list:
+                        %if item['category'] == "specialutrustning":
+                        <div class="table_div">
+                            <div class="align_left">
+                                <i class="fas fa-check-circle"></i><span class="item_checkbox">{{item['item']}}</span>
+                            </div>
+                            <div class="align_right">
+                                <input type="number" class="input_quantity" name="quantity" min="1" value="{{item['quantity']}}">
+                            </div>
+                        </div>
+                        %end
+                    %end
+                </div>
+            </div>
+            <div class="grid-category" id="misc">
+                <h2 class="sticky">Övrigt</h2>
+                <div class="margin-top">
+                    % for item in item_list:
+                        %if item['category'] == "övrigt":
+                        <div class="table_div">
+                            <div class="align_left">
+                                <i class="fas fa-check-circle"></i><span class="item_checkbox">{{item['item']}}</span>
+                            </div>
+                            <div class="align_right">
+                                <input type="number" class="input_quantity" name="quantity" min="1" value="{{item['quantity']}}">
+                            </div>
+                        </div>
+                        %end
+                    %end
+                </div>
+            </div>
+        </div>
+        <form action="/save_list/" method="POST">
+            <input type="hidden" name="saved_list" value="{{item_list}}">
+            <input type="submit" id="button" value="Spara listan">
+        </form>
+
+    </main>
+
+    <footer>
+        &copy; Team Bagpacker 2019
+    </footer>
+    
+    
+    <script src="/static/jquery_script.js"></script>
+</body>
+    
+    
+</html>

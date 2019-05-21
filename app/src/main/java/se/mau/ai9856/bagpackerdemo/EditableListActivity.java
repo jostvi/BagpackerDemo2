@@ -157,7 +157,7 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
     }
 
     public void addItem(SubList subList, String newItem) {
-        subList.addItem(new Packable(newItem, 1));
+        subList.addItem(new Packable(newItem, 1, 0));
         adapter.notifyDataSetChanged();
         etNewItem.setText("");
         etNewItem.setHint("Lägg till föremål");

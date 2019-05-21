@@ -128,6 +128,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkTent" />
 
+    <CheckBox
+        android:id="@+id/otherAccommodation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="25dp"
+        android:onClick="onCheckboxClicked"
+        android:text="Annat"
+        android:textColor="#8B0000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/checkCottage" />
 
     <TextView
         android:id="@+id/messageToUser"

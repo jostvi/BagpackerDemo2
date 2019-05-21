@@ -1,220 +1,144 @@
-/* 
-Orginal Page: http://thecodeplayer.com/walkthrough/jquery-multi-step-form-with-progress-bar 
+var currentTab = 0;
+showTab(currentTab);
 
-*/
-//jQuery time
+function showTab(n) {
+    var x = document.getElementsByClassName("step");
+    x[n].style.display = "block";
 
-//eget test
-
-
-
-
-//eget test slut
-
-
-
-var current_fs, next_fs, previous_fs; //fieldsets
-var left, opacity, scale; //fieldset properties which we will animate
-var animating; //flag to prevent quick multi-click glitches
-
-
-var form = $("#msform");
-
-$(".next").click(function(){
-
-	if(animating) return false;
-	animating = true;
-	
-	current_fs = $(this).parent();
-	next_fs = $(this).parent().next();
-	
-	//activate next step on progressbar using the index of next_fs
-	$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-	
-	//show the next fieldset
-	next_fs.show(); 
-	//hide the current fieldset with style
-	current_fs.animate({opacity: 0}, {
-		step: function(now, mx) {
-			//as the opacity of current_fs reduces to 0 - stored in "now"
-			//1. scale current_fs down to 80%
-			scale = 1 - (1 - now) * 0.2;
-			//2. bring next_fs from the right(50%)
-			left = (now * 50)+"%";
-			//3. increase opacity of next_fs to 1 as it moves in
-			opacity = 1 - now;
-			current_fs.css({'transform': 'scale('+scale+')'});
-			next_fs.css({'left': left, 'opacity': opacity});
-		}, 
-		duration: 800, 
-		complete: function(){
-			current_fs.hide();
-			animating = false;
-		}, 
-		//this comes from the custom easing plugin
-		easing: 'easeInOutBack'
-	});
-});
-
-$(".previous").click(function(){
-	if(animating) return false;
-	animating = true;
-	
-	current_fs = $(this).parent();
-	previous_fs = $(this).parent().prev();
-	
-	//de-activate current step on progressbar
-	$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
-	
-	//show the previous fieldset
-	previous_fs.show(); 
-	//hide the current fieldset with style
-	current_fs.animate({opacity: 0}, {
-		step: function(now, mx) {
-			//as the opacity of current_fs reduces to 0 - stored in "now"
-			//1. scale previous_fs from 80% to 100%
-			scale = 0.8 + (1 - now) * 0.2;
-			//2. take current_fs to the right(50%) - from 0%
-			left = ((1-now) * 50)+"%";
-			//3. increase opacity of previous_fs to 1 as it moves in
-			opacity = 1 - now;
-			current_fs.css({'left': left});
-			previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity});
-		}, 
-		duration: 800, 
-		complete: function(){
-			current_fs.hide();
-			animating = false;
-		}, 
-		//this comes from the custom easing plugin
-		easing: 'easeInOutBack'
-	});
-});
-
-$(".submit").click(function(){
-	alert('Form is submitting');
-	return true;
-})
-
-
-/*Kalender */
-
-$( function() {
-	$.datepicker.setDefaults($.datepicker.regional['sv']);
-	var dateFormat = "yy/mm/dd",
-	from = $( "#from" )
-		.datepicker({
-		dateFormat: "yy/mm/dd",
-		showAnim: "slideDown",
-		defaultDate: "0",
-		changeMonth: true,
-		numberOfMonths: 1, 
-		minDate: 0
-		})
-		.on( "change", function() {
-		to.datepicker( "option", "minDate", getDate( this ) );
-		}),
-	to = $( "#to" ).datepicker({
-		defaultDate: "+1w",
-		dateFormat: "yy/mm/dd",
-		showAnim: "slideDown",
-		changeMonth: true,
-		numberOfMonths: 2,
-		minDate: 0
-	})
-	.on( "change", function() {
-		from.datepicker( "option", "maxDate", getDate( this ) );
-	
-	});
-	
-	function getDate( element ) {
-	var date;
-	try {
-		date = $.datepicker.parseDate( dateFormat, element.value );
-	} catch( error ) {
-		date = null;
-	}
-
-	return date;
-	}
-} );
-
-
-/* Swedish initialisation for the jQuery UI date picker plugin. */
-/* Written by Anders Ekdahl ( anders@nomadiz.se). */
-( function( factory ) {
-	if ( typeof define === "function" && define.amd ) {
-
-		// AMD. Register as an anonymous module.
-		define( [ "../widgets/datepicker" ], factory );
-	} else {
-
-		// Browser globals
-		factory( jQuery.datepicker );
-	}
-}( function( datepicker ) {
-
-datepicker.regional.sv = {
-	closeText: "Stäng",
-	prevText: "&#xAB;Förra",
-	nextText: "Nästa&#xBB;",
-	currentText: "Idag",
-	monthNames: [ "januari","februari","mars","april","maj","juni",
-	"juli","augusti","september","oktober","november","december" ],
-	monthNamesShort: [ "jan.","feb.","mars","apr.","maj","juni",
-	"juli","aug.","sep.","okt.","nov.","dec." ],
-	dayNamesShort: [ "sön","mån","tis","ons","tor","fre","lör" ],
-	dayNames: [ "söndag","måndag","tisdag","onsdag","torsdag","fredag","lördag" ],
-	dayNamesMin: [ "sö","må","ti","on","to","fr","lö" ],
-	weekHeader: "Ve",
-	dateFormat: "yy-mm-dd",
-	firstDay: 1,
-	isRTL: false,
-	showMonthAfterYear: false,
-	yearSuffix: "" };
-datepicker.setDefaults( datepicker.regional.sv );
-
-return datepicker.regional.sv;
-
-} ) );
-
-//checkbox icons
-
-$(document).ready(function(){
-    // add/remove checked class
-    $(".image-radio").each(function(){
-        if($(this).find('input[type="radio"]').first().attr("checked")){
-            $(this).addClass('image-radio-checked');
-        }else{
-            $(this).removeClass('image-radio-checked');
-        }
-    });
-
-    // sync the input state
-    $(".image-radio").on("click", function(e){
-        $(".image-radio").removeClass('image-radio-checked');
-        $(this).addClass('image-radio-checked');
-        var $radio = $(this).find('input[type="radio"]');
-        $radio.prop("checked",!$radio.prop("checked"));
-
-        e.preventDefault();
-    });
-
-    // add/remove checked class
-    $(".image-checkbox").each(function(){
-        if($(this).find('input[type="checkbox"]').first().attr("checked")){
-            $(this).addClass('image-checkbox-checked');
-        }else{
-            $(this).removeClass('image-checkbox-checked');
-        }
-    });
-
-    // sync the input state
-    $(".image-checkbox").on("click", function(e){
-        $(this).toggleClass('image-checkbox-checked');
-        var $checkbox = $(this).find('input[type="checkbox"]');
-        $checkbox.prop("checked",!$checkbox.prop("checked"));
+    if (n == 0) {
+        document.getElementById("prevBtn").style.display = "none";
+    } else {
+        document.getElementById("prevBtn").style.display = "inline";
+    }
+    if (n == (x.length -1)) {
+        document.getElementById("nextBtn").innerHTML = "Generera packlista!";
+    } else {
+        document.getElementById("nextBtn").innerHTML = "Nästa";
+    }
     
-        e.preventDefault();
+    fixStepIndicator(n)
+}
+
+async function nextPrev(n) {
+    // kolla switch case
+    var x = document.getElementsByClassName("step");
+    if (n == 1 && !validateForm()) return false;
+    const url = '/validate_destination';
+    const destination = document.getElementById('destination').value;
+    const data = {
+        destination,
+    };
+    const response = await fetch(url, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, cors, *same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+            'Content-Type': 'application/json',
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrer: 'no-referrer', // no-referrer, *client
+        body: JSON.stringify(data), // body data type must match "Content-Type" header
     });
-});
+    const parsedResponse = await response.json();
+    if (!parsedResponse.valid) {
+        var text
+        text = "Destinationen du angav är inte giltig."
+
+        document.getElementById("destination-error").innerHTML = text;
+        return;
+    }
+    else {
+        var text
+        text = "Giltig destination."
+
+        document.getElementById("destination-error").innerHTML = text;
+    }
+    x[currentTab].style.display = "none";
+    currentTab = currentTab + n; 
+    if (currentTab >= x.length) {
+        document.getElementById("multi-step-form").submit();
+        return false;
+    }
+    showTab(currentTab);
+}
+
+function validateForm() {
+    var x, y, i, valid = true;
+    x = document.getElementsByClassName("step");
+    y = x[currentTab].getElementsByTagName("input");
+    for (i = 0; i < y.length; i++) {
+        //kan man lägga in fler saker här???
+        if (y[i].value == "") {
+            y[i].className += " invalid";
+            valid = false;
+        }
+    }
+    if (valid) {
+        document.getElementsByClassName("dots")[currentTab].className += " finish";
+    }
+    return valid;
+}
+
+function fixStepIndicator(n) {
+        var i, x = document.getElementsByClassName("dots");
+        for (i = O; i < x.length; i++) {
+            x[i].className = x[i].className.replace(" active", "");
+        }   
+        x[n].className += " active";
+    }
+
+function validateTransportCheckboxes() { 
+    
+    if (!document.getElementById("transport1").checked && !document.getElementById("transport2").checked
+        && !document.getElementById("transport3").checked && !document.getElementById("transport4").checked
+        && !document.getElementById("transport5").checked && !document.getElementById("transport6").checked
+        && !document.getElementById("transport7").checked && !document.getElementById("transport8").checked) {
+        var text
+        text = "Du måste välja minst ett alternativ"
+
+        document.getElementById("transport_validation").innerHTML = text;
+        document.getElementById("nextBtn").disabled = true;
+
+        }
+    else {
+        document.getElementById("nextBtn").disabled = false;
+    }
+};
+
+function validateAccoCheckboxes() { 
+    
+    if (!document.getElementById("accommodation1").checked && !document.getElementById("accommodation2").checked
+        && !document.getElementById("accommodation3").checked && !document.getElementById("accommodation4").checked
+        && !document.getElementById("accommodation5").checked && !document.getElementById("accommodation6").checked
+        && !document.getElementById("accommodation7").checked && !document.getElementById("accommodation8").checked) {
+        var text
+        text = "Du måste välja minst ett alternativ"
+
+        document.getElementById("accommodation_validation").innerHTML = text;
+        document.getElementById("nextBtn").disabled = true;
+
+        }
+    else {
+        document.getElementById("nextBtn").disabled = false;
+    }
+}
+
+function validateActivityCheckboxes() { 
+    
+    if (!document.getElementById("activity1").checked && !document.getElementById("activity2").checked
+        && !document.getElementById("activity3").checked && !document.getElementById("activity4").checked
+        && !document.getElementById("activity5").checked && !document.getElementById("activity6").checked
+        && !document.getElementById("activity7").checked && !document.getElementById("activity8").checked) {
+        var text
+        text = "Du måste välja minst ett alternativ"
+
+        document.getElementById("activity_validation").innerHTML = text;
+        document.getElementById("nextBtn").disabled = true;
+
+        }
+    else {
+        document.getElementById("nextBtn").disabled = false;
+    }
+}

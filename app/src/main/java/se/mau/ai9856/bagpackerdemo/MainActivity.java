@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeComponents() {
         setContentView(R.layout.activity_main);
-        btnGetList = findViewById(R.id.getListBtn);
-        btnGetList.setText("Hämta lista");
+        //btnGetList = findViewById(R.id.getListBtn);
+        //btnGetList.setText("Hämta lista");
         Button btnCreateAccount = findViewById(R.id.btnCreateAccount);
         btnCreateAccount.setOnClickListener(new View.OnClickListener() {
 
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void getListFromServer(View v) {
+    /*public void getListFromServer(View v) {
         EditText input = findViewById(R.id.password_input);
         final String password = input.getText().toString().trim();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(NAME, list.getName());
         intent.putExtra(INFO, list.getInfo());
         startActivity(intent);
-    }
+    }*/
 
     public void createTrip(View v) {
         Intent createTripIntent = new Intent(this, Destination.class);

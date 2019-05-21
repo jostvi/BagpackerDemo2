@@ -6,6 +6,7 @@
     <string name="delete_btn">X</string>
     <string name="title">BAGPACKER</string>
     <string name="createTrip">Ny resa</string>
+    <string name="myList">Min packlista</string>
     <string name="log">log</string>
     <string name="generate">Generera lista!</string>
     <string name="save_item">+</string>
@@ -40,21 +41,8 @@
     <string name="apartment">Lägenhet</string>
     <string name="tent">Tält</string>
     <string name="cottage">Stuga</string>
-
-
-
-    Lägenhet
-    Hos kompisar
-    Husvagn
-    Tält
-
-
-
-
-
-
-
-
+    <string name="hintPackingList">Ange packlistekod</string>
+    <string name="textLogin">Logga in</string>
 
     <string-array name="categories">
         <item>Välj kategori</item>

@@ -3,11 +3,13 @@ package se.mau.ai9856.bagpackerdemo;
 public class Packable {
     private final String name;
     private int quantity;
+    private float weight;
     protected boolean isSelected = false;
 
-    public Packable(String name, int quantity){
+    public Packable(String name, int quantity, float weight){
         this.name = name;
         this.quantity = quantity;
+        this.weight  =weight;
     }
 
     public String getItemName(){
@@ -26,5 +28,9 @@ public class Packable {
 
     public int getQuantity(){
         return quantity;
+    }
+
+    public float getWeight(){
+        return weight;
     }
 }

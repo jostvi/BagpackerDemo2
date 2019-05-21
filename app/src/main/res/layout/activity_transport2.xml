@@ -190,7 +190,7 @@
         app:layout_constraintTop_toBottomOf="@+id/checkMotorbike" />
 
     <CheckBox
-        android:id="@+id/checkOther"
+        android:id="@+id/otherTransport"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="92dp"

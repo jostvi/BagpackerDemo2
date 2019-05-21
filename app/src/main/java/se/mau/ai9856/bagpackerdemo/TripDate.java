@@ -21,10 +21,10 @@ import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 public class TripDate extends AppCompatActivity {
     private List<Date> listDate;
     private CalendarPickerView datePicker;
-    private Button btnOk;
     private String url;
     private static final String URL = "url";
-    // private String startDate;
+    private static String simpleStartDate, simpleEndDate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +41,7 @@ public class TripDate extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.YEAR, 1);
 
-        btnOk = findViewById(R.id.btnOk);
+        Button btnOk = findViewById(R.id.btnOk);
         datePicker = findViewById(R.id.datePicker);
 
         datePicker.init(today, calendar.getTime())
@@ -80,16 +80,11 @@ public class TripDate extends AppCompatActivity {
                 url = getIntent().getStringExtra(URL);
                 Date startDate = listDate.get(0);
                 Date stopDate = listDate.get(listDate.size()-1);
-                String simpleStartDate = sdf.format(startDate);
-                String simpleStoptDate = sdf.format(stopDate);
+                simpleStartDate = sdf.format(startDate);
+                simpleEndDate = sdf.format(stopDate);
 
-                url +="&param2=20" + simpleStartDate + "&param3=20" + simpleStoptDate;//tripDate
+                url +="&param2=20" + simpleStartDate + "&param3=20" + simpleEndDate;//tripDate
                 Log.e("hej ", "url" + url);
-
-
-
-
-
             }
 
             @Override
@@ -113,7 +108,7 @@ public class TripDate extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                String message = "Välj datum";
+                String message = "Välj avrese- och returresedatum";
                 if (datePicker.getSelectedDates().size() == 0 || datePicker.getSelectedDates().size() == 1) {
                     Toast.makeText(TripDate.this, message, Toast.LENGTH_SHORT).show();
 
@@ -125,6 +120,14 @@ public class TripDate extends AppCompatActivity {
 
             }
         });
+    }
+
+    public static String getStartDate(){
+        return simpleStartDate;
+    }
+
+    public static String getEndDate(){
+        return simpleEndDate;
     }
 
 }
