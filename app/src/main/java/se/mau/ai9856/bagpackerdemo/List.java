@@ -67,21 +67,28 @@ public class List {
         String dest = json.getString("destination");
         int minTemp = json.getInt("temp_min");
         int maxTemp = json.getInt("temp_max");
-        String jsonWeather = json.getString("weather_data");
+        String weatherData = json.getString("weather_data");
         String rain;
-        if(jsonWeather.equals("aktuell")){
+        if(weatherData.equals("aktuell")){
             boolean isRaining = json.getBoolean("rain");
             if(isRaining)
                 rain = "hög";
             else
                 rain = "låg";
-        } else
-            rain = "oklar";
+        } else{
+            int isRaining = json.getInt("rain");
+            if(isRaining == 0)
+                rain = "låg";
+            else if(isRaining == 1)
+                rain = "hög";
+            else
+                rain = "oklar";
+        }
 
-
-        info = "Packlistan för din resa till " + dest + " är baserad på " + jsonWeather
-                + " väderdata.\nTemperaturen beräknas ligga mellan " + minTemp + " och "
-                + maxTemp + " °C\nDin packning väger ca " + String.format("%.2f", totalWeight)
-                + " kg\nRegnrisken är " + rain;
+        info = "Packlistan för din resa till " + dest + " (" + TripDate.getStartDate() + " - "
+                + TripDate.getEndDate() + ") är baserad på " + weatherData
+                + " väderdata.\nTemperaturen beräknas ligga mellan " + minTemp
+                + " och " + maxTemp + " °C\nDin packning väger ca "
+                + String.format("%.2f", totalWeight) + " kg\nRegnrisk: " + rain;
     }
 }

@@ -6,6 +6,7 @@
     <string name="delete_btn">X</string>
     <string name="title">BAGPACKER</string>
     <string name="createTrip">Ny resa</string>
+    <string name="myList">Min packlista</string>
     <string name="log">log</string>
     <string name="generate">Generera lista!</string>
     <string name="save_item">+</string>

@@ -64,7 +64,7 @@ public class ChoosePackinglistName extends AppCompatActivity {
                         e.printStackTrace();
                         messageToUser.setText("");
                         Toast.makeText(ChoosePackinglistName.this,
-                                "Fel vid hämtning\nFörsök igen senare", Toast.LENGTH_LONG).show();
+                                "Sorry, fel vid hämtning", Toast.LENGTH_LONG).show();
                     }
                 });
         queue.add(request);

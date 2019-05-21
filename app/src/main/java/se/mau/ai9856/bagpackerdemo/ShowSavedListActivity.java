@@ -72,7 +72,7 @@ public class ShowSavedListActivity extends AppCompatActivity {
         if (expandableList == null) {
             finish();
             Toast.makeText(this, "Du har inga sparade listor :(",
-                    Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_SHORT).show();
         } else {
             savedListAdapter = new SavedListAdapter
                     (ShowSavedListActivity.this, expandableList);
