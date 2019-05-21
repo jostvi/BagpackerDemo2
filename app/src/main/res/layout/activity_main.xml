@@ -35,7 +35,7 @@
         style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="232dp"
         android:layout_height="58dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/colorYellow"
         android:fontFamily="@font/didact_gothic"
         android:onClick="createTrip"
@@ -44,7 +44,7 @@
         android:textAlignment="center"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         android:textColor="@color/colorPink"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/logotyp_bild"
@@ -61,6 +61,7 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="232dp"
         android:layout_height="63dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="@color/colorYellow"
         android:fontFamily="@font/didact_gothic"
         android:onClick="showSavedLists"
@@ -69,16 +70,16 @@
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display3"
         android:textColor="@color/colorPink"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/new_trip"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="@+id/new_trip"
-        app:layout_constraintTop_toBottomOf="@id/new_trip"
-        app:layout_constraintVertical_bias="0.073" />
+        app:layout_constraintTop_toBottomOf="@+id/new_trip"
+        app:layout_constraintVertical_bias="0.0" />
 
 
     <ImageView
@@ -93,14 +94,14 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.187" />
+        app:layout_constraintVertical_bias="0.166" />
 
 
     <ImageView
         android:id="@+id/logotyp_bild"
         android:layout_width="154dp"
         android:layout_height="133dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="16dp"
         android:adjustViewBounds="true"
         android:clickable="false"
         android:scaleType="fitCenter"
@@ -159,9 +160,9 @@
     <EditText
         android:id="@+id/password_input"
         android:layout_width="232dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/inputField"
+        android:layout_height="41dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/colorInputField"
         android:hint="@string/hintPackingList"
         android:scaleType="fitCenter"
         android:textColor="@color/colorAccent"
