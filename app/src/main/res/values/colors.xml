@@ -7,7 +7,7 @@
     <color name="colorAccent">#FB005B</color>
     <color name="colorYellow">#FDFF1F</color>
     <color name="screenBackground">#FDFF1F</color>
-    <color name="inputField">#8FFFFFFF</color>
+    <color name="colorInputField">#8FFFFFFF</color>
 
 
 </resources>
