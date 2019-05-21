@@ -9,14 +9,37 @@
     tools:context=".MainActivity">
 
     <Button
+        android:id="@+id/getListBtn"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-smallcaps"
+        android:onClick="getListFromServer"
+        android:text="Hämta lista"
+        android:textAlignment="center"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        android:textColor="@android:color/background_light"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/new_trip"
+        app:layout_constraintStart_toStartOf="@id/new_trip"
+        app:layout_constraintTop_toBottomOf="@id/new_trip"
+
+
+        app:layout_constraintVertical_bias="0.841" />
+
+    <Button
         android:id="@+id/new_trip"
         style="@style/Widget.AppCompat.Button.Small"
-        android:layout_width="240dp"
-        android:layout_height="64dp"
+        android:layout_width="232dp"
+        android:layout_height="58dp"
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/colorYellow"
         android:fontFamily="@font/didact_gothic"
         android:onClick="createTrip"
+        android:scaleType="fitCenter"
         android:text="@string/createTrip"
         android:textAlignment="center"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
@@ -24,20 +47,24 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/logotyp_bild"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/logotyp_bild"
         app:layout_constraintTop_toBottomOf="@id/logotyp_bild"
-        app:layout_constraintVertical_bias="0.032" />
+        app:layout_constraintVertical_bias="0.034" />
+
 
     <Button
         android:id="@+id/show_saved"
         style="@style/Widget.AppCompat.Button"
-        android:layout_width="244dp"
+        android:layout_width="232dp"
         android:layout_height="63dp"
         android:backgroundTint="@color/colorYellow"
         android:fontFamily="@font/didact_gothic"
         android:onClick="showSavedLists"
+        android:scaleType="fitCenter"
         android:text="@string/myList"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display3"
@@ -45,27 +72,14 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/new_trip"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/new_trip"
         app:layout_constraintTop_toBottomOf="@id/new_trip"
         app:layout_constraintVertical_bias="0.073" />
 
-    <!--    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/title"
-        android:textAllCaps="true"
-        android:textColor="@color/colorAccent"
-        android:textSize="50sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/getListBtn"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />-->
 
     <ImageView
         android:id="@+id/logotyp_text"
@@ -79,7 +93,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.174" />
+        app:layout_constraintVertical_bias="0.187" />
+
 
     <ImageView
         android:id="@+id/logotyp_bild"
@@ -90,9 +105,11 @@
         android:clickable="false"
         android:scaleType="fitCenter"
         android:src="@drawable/logotyp_bild"
+        app:layout_constraintEnd_toEndOf="@+id/logotyp_text"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/logotyp_text"
         app:layout_constraintTop_toBottomOf="@+id/logotyp_text" />
 
 
@@ -103,7 +120,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
         android:fontFamily="sans-serif-smallcaps"
-        android:text="Logga in"
+        android:text="@string/textLogin"
         android:textAlignment="center"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         android:textColor="@android:color/background_light"
@@ -138,6 +155,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLogIn"
         app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/password_input"
+        android:layout_width="232dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/inputField"
+        android:hint="@string/hintPackingList"
+        android:scaleType="fitCenter"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/show_saved"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/show_saved"
+        app:layout_constraintTop_toBottomOf="@+id/show_saved" />
 
 
 </android.support.constraint.ConstraintLayout>

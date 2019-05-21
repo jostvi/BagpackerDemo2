@@ -39,8 +39,6 @@ public class Transport extends AppCompatActivity {
         setContentView(R.layout.activity_transport2);
         TextView bulletDate=findViewById(R.id.page2);
         bulletDate.setTextColor(getResources().getColor(R.color.colorPink));
-        TextView bulletDestination=findViewById(R.id.page1);
-        bulletDestination.setTextColor(getResources().getColor(R.color.colorPink));
         TextView bulletTransport=findViewById(R.id.page3);
         bulletTransport.setTextColor(getResources().getColor(R.color.colorPink));
 

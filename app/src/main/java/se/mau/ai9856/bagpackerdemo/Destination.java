@@ -34,6 +34,9 @@ public class Destination extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_destination2);
+        TextView bulletDestination = findViewById(R.id.page1);
+        bulletDestination.setTextColor(getResources().getColor(R.color.colorPink));
         initializeComponents();
     }
 
@@ -55,6 +58,7 @@ public class Destination extends AppCompatActivity {
             public void onClick(View view) {
                 destination.setText("");
                 btnOk.setEnabled(false);
+
             }
         });
         destination.setOnEditorActionListener(new TextView.OnEditorActionListener() {

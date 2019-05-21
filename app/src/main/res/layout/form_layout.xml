@@ -5,6 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/background_img"
+        android:layout_width="424dp"
+        android:layout_height="747dp"
+        android:adjustViewBounds="true"
+        android:clickable="false"
+        android:gravity="center|fill_horizontal"
+        android:scaleType="fitStart"
+        android:src="@drawable/scanningar_ljus"
+        android:cropToPadding="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
@@ -24,7 +41,7 @@
             android:layout_marginStart="10dp"
             android:gravity="center"
             android:text="@string/bullet"
-            android:textColor="@color/colorYellow"
+            android:textColor="@color/colorPink"
             android:textSize="20sp" />
 
         <TextView
@@ -80,6 +97,8 @@
 
 
     </LinearLayout>
+
+
 
     <Button
         android:id="@+id/btnOk"
