@@ -33,8 +33,8 @@ public class ChoosePackinglistName extends AppCompatActivity {
         bulletDate.setTextColor(getResources().getColor(R.color.colorPink));
         TextView bulletTransport=findViewById(R.id.page3);
         bulletTransport.setTextColor(getResources().getColor(R.color.colorPink));
-        TextView bulletAccomodation=findViewById(R.id.page4);
-        bulletAccomodation.setTextColor(getResources().getColor(R.color.colorPink));
+        TextView bulletAccommodation=findViewById(R.id.page4);
+        bulletAccommodation.setTextColor(getResources().getColor(R.color.colorPink));
         TextView bulletActivity=findViewById(R.id.page5);
         bulletActivity.setTextColor(getResources().getColor(R.color.colorPink));
         TextView bulletTitle=findViewById(R.id.page6);
