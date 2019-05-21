@@ -29,7 +29,7 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
         <link href="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/theme-default.min.css"
         rel="stylesheet" type="text/css" />
-
+        
 </head>
 
 
@@ -47,7 +47,7 @@
         </header>
         <main>
                 
-                <form id="multi-step-form" action= "/generate_list" method="POST" onsubmit="showLoading()">
+                <form id="multi-step-form" action= "/generate_list" method="POST" onsubmit="myFunction()">
                 <div class="step">
                         <h1>Ange resmål</h1>
                         <input type="text" placeholder="Vart ska du resa?" id="destination" autocomplete="off" oninput="this.className = ''" name="destination">
@@ -386,7 +386,7 @@
               }
             }, */
           });
-
+         
          /* if (document.getElementsByClassName("error")) {
                 document.getElementById("nextBtn").disabled = true;
          }

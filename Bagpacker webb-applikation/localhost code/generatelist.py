@@ -62,11 +62,13 @@ def get_temp_items(forecast):
     '''Hämtar items baserad på min-/max-temperatur på destinationen'''
     fc_temp_min = forecast[0]
     fc_temp_max = forecast[1]
+    temp_mean = forecast[2]
     
     conn = psycopg2.connect(host="pgserver.mah.se",
                             database="bagpacker", user="ai8134", password="h9rbyai5")
     cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
-    cur.execute("SELECT id, item, weight, category, quantity FROM all_items LEFT OUTER JOIN temperature ON id=item_id WHERE ((%s BETWEEN temp_min AND temp_max) OR (%s BETWEEN temp_min AND temp_max)) AND other_dependencies=FALSE;", (fc_temp_min, fc_temp_max));
+##cur.execute("SELECT id, item, weight, category, quantity FROM all_items LEFT OUTER JOIN temperature ON id=item_id WHERE ((%s BETWEEN temp_min AND temp_max) OR (%s BETWEEN temp_min AND temp_max)) AND other_dependencies=FALSE;", (fc_temp_min, fc_temp_max));
+    cur.execute("SELECT id, item, weight, category, quantity FROM all_items LEFT OUTER JOIN temperature ON id=item_id WHERE (%s BETWEEN temp_min AND temp_max) AND other_dependencies=FALSE;", (temp_mean, ));
     item_list = cur.fetchall()
     cur.close()
     conn.close()
@@ -100,7 +102,7 @@ def create_item_list(user_input):
         zone = w.get_climate_zone(geolocation)
         season = w.get_season(user_input, geolocation)
         forecast = w.get_historic_weather_data(zone, season)
-        rain = forecast[2]
+        rain = forecast[3]
         
     general_items = get_general_items()
     temp_items = get_temp_items(forecast)
@@ -127,5 +129,5 @@ def create_item_list(user_input):
 
     total_weight = get_weight(complete_list)
     
-    return complete_list, user_input[0], forecast[0], forecast[1], length, which_data, total_weight, rain
+    return complete_list, user_input[0], forecast[0], forecast[1], length, which_data, total_weight, rain, forecast[2]
 

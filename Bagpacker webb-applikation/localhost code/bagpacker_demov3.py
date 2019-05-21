@@ -15,7 +15,7 @@ import psycopg2.extras
 import userinput as ui
 import weather as w
 import generatelist as gl
-#import cloudpickle
+
 from datetime import datetime
 from datetime import date
 
@@ -367,7 +367,9 @@ def generate_list():
     user_input = ui.get_user_input()
     returns = gl.create_item_list(user_input)
     item_list = returns[0]
-    location = returns[1]
+    location_raw = returns[1]
+    location_list = location_raw.split(",")
+    location = location_list[0], location_list[-1]
     temp_min = returns[2]
     temp_max = returns[3]
     length = returns[4]
@@ -378,11 +380,12 @@ def generate_list():
         rain_risk = "hög"
     else:
         rain_risk = "låg"
+    mean_temp = returns[8]
 
-    print(item_list)
-
-    return template ('test', item_list = item_list, length = length, which_data = which_data,
-                     location = location, temp_min = round(temp_min), temp_max = round(temp_max), total_weight = total_weight, rain_risk = rain_risk)
+    return template ('edit_list', item_list = item_list, length = length, which_data = which_data,
+                     location = location, temp_min = round(temp_min), temp_max = round(temp_max),
+                     total_weight = total_weight, rain_risk = rain_risk, start = user_input[1],
+                     finish = user_input[2], mean_temp = round(mean_temp))
 
 
 @route("/android/")
@@ -513,5 +516,12 @@ def static_files(filename):
 def error404(error):
    return template ("error")
 
+@error(405)
+def error405(error):
+   return template ("error")
+
+@error(505)
+def error505(error):
+   return template ("error")
 
 run(host="localhost", port=8080, debug=True)

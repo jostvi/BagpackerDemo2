@@ -111,39 +111,43 @@ def get_historic_weather_data(zone, season):
         conn = psycopg2.connect(host="pgserver.mah.se",
                             database="bagpacker", user="ai8134", password="h9rbyai5")
         cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
-        cur.execute("SELECT min_temp_winter, max_temp_winter, rain_winter from climate_classification where zone = (%s)", (zone, ))
+        cur.execute("SELECT min_temp_winter, max_temp_winter, mean_winter, rain_winter from climate_classification where zone = (%s)", (zone, ))
         forecast = cur.fetchall()
         cur.close()
         conn.close()
+        print(forecast[0])
         return forecast[0]
 
     elif season == "summer":
         conn = psycopg2.connect(host="pgserver.mah.se",
                             database="bagpacker", user="ai8134", password="h9rbyai5")
         cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
-        cur.execute("SELECT min_temp_summer, max_temp_summer, rain_summer from climate_classification where zone = (%s)", (zone, ))
+        cur.execute("SELECT min_temp_summer, max_temp_summer, mean_summer, rain_summer from climate_classification where zone = (%s)", (zone, ))
         forecast = cur.fetchall()
         cur.close()
         conn.close()
+        print(forecast[0])
         return forecast[0]
 
     elif season == "spring":
         conn = psycopg2.connect(host="pgserver.mah.se",
                             database="bagpacker", user="ai8134", password="h9rbyai5")
         cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
-        cur.execute("SELECT min_temp_spring, max_temp_spring, rain_spring from climate_classification where zone = (%s)", (zone, ))
+        cur.execute("SELECT min_temp_spring, max_temp_spring, mean_spring, rain_spring from climate_classification where zone = (%s)", (zone, ))
         forecast = cur.fetchall()
         cur.close()
         conn.close()
+        print(forecast[0])
         return forecast[0]
     
     elif season == "autumn":
         conn = psycopg2.connect(host="pgserver.mah.se",
                             database="bagpacker", user="ai8134", password="h9rbyai5")
         cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
-        cur.execute("SELECT min_temp_autumn, max_temp_autumn, rain_autumn from climate_classification where zone = (%s)", (zone, ))
+        cur.execute("SELECT min_temp_autumn, max_temp_autumn, mean_autumn, rain_autumn from climate_classification where zone = (%s)", (zone, ))
         forecast = cur.fetchall()
         cur.close()
         conn.close()
+        print(forecast[0])
         return forecast[0]
     
