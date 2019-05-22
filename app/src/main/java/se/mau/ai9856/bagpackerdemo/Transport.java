@@ -2,6 +2,7 @@ package se.mau.ai9856.bagpackerdemo;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,9 +39,9 @@ public class Transport extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transport2);
         TextView bulletDate=findViewById(R.id.page2);
-        bulletDate.setTextColor(getResources().getColor(R.color.colorPink));
+        bulletDate.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
         TextView bulletTransport=findViewById(R.id.page3);
-        bulletTransport.setTextColor(getResources().getColor(R.color.colorPink));
+        bulletTransport.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
 
         questionTransport = findViewById(R.id.questionTransport);
         checkCar = findViewById(R.id.checkCar);

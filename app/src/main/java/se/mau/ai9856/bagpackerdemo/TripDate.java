@@ -2,6 +2,7 @@ package se.mau.ai9856.bagpackerdemo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -30,9 +31,9 @@ public class TripDate extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_date2);
         TextView bulletDate=findViewById(R.id.page2);
-        bulletDate.setTextColor(getResources().getColor(R.color.colorPink));
+        bulletDate.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
         TextView bulletDestination=findViewById(R.id.page1);
-        bulletDestination.setTextColor(getResources().getColor(R.color.colorPink));
+        bulletDestination.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
 
 
         //String url = getIntent().getStringExtra(URL);
