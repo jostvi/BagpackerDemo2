@@ -10,11 +10,12 @@ $(function () {
 $(function () {
   for (let i = 1; i <= 6; i++) {
     $('#btn-item' + i).on('click', function () {
-      $('#item_list' + i).append('<li><input type="text" name="iname" class="item-box"><button type="button" class="add_item" onclick="addItem(this)" >Add item</button> <button onclick="removeItem(this)" class="deleteButton">Delete</button><li>')
+      $('#item_list' + i).prepend('<li>' + '<input type="text" name="iname" class="item-box">' + '<button type="button" class="add_item" onclick="addItem(this)" >Add' + '<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">' + '<li>')
     });
   }
 });
 
+{/* <button onclick="removeItem(this)" class="deleteButton">Delete</button> */}
 function addItem(elem) {
 
   const category = $(elem).parent().parent().parent().attr('id');
@@ -24,7 +25,7 @@ function addItem(elem) {
   const value = $(elem).siblings()[0].value;
   if (value == "") {
   } else {
-    $('#item_list' + categoryIndex).append('<li>' + value + '<button onclick="removeItem(this)" class="deleteButton">Delete</button></li>');
+    $('#item_list' + categoryIndex).append('<li>' + value + '<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)"></li>');
     currentLocalStorage.push(value);
     const stringifiedArray = JSON.stringify(currentLocalStorage);
     localStorage.setItem(category, stringifiedArray);
@@ -53,7 +54,7 @@ function removeItem(elem) {
   console.log(dehydrated);
   const value = $(elem).parent().text();
   const filteredItems = dehydrated.filter(item => {
-    return value != (item + 'Delete');
+    return value != item;
   });
   console.log(filteredItems);
 
@@ -68,47 +69,63 @@ function removeItem(elem) {
 // };
 
 $(function () {
-  deleteButton = $('<input type="image" src="/static/delete.png" alt="delete" onclick="removeItem(this)" class="deleteButton" />')
+  deleteButton = $('<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">')
   deleteButton.appendTo('ul#item_list1 li');
 });
 
 $(function () {
-  deleteButton = $('<input type="image" src="/static/delete.png" alt="delete" onclick="removeItem(this)" class="deleteButton" />')
+  deleteButton = $('<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">');
   deleteButton.appendTo('ul#item_list2 li');
 });
 
 $(function () {
-  deleteButton = $('<input type="image" src="/static/delete.png" alt="delete" onclick="removeItem(this)" class="deleteButton" />')
+  deleteButton = $('<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">');
   deleteButton.appendTo('ul#item_list3 li');
 });
 
 $(function () {
-  deleteButton = $('<input type="image" src="/static/delete.png" alt="delete" onclick="removeItem(this)" class="deleteButton" />')
+  deleteButton = $('<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">');
   deleteButton.appendTo('ul#item_list4 li');
 });
 
 $(function () {
-  deleteButton = $('<input type="image" src="/static/delete.png" alt="delete" onclick="removeItem(this)" class="deleteButton" />')
+  deleteButton = $('<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">');
   deleteButton.appendTo('ul#item_list5 li');
 });
 
 $(function () {
-  deleteButton = $('<input type="image" src="/static/delete.png" alt="delete" onclick="removeItem(this)" class="deleteButton" />')
+  deleteButton = $('<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">');
   deleteButton.appendTo('ul#item_list6 li');
 });
 
-const submitList = () => {
-  console.log('submitlist')
-  const request = {};
-  for(let i = 1; i <= 6; i++) {
-    const category = 'kat' + i;
-    const dataFromLS = JSON.parse(localStorage.getItem(category));
-    request[category] = dataFromLS;
-  }
-  console.log(request);
-  const url = 'localhost:8080/'
-  fetch(url)
+// function sendList(){
+// const submitList = () => {
+//   console.log('submitlist')
+//   const request = {};
+//   for(let i = 1; i <= 6; i++) {
+//     const category = 'kat' + i;
+//     const dataFromLS = JSON.parse(localStorage.getItem(category));
+//     request[category] = dataFromLS;
+//   }
+//   console.log(request);
+//   const url = 'localhost:8080/'
+//   fetch(url, {
+//     method: 'POST'
+//   })
   
+// // }
+// }
+
+
+
+function populateLocalStorage() {
+  localStorage.setItem('kat1', JSON.stringify([]));
+  localStorage.setItem('kat2', JSON.stringify([]));
+  localStorage.setItem('kat3', JSON.stringify([]));
+  localStorage.setItem('kat4', JSON.stringify([]));
+  localStorage.setItem('kat5', JSON.stringify([]));
+  localStorage.setItem('kat6', JSON.stringify([]));
 }
 
+populateLocalStorage();
 showLocal();
