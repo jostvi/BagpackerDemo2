@@ -38,7 +38,10 @@
             android:layout_height="30dp"
             android:src="@drawable/weight" />
 
+
     </LinearLayout>
+
+
 
     <TextView
         android:id="@+id/popupText"

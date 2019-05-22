@@ -30,7 +30,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="@color/colorPrimaryDark"
                 android:scaleType="centerCrop"
-                android:src="@drawable/logotyp_bild" />
+                android:src="@drawable/home_btn" />
 
             <TextView
                 android:id="@+id/listTitle"

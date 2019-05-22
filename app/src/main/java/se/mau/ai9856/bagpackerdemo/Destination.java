@@ -2,6 +2,7 @@ package se.mau.ai9856.bagpackerdemo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -42,6 +43,7 @@ public class Destination extends AppCompatActivity {
     private void initializeComponents() {
         setContentView(R.layout.activity_destination2);
         btnOk = findViewById(R.id.btnOk);
+        btnOk.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,6 +56,8 @@ public class Destination extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 destination.setText("");
+                btnOk.setTextColor(ContextCompat.getColor(Destination.this,
+                        R.color.colorInputField));
                 btnOk.setEnabled(false);
 
             }
@@ -99,6 +103,8 @@ public class Destination extends AppCompatActivity {
                                 String shortResponse = fullResponse[0] + "," + fullResponse[fullResponse.length - 1];
                                 destination.setText(shortResponse);
                                 dest = fullResponse[0];
+                                btnOk.setTextColor(ContextCompat.getColor(Destination.this,
+                                        R.color.colorYellow));
                                 btnOk.setEnabled(true);
                             } catch (JSONException e) {
                                 e.printStackTrace();

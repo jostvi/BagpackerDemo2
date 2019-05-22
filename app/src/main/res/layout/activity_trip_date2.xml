@@ -26,7 +26,7 @@
         android:fontFamily="@font/didact_gothic"
         android:text="@string/question_date"
         android:textColor="@color/colorBlack"
-        android:textSize="30sp"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -43,6 +43,7 @@
         android:background="@color/colorInputField"
         app:layout_constraintBottom_toBottomOf="@+id/include"
         app:layout_constraintEnd_toEndOf="@+id/questionDestination"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/questionDestination"
         app:layout_constraintTop_toBottomOf="@+id/questionDestination"
         app:layout_constraintVertical_bias="0.0" />
