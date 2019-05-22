@@ -340,14 +340,13 @@ def show_startpage():
 def show_form():
     '''Returnerar formulär'''
     
-    return template ("javascriptform")
+    return template ("javascriptform2")
 
 @route("/validate_destination", method="POST")
 def validate_destination():
     '''Validerar destinationen'''
-    
-    destination = json.loads(request.body.read())['destination']
-   
+    destination = getattr(request.forms, "destination")
+    print(destination)
     geolocator = Nominatim(user_agent = "Bagpacker")
     geolocation = geolocator.geocode(destination)
 
@@ -382,7 +381,34 @@ def generate_list():
         rain_risk = "låg"
     mean_temp = returns[8]
 
-    return template ('edit_list', item_list = item_list, length = length, which_data = which_data,
+    return template ('show_list', item_list = item_list, length = length, which_data = which_data,
+                     location = location, temp_min = round(temp_min), temp_max = round(temp_max),
+                     total_weight = total_weight, rain_risk = rain_risk, start = user_input[1],
+                     finish = user_input[2], mean_temp = round(mean_temp))
+
+
+@route("/generate_list2", method="POST")
+def generate_list():
+    '''Genererar packlista utifrån användarens input'''
+    user_input = ui.get_user_input()
+    returns = gl.create_item_list(user_input)
+    item_list = returns[0]
+    location_raw = returns[1]
+    location_list = location_raw.split(",")
+    location = location_list[0], location_list[-1]
+    temp_min = returns[2]
+    temp_max = returns[3]
+    length = returns[4]
+    which_data = returns[5]
+    total_weight = returns[6]
+    rain = returns[7]
+    if rain == True:
+        rain_risk = "hög"
+    else:
+        rain_risk = "låg"
+    mean_temp = returns[8]
+
+    return template ('show_list', item_list = item_list, length = length, which_data = which_data,
                      location = location, temp_min = round(temp_min), temp_max = round(temp_max),
                      total_weight = total_weight, rain_risk = rain_risk, start = user_input[1],
                      finish = user_input[2], mean_temp = round(mean_temp))
@@ -520,8 +546,8 @@ def error404(error):
 def error405(error):
    return template ("error")
 
-@error(505)
-def error505(error):
+@error(500)
+def error500(error):
    return template ("error")
 
 run(host="localhost", port=8080, debug=True)

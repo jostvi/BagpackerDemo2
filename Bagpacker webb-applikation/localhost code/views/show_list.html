@@ -11,17 +11,20 @@
         <link href="https://fonts.googleapis.com/css?family=Didact+Gothic|Loved+by+the+King|Sue+Ellen+Francisco" rel="stylesheet">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <!-- Icon navbar -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
         <!-- Popper JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <script>
+        
+       <!--  <script>
                 $(document).ready(function(){
                   $('[data-toggle="popover"]').popover(); 
                 });
-        </script>
+        </script> -->
                 
 </head>
 
@@ -29,11 +32,14 @@
     <header>
             <nav>
                     <a href="/newlist"><img src="/static/BackpackerLogotyp.png" alt="Bagpacker" id="headerpic"></a>
-                    <div id="navlist">
+                    <div class="topnav" id="myTopnav">
                             <a href="/newlist" class="active">Ny packlista</a>
                             <a href="/">Hämta packlista</a>
                             <a href="/">Packtips</a>
                             <a href="/">Om oss</a>
+                            <a href="javascript:void(0)" class="icon" id="hamburgericon" onclick="myFunction()">
+                                    <i class="fa fa-bars"></i>
+                            </a>
                     </div>      
             </nav>
     </header>
@@ -49,47 +55,41 @@
         </div>
         <div id="grid-wrapper">
             <div class="grid-category" id="clothes">
-                <h2 class="sticky">Kläder</h2>
-                    <!-- <input type="image" src="/static/arrows.png" alt="arrow" class="styledFunction" id="myFunction1"> -->
+                <h2 class="sticky">Kläder <i class="fas fa-arrows-alt-v"></i></h2>
                 <div class="margin-top">
-                <!-- <div class="table_div" id="kat1">  
-                    <ul id="item_list1">   -->
+                
                     % for item in item_list:
                         %if item['category'] == "kläder":
-                                <!-- <li>
-                                    <div class="align_left">
-                                        <i class="fas fa-check-circle"></i><span class="item_checkbox">{{item['item']}}</span>
-                                    </div>
-                                    <div class="align_right">
-                                        <input type="number" class="input_quantity" name="quantity" min="1" value="{{item['quantity']}}">
-                                    </div>
-                                </li> -->
                         <div class="table_div">
                             <div class="align_left">
-                                <i class="fas fa-check-circle"></i><span class="item_checkbox">{{item['item']}}</span>
+                                    <label class="cbcontainer">{{item['item']}}
+                                            <input type="checkbox" value="true">
+                                            <span class="checkmark"></span>
+                                    </label>
                             </div>
                             <div class="align_right">
-                                <input type="number" class="input_quantity" name="quantity" min="1" value="{{item['quantity']}}">
+                                {{item['quantity']}}
                             </div>
                         </div>
                         %end
                     %end
-                    <!-- </ul> -->
+                    
                 </div>
-                    <!-- <input type="image" src="/static/add-button.gif" alt="Add" class="btn-item" id="btn-item1">
-                </div> -->
             </div>
             <div class="grid-category" id="hygiene">
-                <h2 class="sticky">Hygienartiklar</h2>
+                <h2 class="sticky">Hygienartiklar <i class="fas fa-arrows-alt-v"></i></h2>
                 <div class="margin-top">
                     % for item in item_list:
                         %if item['category'] == "necessär":
                         <div class="table_div">
-                            <div class="align_left">
-                                <i class="fas fa-check-circle"></i><span class="item_checkbox">{{item['item']}}</span>
-                            </div>
+                                <div class="align_left">
+                                        <label class="cbcontainer">{{item['item']}}
+                                                <input type="checkbox" value="true">
+                                                <span class="checkmark"></span>
+                                        </label>
+                                </div>
                             <div class="align_right">
-                                <input type="number" class="input_quantity" name="quantity" min="1" value="{{item['quantity']}}">
+                                    {{item['quantity']}}
                             </div>
                         </div>
                         %end
@@ -97,16 +97,19 @@
                 </div>
             </div>
             <div class="grid-category" id="traveldocs">
-                <h2 class="sticky">Resehandlingar</h2>
+                <h2 class="sticky">Resehandlingar <i class="fas fa-arrows-alt-v"></i></h2>
                 <div class="margin-top">
                     % for item in item_list:
                         %if item['category'] == "resehandlingar":
                         <div class="table_div">
-                            <div class="align_left">
-                                <i class="fas fa-check-circle"></i><span class="item_checkbox">{{item['item']}}</span>
-                            </div>
+                                <div class="align_left">
+                                        <label class="cbcontainer">{{item['item']}}
+                                                <input type="checkbox" value="true">
+                                                <span class="checkmark"></span>
+                                        </label>
+                                </div>
                             <div class="align_right">
-                                <input type="number" class="input_quantity" name="quantity" min="1" value="{{item['quantity']}}">
+                                    {{item['quantity']}}
                             </div>
                         </div>
                         %end
@@ -114,16 +117,19 @@
                 </div>
             </div>
             <div class="grid-category" id="electronics">   
-                <h2 class="sticky">Elektronik</h2>
+                <h2 class="sticky">Elektronik <i class="fas fa-arrows-alt-v"></i></h2>
                 <div class="margin-top">
                     % for item in item_list:
                         %if item['category'] == "elektronik":
                         <div class="table_div">
-                            <div class="align_left">
-                                <i class="fas fa-check-circle"></i><span class="item_checkbox">{{item['item']}}</span>
-                            </div>
+                                <div class="align_left">
+                                        <label class="cbcontainer">{{item['item']}}
+                                                <input type="checkbox" value="true">
+                                                <span class="checkmark"></span>
+                                        </label>
+                                </div>
                             <div class="align_right">
-                                <input type="number" class="input_quantity" name="quantity" min="1" value="{{item['quantity']}}">
+                                    {{item['quantity']}}
                             </div>
                         </div>
                         %end
@@ -131,16 +137,19 @@
                 </div>
             </div>
             <div class="grid-category" id="specials">   
-                <h2 class="sticky">Specialutrustning</h2>
+                <h2 class="sticky">Specialutrustning <i class="fas fa-arrows-alt-v"></i></h2>
                 <div class="margin-top">
                     % for item in item_list:
                         %if item['category'] == "specialutrustning":
                         <div class="table_div">
-                            <div class="align_left">
-                                <i class="fas fa-check-circle"></i><span class="item_checkbox">{{item['item']}}</span>
-                            </div>
+                                <div class="align_left">
+                                        <label class="cbcontainer">{{item['item']}}
+                                                <input type="checkbox" value="true">
+                                                <span class="checkmark"></span>
+                                        </label>
+                                </div>
                             <div class="align_right">
-                                <input type="number" class="input_quantity" name="quantity" min="1" value="{{item['quantity']}}">
+                                    {{item['quantity']}}
                             </div>
                         </div>
                         %end
@@ -148,16 +157,19 @@
                 </div>
             </div>
             <div class="grid-category" id="misc">
-                <h2 class="sticky">Övrigt</h2>
+                <h2 class="sticky">Övrigt <i class="fas fa-arrows-alt-v"></i></h2>
                 <div class="margin-top">
                     % for item in item_list:
                         %if item['category'] == "övrigt":
                         <div class="table_div">
-                            <div class="align_left">
-                                <i class="fas fa-check-circle"></i><span class="item_checkbox">{{item['item']}}</span>
-                            </div>
+                                <div class="align_left">
+                                        <label class="cbcontainer">{{item['item']}}
+                                                <input type="checkbox" value="true">
+                                                <span class="checkmark"></span>
+                                        </label>
+                                </div>
                             <div class="align_right">
-                                <input type="number" class="input_quantity" name="quantity" min="1" value="{{item['quantity']}}">
+                                    {{item['quantity']}}
                             </div>
                         </div>
                         %end
@@ -171,13 +183,13 @@
         </form>
 
     </main>
-
+    <script src="/static/script.js"></script>
     <footer>
         &copy; Team Bagpacker 2019
     </footer>
     
     
-    <!-- <script src="/static/jquery_script.js"></script> -->
+    
 </body>
     
     
