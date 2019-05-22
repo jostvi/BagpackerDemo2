@@ -29,7 +29,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="@color/colorPrimaryDark"
                 android:scaleType="centerCrop"
-                android:src="@drawable/logotyp_bild" />
+                android:src="@drawable/homeBtn" />
 
             <TextView
                 android:id="@+id/listTitle"
@@ -55,22 +55,6 @@
                 android:onClick="showPopupInfo"
                 android:src="@android:drawable/ic_dialog_info"
                 tools:src="@android:drawable/ic_dialog_info" />
-
-            <ImageButton
-                android:id="@+id/homeButton"
-                style="@android:style/Widget.Holo.ImageButton"
-                android:layout_width="44dp"
-                android:layout_height="53dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:adjustViewBounds="false"
-                android:backgroundTint="#00FFFFFF"
-                android:onClick="showPopupInfo"
-                android:src="@mipmap/ic_launcher_foreground" />
 
         </RelativeLayout>
 
