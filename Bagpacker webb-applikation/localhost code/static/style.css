@@ -592,11 +592,25 @@ width: 50px;
   }
 }
 
-.btn-item{
+.fa-plus-circle{
   float: right;
-  height: 15%;
-  width: 15%;
+  height: auto;
+  width: 10%;
   border: none;
+  color: yellow;
+}
+.fa-plus{
+  float: right;
+  height: auto;
+  width: 10%;
+  border: none;
+  color: yellow;
+}
+.btn-item{
+float: right;
+height: 15%;
+width: 15%;
+border: none;
 }
 .add_item{
   display: inline-flex;
@@ -621,14 +635,15 @@ padding: 0px;
 li{
 list-style: none;
 width: 100%;
-height: 50px;
+height: 45px;
 /* padding-right: 15px; */
-display: inline;
+display: inline-flex;
 }
 .styledFunction {
-height: 3%;
-width: 3%;
+height: auto;
+width: 13%;
 float: right;
+border: none;
 }
 .rotate {
   -moz-transform: rotate(-180deg);
