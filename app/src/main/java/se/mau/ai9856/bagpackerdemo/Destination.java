@@ -1,5 +1,6 @@
 package se.mau.ai9856.bagpackerdemo;
 
+import android.app.MediaRouteButton;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,13 +36,13 @@ public class Destination extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_destination2);
+        TextView bulletDestination = findViewById(R.id.page1);
         initializeComponents();
     }
 
     private void initializeComponents() {
         setContentView(R.layout.activity_destination2);
-        TextView bulletDestination=findViewById(R.id.page1);
-        bulletDestination.setTextColor(getResources().getColor(R.color.colorPink));
         btnOk = findViewById(R.id.btnOk);
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +57,7 @@ public class Destination extends AppCompatActivity {
             public void onClick(View view) {
                 destination.setText("");
                 btnOk.setEnabled(false);
+
             }
         });
         destination.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -78,6 +81,7 @@ public class Destination extends AppCompatActivity {
     }
 
     private void validate(String url) {
+        final ProgressBar progressBar = findViewById(R.id.progressLoader);
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest request = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -86,6 +90,7 @@ public class Destination extends AppCompatActivity {
                         try {
                             validationOk = response.getBoolean("valid");
                             messageToUser.setText("");
+                            progressBar.setVisibility(View.INVISIBLE);
                         } catch (JSONException e) {
                             e.printStackTrace();
                             cancel();
@@ -112,7 +117,8 @@ public class Destination extends AppCompatActivity {
                     }
                 });
         queue.add(request);
-        messageToUser.setText("Letar efter plats...");
+//        messageToUser.setText("Letar efter plats...");
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     private void proceed() {

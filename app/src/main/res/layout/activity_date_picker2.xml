@@ -23,8 +23,6 @@
 
 
 
-
-
     <Button
         android:id="@+id/btnFrom"
         android:layout_width="wrap_content"

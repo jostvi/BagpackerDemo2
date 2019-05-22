@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,10 +30,21 @@ public class ChoosePackinglistName extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_packinglist_name2);
+        TextView bulletDate=findViewById(R.id.page2);
+        bulletDate.setTextColor(getResources().getColor(R.color.colorPink));
+        TextView bulletTransport=findViewById(R.id.page3);
+        bulletTransport.setTextColor(getResources().getColor(R.color.colorPink));
+        TextView bulletAccomodation=findViewById(R.id.page4);
+        bulletAccomodation.setTextColor(getResources().getColor(R.color.colorPink));
+        TextView bulletActivity=findViewById(R.id.page5);
+        bulletActivity.setTextColor(getResources().getColor(R.color.colorPink));
+        TextView bulletTitle=findViewById(R.id.page6);
+        bulletTitle.setTextColor(getResources().getColor(R.color.colorPink));
         final String url = getIntent().getStringExtra(URL);
         packinglistName = findViewById(R.id.packinglistName);
         messageToUser = findViewById(R.id.messageToUser);
         Button btnOk = findViewById(R.id.btnOk);
+        final ProgressBar progressBar = findViewById(R.id.progressLoader);
 
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,7 +52,8 @@ public class ChoosePackinglistName extends AppCompatActivity {
                 if (packinglistName.getText().length() > 0
                         && !packinglistName.getText().toString().startsWith(" ") // Använd trim() istället
                         && packinglistName.getText().length() < 16) {
-                    messageToUser.setText("Genererar packlista...");
+                    progressBar.setVisibility(View.VISIBLE);
+//                    messageToUser.setText("Genererar packlista...");
                     getJSON(url);
                 } else {
                     messageToUser.setText("Ange packlistans namn (max 15 tecken)");
@@ -64,7 +77,7 @@ public class ChoosePackinglistName extends AppCompatActivity {
                         e.printStackTrace();
                         messageToUser.setText("");
                         Toast.makeText(ChoosePackinglistName.this,
-                                "Fel vid hämtning\nFörsök igen senare", Toast.LENGTH_LONG).show();
+                                "Sorry, fel vid hämtning", Toast.LENGTH_LONG).show();
                     }
                 });
         queue.add(request);

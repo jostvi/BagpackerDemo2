@@ -2,9 +2,12 @@
 <resources>
     <color name="colorPrimary">#818484</color>
     <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorBlack">#000000</color>
     <color name="colorPink">#FB005B</color>
     <color name="colorAccent">#FB005B</color>
     <color name="colorYellow">#FDFF1F</color>
     <color name="screenBackground">#FDFF1F</color>
+    <color name="colorInputField">#8FFFFFFF</color>
+
 
 </resources>

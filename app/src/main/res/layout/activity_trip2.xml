@@ -5,76 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TripActivity">
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@color/cardview_shadow_end_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
+    <include
+        android:id="@+id/include"
+        layout="@layout/form_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
-        <TextView
-            android:id="@+id/page1"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:gravity="center"
-            android:text="1"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/page2"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/page1"
-            android:gravity="center"
-            android:text="2"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/page3"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/page2"
-            android:gravity="center"
-            android:text="3"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/page4"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/page3"
-            android:gravity="center"
-            android:text="4"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/page5"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/page4"
-            android:background="@color/screenBackground"
-            android:gravity="center"
-            android:text="5"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/page6"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_toRightOf="@+id/page5"
-            android:gravity="center"
-
-            android:text="6"
-            android:textSize="20sp" />
-
-
-    </LinearLayout>
 
     <TextView
         android:id="@+id/questionAccomodation"
@@ -86,9 +25,11 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="624dp"
         android:ems="10"
-        android:text="Vilka aktiviteter planerar du?"
-        android:textColor="#8B0000"
+        android:text="@string/question_activity"
+        android:textStyle="bold"
+        android:textColor="@color/colorBlack"
         android:textSize="25dp"
+        android:fontFamily="@font/didact_gothic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.325"
@@ -96,6 +37,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <CheckBox
         android:id="@+id/checkOutdoor"
@@ -188,17 +130,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkNightlife" />
 
-    <Button
-        android:id="@+id/btnOk"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="8dp"
-        android:text="OK"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/otherActivity" />
 
     <TextView
         android:id="@+id/messageToUser"

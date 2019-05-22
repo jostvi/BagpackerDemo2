@@ -5,6 +5,7 @@
     android:background="@color/colorAccent"
     android:orientation="horizontal">
 
+
     <TextView
         android:id="@+id/categoryName"
         android:layout_marginStart="40dp"

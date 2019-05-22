@@ -23,7 +23,8 @@ public class TripDate extends AppCompatActivity {
     private CalendarPickerView datePicker;
     private String url;
     private static final String URL = "url";
-    // private String startDate;
+    private static String simpleStartDate, simpleEndDate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,10 +80,10 @@ public class TripDate extends AppCompatActivity {
                 url = getIntent().getStringExtra(URL);
                 Date startDate = listDate.get(0);
                 Date stopDate = listDate.get(listDate.size()-1);
-                String simpleStartDate = sdf.format(startDate);
-                String simpleStopDate = sdf.format(stopDate);
+                simpleStartDate = sdf.format(startDate);
+                simpleEndDate = sdf.format(stopDate);
 
-                url +="&param2=20" + simpleStartDate + "&param3=20" + simpleStopDate;//tripDate
+                url +="&param2=20" + simpleStartDate + "&param3=20" + simpleEndDate;//tripDate
                 Log.e("hej ", "url" + url);
             }
 
@@ -119,6 +120,14 @@ public class TripDate extends AppCompatActivity {
 
             }
         });
+    }
+
+    public static String getStartDate(){
+        return simpleStartDate;
+    }
+
+    public static String getEndDate(){
+        return simpleEndDate;
     }
 
 }

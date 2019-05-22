@@ -6,6 +6,7 @@
     <string name="delete_btn">X</string>
     <string name="title">BAGPACKER</string>
     <string name="createTrip">Ny resa</string>
+    <string name="myList">Min packlista</string>
     <string name="log">log</string>
     <string name="generate">Generera lista!</string>
     <string name="save_item">+</string>
@@ -21,6 +22,28 @@
     <string name="when_then">När ska du resa?</string>
     <string name="this_date">Ange datum (ÅÅ-MM-DD)</string>
     <string name="bullet">\u25CF</string>
+    <string name="question_destination">Vart ska du resa?</string>
+    <string name="question_date">Mellan vilka datum ska du resa?</string>
+    <string name="question_transport">Hur ska du ta dig till resemål?</string>
+    <string name="question_accomodation">Hur ska du bo?</string>
+    <string name="question_activity">Vilka aktiviteter planerar du?</string>
+    <string name="car">Bil</string>
+    <string name="train">Tåg</string>
+    <string name="flight">Flyg</string>
+    <string name="bus">Buss</string>
+    <string name="bike">Cykel</string>
+    <string name="motorbike">Motorcykel</string>
+    <string name="boat">Båt</string>
+    <string name="other">Annat</string>
+    <string name="hotel">Hotell</string>
+    <string name="withFriend">Hos kompisar</string>
+    <string name="caravan">Husvagn</string>
+    <string name="apartment">Lägenhet</string>
+    <string name="tent">Tält</string>
+    <string name="cottage">Stuga</string>
+    <string name="hintPackingList">Min kod</string>
+    <string name="textLogin">Logga in</string>
+
     <string-array name="categories">
         <item>Välj kategori</item>
         <item>kläder</item>
