@@ -10,7 +10,7 @@ $(function () {
 $(function () {
   for (let i = 1; i <= 6; i++) {
     $('#btn-item' + i).on('click', function () {
-      $('#item_list' + i).append('<li><input type="text" name="iname" class="item-box"><button type="button" class="add_item" onclick="addItem(this)" >Add item<input type="image" src="../static/icons8-delete-50.png" alt="Submit" class="deleteButton" onclick="removeItem(this)"><li>')
+      $('#item_list' + i).prepend('<li>' + '<input type="text" name="iname" class="item-box">' + '<button type="button" class="add_item" onclick="addItem(this)" >Add' + '<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">' + '<li>')
     });
   }
 });
@@ -25,7 +25,7 @@ function addItem(elem) {
   const value = $(elem).siblings()[0].value;
   if (value == "") {
   } else {
-    $('#item_list' + categoryIndex).append('<li>' + value + '<input type="image" src="../static/icons8-delete-50.png" alt="Submit" class="deleteButton" onclick="removeItem(this)"></li>');
+    $('#item_list' + categoryIndex).append('<li>' + value + '<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)"></li>');
     currentLocalStorage.push(value);
     const stringifiedArray = JSON.stringify(currentLocalStorage);
     localStorage.setItem(category, stringifiedArray);
@@ -69,51 +69,63 @@ function removeItem(elem) {
 // };
 
 $(function () {
-  deleteButton = $('<input type="image" src="../static/icons8-delete-50.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">')
+  deleteButton = $('<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">')
   deleteButton.appendTo('ul#item_list1 li');
 });
 
 $(function () {
-  deleteButton = $('<input type="image" src="../static/icons8-delete-50.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">');
+  deleteButton = $('<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">');
   deleteButton.appendTo('ul#item_list2 li');
 });
 
 $(function () {
-  deleteButton = $('<button onclick="removeItem(this)" />').addClass('deleteButton').text('Delete');
+  deleteButton = $('<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">');
   deleteButton.appendTo('ul#item_list3 li');
-  onclick = "removeItem"
 });
 
 $(function () {
-  deleteButton = $('<button onclick="removeItem(this)" />').addClass('deleteButton').text('Delete');
+  deleteButton = $('<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">');
   deleteButton.appendTo('ul#item_list4 li');
-  onclick = "removeItem"
 });
 
 $(function () {
-  deleteButton = $('<button onclick="removeItem(this)" />').addClass('deleteButton').text('Delete');
+  deleteButton = $('<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">');
   deleteButton.appendTo('ul#item_list5 li');
-  onclick = "removeItem"
 });
 
 $(function () {
-  deleteButton = $('<button onclick="removeItem(this)" />').addClass('deleteButton').text('Delete');
+  deleteButton = $('<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">');
   deleteButton.appendTo('ul#item_list6 li');
-  onclick = "removeItem"
 });
 
-const submitList = () => {
-  console.log('submitlist')
-  const request = {};
-  for(let i = 1; i <= 6; i++) {
-    const category = 'kat' + i;
-    const dataFromLS = JSON.parse(localStorage.getItem(category));
-    request[category] = dataFromLS;
-  }
-  console.log(request);
-  const url = 'localhost:8080/'
-  fetch(url)
+// function sendList(){
+// const submitList = () => {
+//   console.log('submitlist')
+//   const request = {};
+//   for(let i = 1; i <= 6; i++) {
+//     const category = 'kat' + i;
+//     const dataFromLS = JSON.parse(localStorage.getItem(category));
+//     request[category] = dataFromLS;
+//   }
+//   console.log(request);
+//   const url = 'localhost:8080/'
+//   fetch(url, {
+//     method: 'POST'
+//   })
   
+// // }
+// }
+
+
+
+function populateLocalStorage() {
+  localStorage.setItem('kat1', JSON.stringify([]));
+  localStorage.setItem('kat2', JSON.stringify([]));
+  localStorage.setItem('kat3', JSON.stringify([]));
+  localStorage.setItem('kat4', JSON.stringify([]));
+  localStorage.setItem('kat5', JSON.stringify([]));
+  localStorage.setItem('kat6', JSON.stringify([]));
 }
 
+populateLocalStorage();
 showLocal();
