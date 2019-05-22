@@ -14,17 +14,21 @@
 </head>
 
 <body>
-    <header>
-            <nav>
-                    <a href="/newlist"><img src="/static/BackpackerLogotyp.png" alt="Bagpacker" id="headerpic"></a>
-                    <div id="navlist">
-                            <a href="/newlist" class="active">Ny packlista</a>
-                            <a href="/">Hämta packlista</a>
-                            <a href="/">Packtips</a>
-                            <a href="/">Om oss</a>
-                    </div>      
-            </nav>
-    </header>
+        <header>
+                <a href="/newlist"><img src="/static/BackpackerLogotyp.png" alt="Bagpacker" id="headerpic"></a>
+                <nav class="navigationbar">
+                        <span class="navbartoggle" id=js-navbar-toggle>
+                            <i class="fas fa-bars"></i>
+                        </span>
+                        
+                        <ul class="main-nav" id="js-menu">
+                                <li class="current"><a href="/newlist" class="nav-links current">Ny packlista</a></li>
+                                <li><a href="/" class="nav-links">Hämta packlista</a></li>
+                                <li><a href="/" class="nav-links">Packtips</a></li>
+                                <li><a href="/" class="nav-links">Om oss</a></li>
+                        </ul>      
+                </nav>
+        </header>
     <main class="wrapper">
         <div id="errormessage">
             <h2>Någonting gick fel...</h2>
