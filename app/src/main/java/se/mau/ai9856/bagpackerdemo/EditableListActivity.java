@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -28,7 +29,7 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EditableListActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class EditableListActivity extends AppCompatActivity {
     private static final String ITEMS = "items";
     private static final String NAME = "name";
     private static final String INFO = "info";
@@ -37,6 +38,7 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
     private EditableListAdapter adapter;
     private EditText etNewItem;
     private String category, name, info;
+    private Spinner spinner;
     private boolean fromSaved;
     protected static boolean saved;
 
@@ -158,8 +160,13 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
     public void addItem() {
         String newItem = etNewItem.getText().toString().toLowerCase().trim();
         boolean itemAdded = false;
-        if (newItem.length() == 0 || category.isEmpty()) {
-            etNewItem.setHint("DÖP DIN GREJ");
+        if (newItem.isEmpty()) {
+            etNewItem.setHintTextColor(ContextCompat.getColor(EditableListActivity.this,
+                    R.color.colorPink));
+            etNewItem.setHint("Du måste ge din sak ett namn!");
+        }
+        if (category.isEmpty()){
+            spinner.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
         } else {
             for (SubList subList : expList) {
                 if (subList.getName().equals(category)) {
@@ -181,6 +188,7 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
         subList.addItem(new Packable(newItem, 1, 0));
         adapter.notifyDataSetChanged();
         etNewItem.setText("");
+        etNewItem.setHintTextColor(ContextCompat.getColor(this, R.color.colorWhite));
         etNewItem.setHint("Lägg till föremål");
         Toast.makeText(this, "Du har lagt till: " + newItem, Toast.LENGTH_SHORT).show();
         saved = false;
@@ -202,12 +210,12 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
     }
 
     public void setUpSpinner() {
-        Spinner spinner = findViewById(R.id.spChooseCategory);
+        spinner = findViewById(R.id.spChooseCategory);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.categories, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
+        spinner.setOnItemSelectedListener(new CategorySpinner());
     }
 
     public void showPopupInfo(View v) {
@@ -230,16 +238,24 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
         });
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
-        if (parent.getSelectedItemPosition() != 0) {
-            category = (String) parent.getSelectedItem();
-        } else {
-            category = "";
+    private class CategorySpinner implements AdapterView.OnItemSelectedListener{
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
+            if (parent.getSelectedItemPosition() > 0) {
+                category = (String) parent.getSelectedItem();
+            } else {
+                category = "";
+                //etNewItem.setHintTextColor(ContextCompat.getColor(EditableListActivity.this,
+                //        R.color.colorPink));
+                //etNewItem.setHint("välj kategori, please");
+            }
         }
-    }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-    }                                // Lägg till felmeddelande om ingen kategori är vald
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+            //category = "";
+            //etNewItem.setText("no category");
+        }                                // Lägg till felmeddelande om ingen kategori är vald
+    }
 }
