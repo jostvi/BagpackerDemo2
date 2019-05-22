@@ -1,6 +1,7 @@
 package se.mau.ai9856.bagpackerdemo;
 
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,13 +31,13 @@ public class TripActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip2);
         TextView bulletDate=findViewById(R.id.page2);
-        bulletDate.setTextColor(getResources().getColor(R.color.colorPink));
+        bulletDate.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
         TextView bulletTransport=findViewById(R.id.page3);
-        bulletTransport.setTextColor(getResources().getColor(R.color.colorPink));
+        bulletTransport.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
         TextView bulletAccomodation=findViewById(R.id.page4);
-        bulletAccomodation.setTextColor(getResources().getColor(R.color.colorPink));
+        bulletAccomodation.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
         TextView bulletActivity=findViewById(R.id.page5);
-        bulletActivity.setTextColor(getResources().getColor(R.color.colorPink));
+        bulletActivity.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
 
         checkOutdoor = findViewById(R.id.checkOutdoor);
         checkWintersport = findViewById(R.id.checkWintersport);

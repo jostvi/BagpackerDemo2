@@ -23,7 +23,7 @@
         android:layout_marginTop="130dp"
         android:layout_marginEnd="24dp"
         android:ems="10"
-        android:fontFamily="@font/didact_gothic"
+        android:fontFamily="@font/baumans"
         android:text="@string/question_transport"
         android:textColor="@color/colorBlack"
         android:textSize="30dp"
@@ -57,35 +57,6 @@
         app:layout_constraintTop_toTopOf="@+id/include2"
         app:layout_constraintVertical_bias="0.196" />-->
 
-    <ImageView
-        android:id="@+id/imgCar"
-        android:layout_width="63dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginBottom="8dp"
-        android:adjustViewBounds="true"
-        android:clickable="false"
-        android:scaleType="fitCenter"
-        android:src="@drawable/car"
-        app:layout_constraintBottom_toTopOf="@+id/checkCar"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/questionTransport"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/imgBike"
-        android:layout_width="50dp"
-        android:layout_height="39dp"
-        android:adjustViewBounds="true"
-        android:clickable="true"
-        android:scaleType="fitCenter"
-        android:src="@drawable/bike"
-        app:layout_constraintBottom_toTopOf="@+id/checkBike"
-        app:layout_constraintTop_toBottomOf="@+id/questionTransport"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="218dp" />
-
     <CheckBox
         android:id="@+id/checkCar"
         android:layout_width="wrap_content"
@@ -97,6 +68,7 @@
         android:textColor="@color/colorBlack"
         android:textSize="20dp"
         android:textStyle="bold"
+        android:text="@string/car"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/questionTransport" />
 
@@ -209,7 +181,7 @@
         android:layout_width="396dp"
         android:layout_height="46dp"
         android:layout_margin="10dp"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorPink"
         android:textSize="24sp"
         tools:layout_editor_absoluteX="7dp"
         tools:layout_editor_absoluteY="440dp" />

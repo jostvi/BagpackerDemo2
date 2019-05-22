@@ -24,7 +24,7 @@
     <string name="bullet">\u25CF</string>
     <string name="question_destination">Vart ska du resa?</string>
     <string name="question_date">Mellan vilka datum ska du resa?</string>
-    <string name="question_transport">Hur ska du ta dig till resemål?</string>
+    <string name="question_transport">Hur ska du ta dig till ditt resmål?</string>
     <string name="question_accomodation">Hur ska du bo?</string>
     <string name="question_activity">Vilka aktiviteter planerar du?</string>
     <string name="car">Bil</string>
@@ -43,6 +43,7 @@
     <string name="cottage">Stuga</string>
     <string name="hintPackingList">Min kod</string>
     <string name="textLogin">Logga in</string>
+    <string name="next">Nästa</string>
 
     <string-array name="categories">
         <item>Välj kategori</item>

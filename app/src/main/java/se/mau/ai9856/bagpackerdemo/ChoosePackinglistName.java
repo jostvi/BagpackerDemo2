@@ -1,6 +1,7 @@
 package se.mau.ai9856.bagpackerdemo;
 
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -35,15 +36,15 @@ public class ChoosePackinglistName extends AppCompatActivity {
 
     private void initializeComponents(){
         TextView bulletDate=findViewById(R.id.page2);
-        bulletDate.setTextColor(getResources().getColor(R.color.colorPink));
+        bulletDate.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
         TextView bulletTransport=findViewById(R.id.page3);
-        bulletTransport.setTextColor(getResources().getColor(R.color.colorPink));
-        TextView bulletAccommodation=findViewById(R.id.page4);
-        bulletAccommodation.setTextColor(getResources().getColor(R.color.colorPink));
+        bulletTransport.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
+        TextView bulletAccomodation=findViewById(R.id.page4);
+        bulletAccomodation.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
         TextView bulletActivity=findViewById(R.id.page5);
-        bulletActivity.setTextColor(getResources().getColor(R.color.colorPink));
+        bulletActivity.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
         TextView bulletTitle=findViewById(R.id.page6);
-        bulletTitle.setTextColor(getResources().getColor(R.color.colorPink));
+        bulletTitle.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
         final String url = getIntent().getStringExtra(URL);
         packinglistName = findViewById(R.id.packinglistName);
         messageToUser = findViewById(R.id.messageToUser);

@@ -1,4 +1,15 @@
-var currentTab = 0;
+/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+function myFunction() {
+    var x = document.querySelector(".topnav");
+    if (x.className === "topnav") {
+      x.className += " responsive";
+    } else {
+      x.className = "topnav";
+    }
+  }
+
+
+/* var currentTab = 0;
 showTab(currentTab);
 
 function showTab(n) {
@@ -65,17 +76,34 @@ async function nextPrev(n) {
 }
 
 function validateForm() {
+    // This function deals with validation of the form fields
     var x, y, i, valid = true;
     x = document.getElementsByClassName("step");
     y = x[currentTab].getElementsByTagName("input");
+    // A loop that checks every input field in the current tab:
     for (i = 0; i < y.length; i++) {
-        //kan man lägga in fler saker här???
-        if (y[i].value == "") {
-            y[i].className += " invalid";
+      // If a field is empty...
+      if (y[i].value == "") {
+        // add an "invalid" class to the field:
+        y[i].className += " invalid";
+        // and set the current valid status to false:
+        valid = false;
+      }
+    }
+
+       /*  if (i == 2 && (validateTransportCheckboxes() == false)) {
             valid = false;
         }
-    }
-    if (valid) {
+        
+       if (i == 3 && (validateAccoCheckboxes() == false)) {
+            valid = false;
+        }
+
+        if (i == 4 && (validateActivityCheckboxes() == false)) {
+            valid = false;
+        }
+    } */
+    /* if (valid) {
         document.getElementsByClassName("dots")[currentTab].className += " finish";
     }
     return valid;
@@ -89,6 +117,50 @@ function fixStepIndicator(n) {
         x[n].className += " active";
     }
 
+function validateTransportCheckboxes() { 
+
+    if (!document.getElementById("transport1").checked && !document.getElementById("transport2").checked
+        && !document.getElementById("transport3").checked && !document.getElementById("transport4").checked
+        && !document.getElementById("transport5").checked && !document.getElementById("transport6").checked
+        && !document.getElementById("transport7").checked && !document.getElementById("transport8").checked) {
+            var text
+            text = "Du måste välja minst ett alternativ"
+
+            document.getElementById("transport_validation").innerHTML = text;
+            return false
+        }
+}
+
+function validateAccoCheckboxes() { 
+    
+    if (!document.getElementById("accommodation1").checked && !document.getElementById("accommodation2").checked
+        && !document.getElementById("accommodation3").checked && !document.getElementById("accommodation4").checked
+        && !document.getElementById("accommodation5").checked && !document.getElementById("accommodation6").checked
+        && !document.getElementById("accommodation7").checked && !document.getElementById("accommodation8").checked) {
+        
+        var text
+        text = "Du måste välja minst ett alternativ"
+
+        document.getElementById("accommodation_validation").innerHTML = text;
+        return false
+        }
+}
+
+function validateActivityCheckboxes() { 
+    
+    if (!document.getElementById("activity1").checked && !document.getElementById("activity2").checked
+        && !document.getElementById("activity3").checked && !document.getElementById("activity4").checked
+        && !document.getElementById("activity5").checked && !document.getElementById("activity6").checked
+        && !document.getElementById("activity7").checked && !document.getElementById("activity8").checked) {
+        
+        var text
+        text = "Du måste välja minst ett alternativ"
+
+        document.getElementById("activity_validation").innerHTML = text;
+        return false
+        } */
+
+/* 
 function validateTransportCheckboxes() { 
     
     if (!document.getElementById("transport1").checked && !document.getElementById("transport2").checked
@@ -131,6 +203,7 @@ function validateActivityCheckboxes() {
         && !document.getElementById("activity3").checked && !document.getElementById("activity4").checked
         && !document.getElementById("activity5").checked && !document.getElementById("activity6").checked
         && !document.getElementById("activity7").checked && !document.getElementById("activity8").checked) {
+        
         var text
         text = "Du måste välja minst ett alternativ"
 
@@ -141,4 +214,5 @@ function validateActivityCheckboxes() {
     else {
         document.getElementById("nextBtn").disabled = false;
     }
-}
+} */
+
