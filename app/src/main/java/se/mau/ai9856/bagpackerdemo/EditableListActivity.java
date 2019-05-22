@@ -37,32 +37,19 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
     private EditableListAdapter adapter;
     private EditText etNewItem;
     private String category, name, info;
+    private boolean fromSaved;
     protected static boolean saved;
 
     @Override
     public void onBackPressed() {
-        if (!saved) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(EditableListActivity.this);
-            builder.setCancelable(true);
-            builder.setMessage("Vill du spara listan?");
-            builder.setNegativeButton("Avbryt", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.cancel();
-                    exitEditing();
-                }
-            });
-            builder.setPositiveButton("Spara", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    saveList();
-                    exitEditing();
-                }
-            });
-            builder.show();
-        } else {
-            exitEditing();
-        }
+        fromSaved = true;
+        confirmExit();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initializeComponents();
     }
 
     @Override
@@ -91,6 +78,7 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
         adapter = new EditableListAdapter(EditableListActivity.this, expList);
         expListView.setAdapter(adapter);
         saved = false;
+        fromSaved = false;
         ImageButton btnSaveList = findViewById(R.id.btnSaveList);
         btnSaveList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,23 +86,31 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
                 saveList();
             }
         });
+        ImageButton btnAddItem = findViewById(R.id.btnAddItem);
+        btnAddItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addItem();
+            }
+        });
+        ImageButton btnHome = findViewById(R.id.btnHome);
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                confirmExit();
+            }
+        });
         etNewItem.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 boolean handled = false;
-                if(i == EditorInfo.IME_ACTION_DONE){
+                if (i == EditorInfo.IME_ACTION_DONE) {
                     addItem();
                     handled = true;
                 }
                 return handled;
             }
         });
-        if (name == null) {                                   // MARKER: Se över denna lösning
-            name = Database.loadName(this, "NAME");
-        }
-        if (info == null) {
-            info = Database.loadInfo(this, "INFO");
-        }
 
         TextView title = findViewById(R.id.listTitle);
         title.setText(name);
@@ -122,9 +118,34 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
         expandAll();
     }
 
+    private void confirmExit(){
+        if (!saved) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(EditableListActivity.this);
+            builder.setCancelable(true);
+            builder.setMessage("Vill du spara listan?");
+            builder.setNegativeButton("Avbryt", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                    exitEditing();
+                }
+            });
+            builder.setPositiveButton("Spara", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    saveList();
+                    exitEditing();
+                }
+            });
+            builder.show();
+        } else{
+            exitEditing();
+        }
+    }
+
     private void exitEditing() {
-        Intent intent = getIntent();
-        if (intent.getStringExtra("ACTIVITY1") != null) {
+        Intent intent;
+        if (fromSaved) {
             intent = new Intent(this, ShowSavedListActivity.class);
             startActivity(intent);
         } else {
@@ -220,5 +241,5 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-    }      // Lägg till felmeddelande (om ingen kategori är vald)?
+    }                                // Lägg till felmeddelande om ingen kategori är vald
 }

@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -22,6 +23,8 @@ import java.util.ArrayList;
 
 public class ShowSavedListActivity extends AppCompatActivity {
     private final static String ITEMS = "items";
+    private final static String NAME = "name";
+    private final static String INFO = "info";
     private ExpandableListView expandableListView;
     private SavedListAdapter savedListAdapter;
     private String name, info;
@@ -53,8 +56,6 @@ public class ShowSavedListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ShowSavedListActivity.this, MainActivity.class);
                 startActivity(intent);
-
-
             }
         });
     }
@@ -66,7 +67,15 @@ public class ShowSavedListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_saved);
         expandableListView = findViewById(R.id.SavedexpListView);
         TextView title = findViewById(R.id.titleTextView);
-
+        ImageButton btnHome = findViewById(R.id.btnHome);
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ShowSavedListActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         title.setText(name);
 
         if (expandableList == null) {
@@ -84,7 +93,8 @@ public class ShowSavedListActivity extends AppCompatActivity {
     private void expandAll() {
         int count = savedListAdapter.getGroupCount();
         for (int i = 0; i < count; i++) {
-            expandableListView.expandGroup(i);
+            if(savedListAdapter.getGroup(i).getExpanded())
+                expandableListView.expandGroup(i);
         }
     }
 
@@ -115,8 +125,11 @@ public class ShowSavedListActivity extends AppCompatActivity {
         Intent intent = new Intent(this, EditableListActivity.class);
         Gson gson = new Gson();
         String json = gson.toJson(Database.loadList(this, listKey));
-        intent.putExtra(ITEMS, json);                       // MARKER: Skicka även med name?
-        intent.putExtra("ACTIVITY1", "halloj");
+        String name = Database.loadName(this, nameKey);
+        String info = Database.loadInfo(this, infoKey);
+        intent.putExtra(ITEMS, json);
+        intent.putExtra(NAME, name);
+        intent.putExtra(INFO, info);
         startActivity(intent);
     }
 

@@ -30,6 +30,10 @@ public class ChoosePackinglistName extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_packinglist_name2);
+        initializeComponents();
+    }
+
+    private void initializeComponents(){
         TextView bulletDate=findViewById(R.id.page2);
         bulletDate.setTextColor(getResources().getColor(R.color.colorPink));
         TextView bulletTransport=findViewById(R.id.page3);
