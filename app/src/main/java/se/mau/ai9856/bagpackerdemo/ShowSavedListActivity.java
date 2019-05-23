@@ -130,6 +130,7 @@ public class ShowSavedListActivity extends AppCompatActivity {
         intent.putExtra(ITEMS, json);
         intent.putExtra(NAME, name);
         intent.putExtra(INFO, info);
+        intent.putExtra("SAVED", "saved");
         startActivity(intent);
     }
 

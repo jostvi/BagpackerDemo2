@@ -44,7 +44,6 @@ public class EditableListActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        fromSaved = true;
         confirmExit();
     }
 
@@ -146,8 +145,9 @@ public class EditableListActivity extends AppCompatActivity {
     }
 
     private void exitEditing() {
-        Intent intent;
-        if (fromSaved) {
+        Intent intent = getIntent();
+        String fromSaved = intent.getStringExtra("SAVED"); // OBS! Nödlösning! Skriv om!
+        if (fromSaved != null) {
             intent = new Intent(this, ShowSavedListActivity.class);
             startActivity(intent);
         } else {
@@ -163,10 +163,9 @@ public class EditableListActivity extends AppCompatActivity {
         if (newItem.isEmpty()) {
             etNewItem.setHintTextColor(ContextCompat.getColor(EditableListActivity.this,
                     R.color.colorPink));
-            etNewItem.setHint("Du måste ge din sak ett namn!");
-        }
-        if (category.isEmpty()){
-            spinner.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+            etNewItem.setHint("Ange ett namn");
+        }else if (category.isEmpty()){
+            spinner.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPink));
         } else {
             for (SubList subList : expList) {
                 if (subList.getName().equals(category)) {
@@ -243,19 +242,14 @@ public class EditableListActivity extends AppCompatActivity {
         public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
             if (parent.getSelectedItemPosition() > 0) {
                 category = (String) parent.getSelectedItem();
+                spinner.setBackgroundColor(ContextCompat.getColor(EditableListActivity.this,
+                        R.color.colorWhite));
             } else {
                 category = "";
-                //etNewItem.setHintTextColor(ContextCompat.getColor(EditableListActivity.this,
-                //        R.color.colorPink));
-                //etNewItem.setHint("välj kategori, please");
             }
         }
 
         @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {
-
-            //category = "";
-            //etNewItem.setText("no category");
-        }                                // Lägg till felmeddelande om ingen kategori är vald
+        public void onNothingSelected(AdapterView<?> adapterView) {}
     }
 }
