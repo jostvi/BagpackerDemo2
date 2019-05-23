@@ -9,12 +9,11 @@ body {
     font-size: 18px !important;
     margin: 0;
     padding: 0;
-    min-height: 400px;
-    background-color: lightcoral;
-    /* background-image: url("/static/crumpled-2537807_1920.jpg");
-    /* background-image: url("/static/scanningar_ljus_webb.png"); */
-    background-position: top; 
-    background-size: 100%;
+    background-image: url("header_scanningar_29.png");
+    background-size: auto 100%;
+    background-position: cover;
+    background-repeat: repeat-y;
+    margin: 0;
 }
 
 header {
@@ -65,10 +64,18 @@ footer {
 }
 
 #startpage {
-    background-image: url("background.jpg");
-    background-size: 100%;
-    background-position: top;
-    background-repeat: repeat-y;
+    background-image: url("header_scanningar_29.png");
+    background-size: auto 100%;
+    background-position: cover;
+    background-repeat: no-repeat;
+    margin: 0;
+}
+
+#startpic {
+  width: 40%;
+  margin: auto;
+  display: block;
+  margin-top: 100px;
 }
 
 
@@ -79,7 +86,7 @@ footer {
   width: 220px;
   margin: auto;
   display: block;
-  margin-top: 25%;
+  margin-top: 5%;
   cursor: pointer;
   border-radius: 3px !important;
   border: none;
@@ -151,7 +158,7 @@ footer {
 }
 /*Form*/
 #multi-step-form {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.9);
   margin-left: auto;
   margin-right: auto;
   margin-top: 60px;
@@ -163,7 +170,7 @@ footer {
 }
 
 #errormessage {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: none;
   margin-left: auto;
   margin-right: auto;
   margin-top: 60px;
@@ -362,32 +369,32 @@ input.invalid {
 
 #clothes {
   grid-area: clothes;
-  background-color: rgba(253,255,31, 0.8);
+  background-color: #FFFF6B;
 }
 
 #hygiene {
   grid-area: hygiene;
-  background-color: rgba(253,255,31, 0.8);
+  background-color: #FFFF6B;
 }
 
 #traveldocs{
   grid-area: traveldocs;
-  background-color: rgba(253,255,31, 0.8);
+  background-color: #FFFF6B;
 }
 
 #electronics {
   grid-area: electronics;
-  background-color: rgba(253,255,31, 0.8);
+  background-color: #FFFF6B;
 }
 
 #specials {
   grid-area: specials;
-  background-color: rgba(253,255,31, 0.8);
+  background-color: #FFFF6B;
 }
 
 #misc {
   grid-area: misc;
-  background-color: rgba(253,255,31, 0.8);
+  background-color: #FFFF6B;
 }
 
 .sticky {
@@ -469,6 +476,11 @@ background-color: rgba(253,255,31, 0.1) !important;
   margin: 0 auto 40px auto;
   font-size: 18px;
   /* background-color:rgba(255, 255, 255, 0.2); */
+}
+
+#show_list {
+  background-image: none;
+  background-color: white;
 }
 
 .scrollpic {
@@ -669,6 +681,12 @@ width: 50px;
   list-style-type: none;
 }
 
+@media (max-width: 1330px) {
+  .align_left_edit {
+    flex-basis: 160px !important;
+  }
+
+}
 
 
 
@@ -686,6 +704,10 @@ width: 50px;
   
   #tripinfo {
     margin-left: 10%;
+  }
+
+  .align_left_edit {
+    flex-basis: 200px;
   }
 }
 
@@ -819,6 +841,10 @@ width: 50px;
   #multi-step-form {
     width: 100%;
     padding: 20px;
+  }
+
+  #startpic {
+    width: 80%;
   }
 }
 
@@ -1016,7 +1042,9 @@ font-size: 20px;
   list-style: none;
   height: 45px;
   /* padding-right: 15px; */
-  display: table;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
 }
 
 .editalign_right{
@@ -1025,11 +1053,29 @@ font-size: 20px;
   padding: 0px;
   padding-right: 15px;
 }
-.editalign_left{
-width: 100%;
-display:table-cell;
-text-align:left;
-padding-left: 15px;
-padding-bottom: 10px;
-font-size: 25px;
+
+.editalign_left {
+  flex-basis: 230px;
+  display: flex;
+  text-align:left;
+  padding-bottom: 10px;
+  font-size: 20px;
+}
+
+.align_left_edit {
+  flex-basis: 230px;
+  display: flex;
+  text-align:left;
+  padding-bottom: 10px;
+  font-size: 20px;
+}
+
+.align_right_edit {
+  text-align:right;
+  padding: 0px;
+  padding-right: 15px;
+  }
+
+.input_quantity {
+  padding: 0;
 }

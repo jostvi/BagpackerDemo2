@@ -457,20 +457,20 @@ def generate_list_android():
 def get_saved_list():
 #aktuell!!! uppdaterat för att kunna hämta från webben, lägg in på pythonanywhere
     list_id = getattr(request.forms, "code")
-    print(list_id)
+    
     conn = psycopg2.connect(host="pgserver.mah.se",
                             database="bagpacker", user="ai8134", password="h9rbyai5")
     cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
-    cur.execute("SELECT id, item, weight, category, saved_lists.quantity FROM saved_lists JOIN all_items on item_id=id WHERE code = (%s)", (list_id, ))
+    cur.execute("SELECT id, item, weight, category, saved_lists.quantity, checked FROM saved_lists JOIN all_items on item_id=id WHERE code = (%s)", (list_id, ))
     item_list = cur.fetchall()
     cur.close()
     conn.close()
 
     complete_list = []
     for item in item_list:
-        item_dict = {"id": item[0], "item": item[1], "weight": item[2], "category": item[3], "quantity": item[4]}
+        item_dict = {"id": item[0], "item": item[1], "weight": item[2], "category": item[3], "quantity": item[4], "checked" : item[5]}
         complete_list.append(item_dict)
-    print(complete_list)
+
 
     conn = psycopg2.connect(host="pgserver.mah.se",
                             database="bagpacker", user="ai8134", password="h9rbyai5")
@@ -497,33 +497,33 @@ def get_saved_list():
     
     total_weight = gl.get_weight(complete_list)
 
-    return template ('show_list', item_list = item_list, which_data = which_data, start = start, finish = finish,
+    return template ('show_saved_list', item_list = item_list, which_data = which_data, start = start, finish = finish,
                      location = location, temp_min = round(temp_min), temp_max = round(temp_max),
                      total_weight = total_weight, rain_risk = rain_risk, mean_temp = round(mean_temp))
 
-'''OBS! BARA TEST'''
-@route("/get_list/")
-def get_list_from_db():
-
-    list_id = request.query.param1
-    conn = psycopg2.connect(host="pgserver.mah.se",
-                            database="bagpacker", user="ai8134", password="h9rbyai5")
-    cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
-    cur.execute("SELECT list FROM saved_lists WHERE id = (%s)", (list_id, ))
-    item_list = cur.fetchall()
-    cur.close()
-    conn.close()
-
-    returned_list = item_list[0]
-
-    return returned_list[0]
+##'''OBS! BARA TEST'''
+##@route("/get_list/")
+##def get_list_from_db():
+##
+##    list_id = request.query.param1
+##    conn = psycopg2.connect(host="pgserver.mah.se",
+##                            database="bagpacker", user="ai8134", password="h9rbyai5")
+##    cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
+##    cur.execute("SELECT list FROM saved_lists WHERE id = (%s)", (list_id, ))
+##    item_list = cur.fetchall()
+##    cur.close()
+##    conn.close()
+##
+##    returned_list = item_list[0]
+##
+##    return returned_list[0]
 
 @route("/save_list/", method="POST")
 def save_list():
 #aktuell
     item_list_to_save = getattr(request.forms, "saved_list")
     item_list = json.loads(item_list_to_save.replace("\'", "\""))
-    print(item_list)
+    
     complete_list = []
     for item in item_list:
         checked = getattr(request.forms, str(item['id']))
@@ -532,7 +532,7 @@ def save_list():
         else:
             item['checked'] = False
         complete_list.append(item)
-    print(complete_list)
+    
     code = random.randint(100000,1000000)
     conn = psycopg2.connect(host="pgserver.mah.se",
                             database="bagpacker", user="ai8134", password="h9rbyai5")
@@ -564,12 +564,11 @@ def save_list():
     conn.commit()
     cur.close()
     conn.close()
-    return json.dumps(code)
+    return template ('code', code=code)
 
 @route("/edit_list/", method="POST")
 def edit_list():
     item_list_to_edit = getattr(request.forms, "saved_list")
-    print(item_list_to_edit)
     item_list = json.loads(item_list_to_edit.replace("\'", "\""))
     
     
@@ -601,21 +600,36 @@ def edit_list():
 ##    return template ('code', code = code)
 ##    
 
+@route("/fetch_list")
+def fetch_list():
+
+    return template ('get_list')
+
+@route("/packhacks")
+def show_packhacks():
+
+    return template ('packhacks')
+
+@route("/about")
+def show_about():
+
+    return template ('about')
+
 @route("/static/<filename>")
 def static_files(filename):
     return static_file (filename, root="static")
 
 
-##@error(404)
-##def error404(error):
-##   return template ("error")
-##
-##@error(405)
-##def error405(error):
-##   return template ("error")
-##
-##@error(500)
-##def error500(error):
-##   return template ("error")
+@error(404)
+def error404(error):
+   return template ("error")
+
+@error(405)
+def error405(error):
+   return template ("error")
+
+@error(500)
+def error500(error):
+   return template ("error")
 
 run(host="localhost", port=8080, debug=True)

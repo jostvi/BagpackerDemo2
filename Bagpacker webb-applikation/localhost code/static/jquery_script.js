@@ -40,7 +40,7 @@ function showLocal() {
     if (dehydrateLocal != null) {
       for (let j = 0; j < dehydrateLocal.length; j++) {
         const hydrateItem = dehydrateLocal[j];
-        $('#item_list' + i).append('<li edit_list>' + '<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">' + '<div class="editalign_left">' + hydrateItem + '</div>' + '<div class="editalign_right"><input type="number" class="input_quantity" name="quantity" min="1"></div>' + '</li>');
+        $('#item_list' + i).append('<li class="edit_list">' + '<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">' + '<div class="editalign_left">' + hydrateItem + '</div>' + '<div class="editalign_right"><input type="number" class="input_quantity" name="quantity" min="1"></div>' + '</li>');
       }
     }
   }
