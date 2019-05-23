@@ -82,7 +82,8 @@ public class MainActivity extends AppCompatActivity {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     getListFromServer();
                     handled = true;
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(
+                            Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
                 return handled;
@@ -108,7 +109,8 @@ public class MainActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
                     public void onErrorResponse(VolleyError e) {
                         e.printStackTrace();
-                        Toast.makeText(MainActivity.this,"Fel vid hämtning \nSkrev du rätt lösenord?", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "Fel vid hämtning " +
+                                "\nSkrev du rätt lösenord?", Toast.LENGTH_LONG).show();
                     }
                 });
 

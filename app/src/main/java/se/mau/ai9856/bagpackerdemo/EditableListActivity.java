@@ -3,6 +3,7 @@ package se.mau.ai9856.bagpackerdemo;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -225,9 +227,10 @@ public class EditableListActivity extends AppCompatActivity {
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
         boolean focusable = true;
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+        popupWindow.setElevation(100);
         TextView popupText = popupWindow.getContentView().findViewById(R.id.popupText);
         popupText.setText(info);
-        popupWindow.showAtLocation(v, Gravity.TOP, 0, 0);
+        popupWindow.showAtLocation(v, Gravity.CENTER, 0, -100);
         popupView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {

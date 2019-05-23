@@ -11,18 +11,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TripDate" />
-        <activity android:name=".TripActivity" />
-        <activity android:name=".Transport" />
-        <activity android:name=".Destination" />
-        <activity android:name=".DatePicker" />
-        <activity android:name=".ChoosePackinglistName" />
-        <activity android:name=".Accomodation" />
-        <activity android:name=".Login" />
-        <activity android:name=".ShowSavedListActivity" />
-        <activity android:name=".EditableListActivity" />
-        <activity android:name=".CreateNewAccount" />
-        <activity android:name=".MainActivity" >
+        <activity android:name=".TripDate" android:screenOrientation="portrait"/>
+        <activity android:name=".TripActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".Transport" android:screenOrientation="portrait"/>
+        <activity android:name=".Destination" android:screenOrientation="portrait"/>
+        <activity android:name=".DatePicker" android:screenOrientation="portrait"/>
+        <activity android:name=".ChoosePackinglistName" android:screenOrientation="portrait"/>
+        <activity android:name=".Accomodation" android:screenOrientation="portrait"/>
+        <activity android:name=".Login" android:screenOrientation="portrait"/>
+        <activity android:name=".ShowSavedListActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".EditableListActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".CreateNewAccount" android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
