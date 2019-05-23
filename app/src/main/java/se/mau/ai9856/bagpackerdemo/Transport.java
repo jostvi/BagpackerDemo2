@@ -43,7 +43,7 @@ public class Transport extends AppCompatActivity {
         checkCar = findViewById(R.id.checkCar);
         checkTrain = findViewById(R.id.checkTrain);
         checkFlight = findViewById(R.id.checkFlight);
-        checkBus = findViewById(R.id.checkVandrarhem);
+        checkBus = findViewById(R.id.checkBus);
         checkBike = findViewById(R.id.checkBike);
         checkMotorbike = findViewById(R.id.checkMotorbike);
         checkBoat = findViewById(R.id.checkBoat);
@@ -109,7 +109,7 @@ public class Transport extends AppCompatActivity {
                 }
                 break;
 
-            case R.id.checkVandrarhem:
+            case R.id.checkHostel:
                 if(checked){
                     selection.add("bus");
                 }else{

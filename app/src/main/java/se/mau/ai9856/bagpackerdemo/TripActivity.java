@@ -20,6 +20,7 @@ public class TripActivity extends AppCompatActivity {
     private CheckBox checkSightseeing;
     private CheckBox checkCulture;
     private CheckBox checkNightlife;
+    private CheckBox checkTraining;
     private CheckBox checkOther;
     private TextView messageToUser;
     private ArrayList<String> selection = new ArrayList<>();
@@ -45,6 +46,7 @@ public class TripActivity extends AppCompatActivity {
         checkSightseeing = findViewById(R.id.checkSightseeing);
         checkCulture = findViewById(R.id.checkCulture);
         checkNightlife = findViewById(R.id.checkNightlife);
+        checkTraining = findViewById(R.id.checkTrainer);
         checkOther = findViewById(R.id.otherActivity);
         messageToUser = findViewById(R.id.messageToUser);
 
@@ -65,7 +67,7 @@ public class TripActivity extends AppCompatActivity {
                 if (!checkOutdoor.isChecked() && !checkWintersport.isChecked()
                         && !checkBeach.isChecked() && !checkSightseeing.isChecked()
                         && !checkCulture.isChecked() && !checkNightlife.isChecked()
-                        && !checkOther.isChecked()){
+                        && !checkOther.isChecked() && !checkTraining.isChecked()){
                     messageToUser.setText("Välj något");
                 } else {
                     Intent intent = new Intent(TripActivity.this, ChoosePackinglistName.class);
@@ -124,6 +126,14 @@ public class TripActivity extends AppCompatActivity {
                     selection.add("nightlife");
                 }else{
                     selection.remove("nightlife");
+                }
+                break;
+
+            case R.id.checkTrainer:
+                if(checked){
+                    selection.add("training");
+                }else{
+                    selection.remove("training");
                 }
                 break;
 
