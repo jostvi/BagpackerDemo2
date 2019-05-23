@@ -10,7 +10,7 @@ body {
     margin: 0;
     padding: 0;
     min-height: 400px;
-    background-color: white;
+    background-color: lightcoral;
     /* background-image: url("/static/crumpled-2537807_1920.jpg");
     /* background-image: url("/static/scanningar_ljus_webb.png"); */
     background-position: top; 
@@ -111,7 +111,9 @@ footer {
   height: 54px;
   margin: auto;
   margin-top: 2%;
+  box-shadow: 0 0 5px black;
 }
+
 #codeinput {
   width: 120px;
   margin: auto;
@@ -143,9 +145,9 @@ footer {
   border-radius: 0px 3px 3px 0px;
 }
 
-.fa-cloud-download-alt {
+#cloud {
   color: #FB005B !important;
-  padding: 0px 15px 15px 0px;
+  padding: 12px 14px 15px 14px;
 }
 /*Form*/
 #multi-step-form {

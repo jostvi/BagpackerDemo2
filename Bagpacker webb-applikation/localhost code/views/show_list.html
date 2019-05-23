@@ -30,7 +30,7 @@
 
 <body>
     <header>
-            <a href="/newlist"><img src="/static/BackpackerLogotyp.png" alt="Bagpacker" id="headerpic"></a>
+            <a href="/"><img src="/static/BackpackerLogotyp.png" alt="Bagpacker" id="headerpic"></a>
             <nav class="navigationbar">
                     <span class="navbartoggle" id=js-navbar-toggle>
                         <i class="fas fa-bars"></i>
@@ -181,6 +181,8 @@
             </div>
         </div>
             <input type="hidden" name="destination" value="{{location[0]}}, {{location[1]}}">
+            <input type="hidden" name="start" value="{{start}}">
+            <input type="hidden" name="finish" value="{{finish}}">
             <input type="hidden" name="temp_min" value="{{temp_min}}">
             <input type="hidden" name="temp_max" value="{{temp_max}}">
             <input type="hidden" name="temp_mean" value="{{mean_temp}}">

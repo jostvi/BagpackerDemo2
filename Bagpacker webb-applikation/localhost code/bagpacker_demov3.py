@@ -453,10 +453,11 @@ def generate_list_android():
     return json.dumps(the_list)
  
 
-@route("/get_saved_list/")
+@route("/get_saved_list", method="POST")
 def get_saved_list():
-#aktuell!!!
-    list_id = request.query.param1
+#aktuell!!! uppdaterat för att kunna hämta från webben, lägg in på pythonanywhere
+    list_id = getattr(request.forms, "code")
+    print(list_id)
     conn = psycopg2.connect(host="pgserver.mah.se",
                             database="bagpacker", user="ai8134", password="h9rbyai5")
     cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
@@ -469,10 +470,36 @@ def get_saved_list():
     for item in item_list:
         item_dict = {"id": item[0], "item": item[1], "weight": item[2], "category": item[3], "quantity": item[4]}
         complete_list.append(item_dict)
+    print(complete_list)
 
-#total_weight = get_weight(complete_list)
+    conn = psycopg2.connect(host="pgserver.mah.se",
+                            database="bagpacker", user="ai8134", password="h9rbyai5")
+    cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
+    cur.execute("SELECT destination, start, finish, temp_min, temp_max, temp_mean, which_data, rain from weather_data WHERE id = (%s)", (list_id, ))
+    data = cur.fetchall()
+    cur.close()
+    conn.close()
+    weather_data = data[0]
+    destination = weather_data[0]
+    location = destination.split(",")
+    start = weather_data [1]
+    finish = weather_data[2]
+    temp_min = weather_data[3]
+    temp_max = weather_data[4]
+    mean_temp = weather_data[5]
+    which_data = weather_data[6]
+    rain = weather_data[7]
+    if rain == True:
+        rain_risk = "hög"
+    else:
+        rain_risk = "låg"
+    
+    
+    total_weight = gl.get_weight(complete_list)
 
-    return json.dumps(complete_list)
+    return template ('show_list', item_list = item_list, which_data = which_data, start = start, finish = finish,
+                     location = location, temp_min = round(temp_min), temp_max = round(temp_max),
+                     total_weight = total_weight, rain_risk = rain_risk, mean_temp = round(mean_temp))
 
 '''OBS! BARA TEST'''
 @route("/get_list/")
@@ -496,6 +523,7 @@ def save_list():
 #aktuell
     item_list_to_save = getattr(request.forms, "saved_list")
     item_list = json.loads(item_list_to_save.replace("\'", "\""))
+    print(item_list)
     complete_list = []
     for item in item_list:
         checked = getattr(request.forms, str(item['id']))
@@ -504,6 +532,7 @@ def save_list():
         else:
             item['checked'] = False
         complete_list.append(item)
+    print(complete_list)
     code = random.randint(100000,1000000)
     conn = psycopg2.connect(host="pgserver.mah.se",
                             database="bagpacker", user="ai8134", password="h9rbyai5")
@@ -515,6 +544,8 @@ def save_list():
     conn.close()
 
     destination = getattr(request.forms, "destination")
+    start = getattr(request.forms, "start")
+    finish = getattr(request.forms, "finish")
     temp_min = int(getattr(request.forms, "temp_min"))
     temp_max = int(getattr(request.forms, "temp_max"))
     temp_mean = int(getattr(request.forms, "temp_mean"))
@@ -529,7 +560,7 @@ def save_list():
     conn = psycopg2.connect(host="pgserver.mah.se",
                             database="bagpacker", user="ai8134", password="h9rbyai5")
     cur = conn.cursor()
-    cur.execute('INSERT into weather_data VALUES (%s, %s, %s, %s, %s, %s, %s)', (code, destination, temp_min, temp_max, temp_mean, which_data, rain))
+    cur.execute('INSERT into weather_data VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)', (code, destination, start, finish, temp_min, temp_max, temp_mean, which_data, rain))
     conn.commit()
     cur.close()
     conn.close()
@@ -538,8 +569,9 @@ def save_list():
 @route("/edit_list/", method="POST")
 def edit_list():
     item_list_to_edit = getattr(request.forms, "saved_list")
+    print(item_list_to_edit)
     item_list = json.loads(item_list_to_edit.replace("\'", "\""))
-    print(item_list)
+    
     
     return template('edit_list', item_list = item_list)
 
@@ -574,16 +606,16 @@ def static_files(filename):
     return static_file (filename, root="static")
 
 
-@error(404)
-def error404(error):
-   return template ("error")
-
-@error(405)
-def error405(error):
-   return template ("error")
-
-@error(500)
-def error500(error):
-   return template ("error")
+##@error(404)
+##def error404(error):
+##   return template ("error")
+##
+##@error(405)
+##def error405(error):
+##   return template ("error")
+##
+##@error(500)
+##def error500(error):
+##   return template ("error")
 
 run(host="localhost", port=8080, debug=True)

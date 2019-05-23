@@ -22,7 +22,7 @@
     <script>
         $(document).ready(function(){
             $("#fetch").click(function(){
-            $(this).replaceWith('<form action="/get_saved_list method="POST" id="codeform"><input type="text" id="codeinput" name="code" placeholder="Ange kod"><button type="submit" id="codesubmit"><i class="fas fa-cloud-download-alt"></i></button></form>')
+            $(this).replaceWith('<form action="/get_saved_list" method="POST" id="codeform"><input type="text" id="codeinput" name="code" placeholder="Ange kod" autocomplete="off"><button type="submit" id="codesubmit"><i class="fas fa-cloud-download-alt" id="cloud"></i></button></form>')
         });
         });
     </script>
