@@ -83,10 +83,14 @@ public class List {
                 rain = "oklar";
         }
 
-        info = "Packlistan för din resa till " + dest + " (" + TripDate.getStartDate() + " - "
+        info = dest + "\n" + TripDate.getStartDate() + " - " + TripDate.getEndDate() + "\n" +
+                "min: " + minTemp + " °C, max: " + maxTemp + " °C\n" +
+                "Regnrisk: " + rain + "\n" + "Totalvikt ca: " + String.format("%.2f", totalWeight);
+
+        /*"Packlistan för din resa till " + dest + " (" + TripDate.getStartDate() + " - "
                 + TripDate.getEndDate() + ") är baserad på " + weatherData
                 + " väderdata.\nTemperaturen beräknas ligga mellan " + minTemp
                 + " och " + maxTemp + " °C\nDin packning väger ca "
-                + String.format("%.2f", totalWeight) + " kg\nRegnrisk: " + rain;
+                + String.format("%.2f", totalWeight) + " kg\nRegnrisk: " + rain;*/
     }
 }

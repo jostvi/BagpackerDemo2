@@ -2,6 +2,7 @@ package se.mau.ai9856.bagpackerdemo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -31,17 +32,26 @@ public class Destination extends AppCompatActivity {
     private Button btnOk;
     private boolean validationOk = false;
     private static final String URL = "url";
+    private static final String DESTINATION_SAVE = "destinationToSave";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_destination2);
         initializeComponents();
+
+        if (savedInstanceState != null) {
+            dest = savedInstanceState.getString(DESTINATION_SAVE);
+        //    destination.setText(dest);
+        }
     }
 
     private void initializeComponents() {
         setContentView(R.layout.activity_destination2);
         btnOk = findViewById(R.id.btnOk);
+        btnOk.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,7 +63,13 @@ public class Destination extends AppCompatActivity {
         destination.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+         //       destination.setText("");
+
                 destination.setText("");
+                btnOk.setTextColor(ContextCompat.getColor(Destination.this,
+                        R.color.colorInputField));
+
                 btnOk.setEnabled(false);
 
             }
@@ -70,12 +86,13 @@ public class Destination extends AppCompatActivity {
                     handled = true;
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
                 }
                 return handled;
             }
         });
         messageToUser = findViewById(R.id.messageToUser);
-        messageToUser.setText("");
+    //    messageToUser.setText("");
     }
 
     private void validate(String url) {
@@ -99,6 +116,8 @@ public class Destination extends AppCompatActivity {
                                 String shortResponse = fullResponse[0] + "," + fullResponse[fullResponse.length - 1];
                                 destination.setText(shortResponse);
                                 dest = fullResponse[0];
+                                btnOk.setTextColor(ContextCompat.getColor(Destination.this,
+                                        R.color.colorYellow));
                                 btnOk.setEnabled(true);
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -136,5 +155,15 @@ public class Destination extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         initializeComponents();
+        destination.setText(dest);
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(DESTINATION_SAVE, dest);
+
+    }
+
+
 }
