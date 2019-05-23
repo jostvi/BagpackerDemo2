@@ -12,13 +12,10 @@ import android.widget.Toast;
 
 import com.squareup.timessquare.CalendarPickerView;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
 public class TripDate extends AppCompatActivity {
     private List<Date> listDate;
@@ -51,7 +48,9 @@ public class TripDate extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.YEAR, 1);
 
-        Button btnOk = findViewById(R.id.btnOk);
+        final Button btnOk = findViewById(R.id.btnNext);
+        btnOk.setEnabled(false);
+        btnOk.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
         datePicker = findViewById(R.id.datePicker);
 
         datePicker.init(today, calendar.getTime())
@@ -64,7 +63,9 @@ public class TripDate extends AppCompatActivity {
                 // String selectedDate = DateFormat.getDateInstance(DateFormat.FULL).format(date);
                 Calendar calSelected = Calendar.getInstance();
                 calSelected.setTime(date);
-
+                btnOk.setEnabled(false);
+                btnOk.setTextColor(ContextCompat.getColor(TripDate.this,
+                        R.color.colorInputField));
                /* String startDatum = "" + calSelected.get(Calendar.DAY_OF_MONTH)
                            + " " + (calSelected.get(Calendar.MONTH) + 1)
                             + " " + calSelected.get(Calendar.YEAR);
@@ -85,7 +86,8 @@ public class TripDate extends AppCompatActivity {
                 for(int i=0; i<listDate.size(); i++){
                     Date tempDate = listDate.get(i);
                     String formattedDate = sdf.format(tempDate);
-                }
+
+
 
                 url = getIntent().getStringExtra(URL);
                 Date startDate = listDate.get(0);
@@ -93,9 +95,14 @@ public class TripDate extends AppCompatActivity {
                 simpleStartDate = sdf.format(startDate);
                 simpleEndDate = sdf.format(stopDate);
 
-                url +="&param2=20" + simpleStartDate + "&param3=20" + simpleEndDate;//tripDate
-                Log.e("hej ", "url" + url);
+                } if ( !(simpleStartDate.equals(simpleEndDate)) ) {
+                    btnOk.setEnabled(true);
+                    btnOk.setTextColor(ContextCompat.getColor(TripDate.this, R.color.colorYellow));
+                }
+
+                url +="&param2=20" + simpleStartDate + "&param3=20" + simpleEndDate;
             }
+
 
             @Override
             public void onDateUnselected(Date date) {
@@ -103,21 +110,11 @@ public class TripDate extends AppCompatActivity {
             }
         });
 
-
-
-        //    Log.e("hej ", "url" + url);
-        //   url = getIntent().getStringExtra(URL);
-
-        //   String startDate = listDate.get(0).toString();
-        //  String stopDate = listDate.get(listDate.size()-1).toString();
-
-
-
-
         btnOk.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
+
                 String message = "Välj avrese- och returresedatum";
                 if (datePicker.getSelectedDates().size() == 0 || datePicker.getSelectedDates().size() == 1) {
                     Toast.makeText(TripDate.this, message, Toast.LENGTH_SHORT).show();
@@ -127,7 +124,6 @@ public class TripDate extends AppCompatActivity {
                     intent.putExtra(URL, url);
                     startActivity(intent);
                 }
-
             }
         });
 

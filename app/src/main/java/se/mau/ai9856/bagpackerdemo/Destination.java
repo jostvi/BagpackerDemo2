@@ -51,7 +51,7 @@ public class Destination extends AppCompatActivity {
 
     private void initializeComponents() {
         setContentView(R.layout.activity_destination2);
-        btnOk = findViewById(R.id.btnOk);
+        btnOk = findViewById(R.id.btnNext);
         btnOk.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
