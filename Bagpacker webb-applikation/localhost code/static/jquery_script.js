@@ -15,7 +15,7 @@ $(function () {
   }
 });
 
-{/* <button onclick="removeItem(this)" class="deleteButton">Delete</button> */}
+{/* <button onclick="removeItem(this)" class="deleteButton">Delete</button> */ }
 function addItem(elem) {
 
   const category = $(elem).parent().parent().parent().attr('id');
@@ -25,7 +25,7 @@ function addItem(elem) {
   const value = $(elem).siblings()[1].value;
   if (value == "") {
   } else {
-    $('#item_list' + categoryIndex).append('<li>' + '<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">' + '<div class="align_left">' + value + '</div>' + '<div class="align_right"><input type="number" class="input_quantity" name="quantity" min="1"></div"</li>');
+    $('#item_list' + categoryIndex).append('<li class="edit_list">' + '<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">' + '<div class="editalign_left">' + value + '</div>' + '<div class="editalign_right"><input type="number" class="input_quantity" name="quantity" min="1"></div"</li>');
     currentLocalStorage.push(value);
     const stringifiedArray = JSON.stringify(currentLocalStorage);
     localStorage.setItem(category, stringifiedArray);
@@ -40,7 +40,7 @@ function showLocal() {
     if (dehydrateLocal != null) {
       for (let j = 0; j < dehydrateLocal.length; j++) {
         const hydrateItem = dehydrateLocal[j];
-        $('#item_list' + i).append('<li>' + '<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">' + '<div class="align_left">' + hydrateItem + '</div>' + '<div class="align_right"><input type="number" class="input_quantity" name="quantity" min="1"></div"</li>' + '</li>');
+        $('#item_list' + i).append('<li edit_list>' + '<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">' + '<div class="editalign_left">' + hydrateItem + '</div>' + '<div class="editalign_right"><input type="number" class="input_quantity" name="quantity" min="1"></div>' + '</li>');
       }
     }
   }
@@ -51,19 +51,21 @@ function removeItem(elem) {
   const category = $(elem).parent().parent().parent().attr('id');
   console.log(category)
   const dehydrated = JSON.parse(localStorage.getItem(category));
-  if (dehydrated == null){
+  if (dehydrated == null) {
     $(elem).parent().remove();
   }
-  console.log(dehydrated);
-  const value = $(elem).parent().text();
-  const filteredItems = dehydrated.filter(item => {
-    return value != item;
-  });
-  console.log(filteredItems);
+  else {
+    console.log(dehydrated);
+    const value = $(elem).parent().text();
+    const filteredItems = dehydrated.filter(item => {
+      return value != item;
+    });
+    console.log(filteredItems);
 
-  localStorage.setItem(category, JSON.stringify(filteredItems));
+    localStorage.setItem(category, JSON.stringify(filteredItems));
 
-  $(elem).parent().remove();
+    $(elem).parent().remove();
+  }
 };
 
 
@@ -121,7 +123,7 @@ function removeItem(elem) {
 //   fetch(url, {
 //     method: 'POST'
 //   })
-  
+
 // // }
 // }
 
