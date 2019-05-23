@@ -75,10 +75,8 @@ public class SavedListAdapter extends BaseExpandableListAdapter {
                 selectedChildren++;
             }
         }
-        categoryTotal.setText(selectedChildren + "/" + childCount);
-        if(selectedChildren == childCount){
-
-        }
+        String checkedTotal = selectedChildren + "/" + childCount;
+        categoryTotal.setText(checkedTotal);
         return view;
     }
 
@@ -132,10 +130,12 @@ public class SavedListAdapter extends BaseExpandableListAdapter {
                 Database.saveList(context, "LIST", expList);
             }
         });
+
         holder.tvName.setText(packable.getItemName().trim());
         if(packable.getQuantity() > 1){
             holder.tvQuantity.setVisibility(View.VISIBLE);
-            holder.tvQuantity.setText("" + packable.getQuantity());
+            String quantity = "" + packable.getQuantity();
+            holder.tvQuantity.setText(quantity);
         } else {
             holder.tvQuantity.setVisibility(View.INVISIBLE);
         }
@@ -145,6 +145,18 @@ public class SavedListAdapter extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return false;
+    }
+
+    @Override
+    public void onGroupCollapsed(int groupPosition){
+        getGroup(groupPosition).setExpanded(false);
+        Database.saveList(context, "LIST", expList);
+    }
+
+    @Override
+    public void onGroupExpanded(int groupPosition){
+        getGroup(groupPosition).setExpanded(true);
+        Database.saveList(context, "LIST", expList);
     }
 
     private class ViewHolder {

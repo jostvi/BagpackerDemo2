@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -28,7 +29,7 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EditableListActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class EditableListActivity extends AppCompatActivity {
     private static final String ITEMS = "items";
     private static final String NAME = "name";
     private static final String INFO = "info";
@@ -37,32 +38,19 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
     private EditableListAdapter adapter;
     private EditText etNewItem;
     private String category, name, info;
+    private Spinner spinner;
+    private boolean fromSaved;
     protected static boolean saved;
 
     @Override
     public void onBackPressed() {
-        if (!saved) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(EditableListActivity.this);
-            builder.setCancelable(true);
-            builder.setMessage("Vill du spara listan?");
-            builder.setNegativeButton("Avbryt", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.cancel();
-                    exitEditing();
-                }
-            });
-            builder.setPositiveButton("Spara", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    saveList();
-                    exitEditing();
-                }
-            });
-            builder.show();
-        } else {
-            exitEditing();
-        }
+        confirmExit();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initializeComponents();
     }
 
     @Override
@@ -91,6 +79,7 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
         adapter = new EditableListAdapter(EditableListActivity.this, expList);
         expListView.setAdapter(adapter);
         saved = false;
+        fromSaved = false;
         ImageButton btnSaveList = findViewById(R.id.btnSaveList);
         btnSaveList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,23 +87,31 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
                 saveList();
             }
         });
+        ImageButton btnAddItem = findViewById(R.id.btnAddItem);
+        btnAddItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addItem();
+            }
+        });
+        ImageButton btnHome = findViewById(R.id.btnHome);
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                confirmExit();
+            }
+        });
         etNewItem.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 boolean handled = false;
-                if(i == EditorInfo.IME_ACTION_DONE){
+                if (i == EditorInfo.IME_ACTION_DONE) {
                     addItem();
                     handled = true;
                 }
                 return handled;
             }
         });
-        if (name == null) {                                   // MARKER: Se över denna lösning
-            name = Database.loadName(this, "NAME");
-        }
-        if (info == null) {
-            info = Database.loadInfo(this, "INFO");
-        }
 
         TextView title = findViewById(R.id.listTitle);
         title.setText(name);
@@ -122,9 +119,35 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
         expandAll();
     }
 
+    private void confirmExit(){
+        if (!saved) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(EditableListActivity.this);
+            builder.setCancelable(true);
+            builder.setMessage("Vill du spara listan?");
+            builder.setNegativeButton("Avbryt", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                    exitEditing();
+                }
+            });
+            builder.setPositiveButton("Spara", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    saveList();
+                    exitEditing();
+                }
+            });
+            builder.show();
+        } else{
+            exitEditing();
+        }
+    }
+
     private void exitEditing() {
         Intent intent = getIntent();
-        if (intent.getStringExtra("ACTIVITY1") != null) {
+        String fromSaved = intent.getStringExtra("SAVED"); // OBS! Nödlösning! Skriv om!
+        if (fromSaved != null) {
             intent = new Intent(this, ShowSavedListActivity.class);
             startActivity(intent);
         } else {
@@ -137,8 +160,12 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
     public void addItem() {
         String newItem = etNewItem.getText().toString().toLowerCase().trim();
         boolean itemAdded = false;
-        if (newItem.length() == 0 || category.isEmpty()) {
-            etNewItem.setHint("DÖP DIN GREJ");
+        if (newItem.isEmpty()) {
+            etNewItem.setHintTextColor(ContextCompat.getColor(EditableListActivity.this,
+                    R.color.colorPink));
+            etNewItem.setHint("Ange ett namn");
+        }else if (category.isEmpty()){
+            spinner.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPink));
         } else {
             for (SubList subList : expList) {
                 if (subList.getName().equals(category)) {
@@ -160,6 +187,7 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
         subList.addItem(new Packable(newItem, 1, 0));
         adapter.notifyDataSetChanged();
         etNewItem.setText("");
+        etNewItem.setHintTextColor(ContextCompat.getColor(this, R.color.colorWhite));
         etNewItem.setHint("Lägg till föremål");
         Toast.makeText(this, "Du har lagt till: " + newItem, Toast.LENGTH_SHORT).show();
         saved = false;
@@ -181,12 +209,12 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
     }
 
     public void setUpSpinner() {
-        Spinner spinner = findViewById(R.id.spChooseCategory);
+        spinner = findViewById(R.id.spChooseCategory);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.categories, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
+        spinner.setOnItemSelectedListener(new CategorySpinner());
     }
 
     public void showPopupInfo(View v) {
@@ -209,16 +237,19 @@ public class EditableListActivity extends AppCompatActivity implements AdapterVi
         });
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
-        if (parent.getSelectedItemPosition() != 0) {
-            category = (String) parent.getSelectedItem();
-        } else {
-            category = "";
+    private class CategorySpinner implements AdapterView.OnItemSelectedListener{
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
+            if (parent.getSelectedItemPosition() > 0) {
+                category = (String) parent.getSelectedItem();
+                spinner.setBackgroundColor(ContextCompat.getColor(EditableListActivity.this,
+                        R.color.colorWhite));
+            } else {
+                category = "";
+            }
         }
-    }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-    }      // Lägg till felmeddelande (om ingen kategori är vald)?
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {}
+    }
 }

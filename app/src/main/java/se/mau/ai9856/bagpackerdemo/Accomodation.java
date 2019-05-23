@@ -1,6 +1,7 @@
 package se.mau.ai9856.bagpackerdemo;
 
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,7 @@ public class Accomodation extends AppCompatActivity {
     private CheckBox checkTent;
     private CheckBox checkCottage;
     private CheckBox checkOther;
+    private CheckBox checkVandrarhem;
     private TextView messageToUser;
     private ArrayList<String> selection = new ArrayList<String>();
     private String url;
@@ -29,13 +31,13 @@ public class Accomodation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accomodation2);
         TextView bulletDate=findViewById(R.id.page2);
-        bulletDate.setTextColor(getResources().getColor(R.color.colorPink));
+        bulletDate.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
         TextView bulletDestination=findViewById(R.id.page1);
-        bulletDestination.setTextColor(getResources().getColor(R.color.colorPink));
+        bulletDestination.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
         TextView bulletTransport=findViewById(R.id.page3);
-        bulletTransport.setTextColor(getResources().getColor(R.color.colorPink));
+        bulletTransport.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
         TextView bulletAccomodation=findViewById(R.id.page4);
-        bulletAccomodation.setTextColor(getResources().getColor(R.color.colorPink));
+        bulletAccomodation.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
 
         checkHotel = findViewById(R.id.checkHotel);
         checkApartment = findViewById(R.id.checkApartment);
@@ -44,6 +46,7 @@ public class Accomodation extends AppCompatActivity {
         checkTent = findViewById(R.id.checkTent);
         checkCottage = findViewById(R.id.checkCottage);
         checkOther = findViewById(R.id.otherAccommodation);
+        checkVandrarhem = findViewById(R.id.checkVandrarhem);
         messageToUser = findViewById(R.id.messageToUser);
 
         Button btnOk = findViewById(R.id.btnOk);
@@ -61,7 +64,8 @@ public class Accomodation extends AppCompatActivity {
                 url = url.substring(0, url.length()-1);
                 if (!checkHotel.isChecked() && !checkApartment.isChecked()
                         && !checkWithFriend.isChecked() && !checkCaravan.isChecked()
-                        && !checkTent.isChecked() && !checkCottage.isChecked() && !checkOther.isChecked()){
+                        && !checkTent.isChecked() && !checkCottage.isChecked()
+                        && !checkOther.isChecked() && !checkVandrarhem.isChecked()){
                     messageToUser.setText("Välj något");
                 } else {
                     Intent intent = new Intent(Accomodation.this, TripActivity.class);

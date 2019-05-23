@@ -2,6 +2,7 @@ package se.mau.ai9856.bagpackerdemo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.squareup.timessquare.CalendarPickerView;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -24,18 +26,26 @@ public class TripDate extends AppCompatActivity {
     private String url;
     private static final String URL = "url";
     private static String simpleStartDate, simpleEndDate;
+    private static final String STARTDATESAVE = "startDateSave";
+    private static final String STOPDATESAVE = "stopDateSave";
+   /* private Date startDate;
+    private SimpleDateFormat sdf;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_date2);
         TextView bulletDate=findViewById(R.id.page2);
-        bulletDate.setTextColor(getResources().getColor(R.color.colorPink));
+        bulletDate.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
         TextView bulletDestination=findViewById(R.id.page1);
-        bulletDestination.setTextColor(getResources().getColor(R.color.colorPink));
+        bulletDestination.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
 
+        if (savedInstanceState != null) {
+            simpleStartDate = savedInstanceState.getString(STARTDATESAVE);
+            simpleEndDate = savedInstanceState.getString(STOPDATESAVE);
 
-        //String url = getIntent().getStringExtra(URL);
+        }
+
 
         Date today = new Date();
         Calendar calendar = Calendar.getInstance();
@@ -120,7 +130,29 @@ public class TripDate extends AppCompatActivity {
 
             }
         });
+
     }
+
+    /*@Override
+    protected void onResume() {
+        super.onResume();
+        try {
+            startDate = sdf.parse(simpleStartDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        // destination.setText(dest);
+    }
+*/
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(STARTDATESAVE, simpleStartDate);
+     //   outState.putString(STOPDATESAVE, simpleEndDate);
+
+    }
+
 
     public static String getStartDate(){
         return simpleStartDate;

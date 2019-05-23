@@ -2,18 +2,15 @@ package se.mau.ai9856.bagpackerdemo;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import java.net.URL;
 import java.util.ArrayList;
-
-import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
 public class Transport extends AppCompatActivity {
     private TextView questionTransport;
@@ -38,15 +35,15 @@ public class Transport extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transport2);
         TextView bulletDate=findViewById(R.id.page2);
-        bulletDate.setTextColor(getResources().getColor(R.color.colorPink));
+        bulletDate.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
         TextView bulletTransport=findViewById(R.id.page3);
-        bulletTransport.setTextColor(getResources().getColor(R.color.colorPink));
+        bulletTransport.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
 
         questionTransport = findViewById(R.id.questionTransport);
         checkCar = findViewById(R.id.checkCar);
         checkTrain = findViewById(R.id.checkTrain);
         checkFlight = findViewById(R.id.checkFlight);
-        checkBus = findViewById(R.id.checkBus);
+        checkBus = findViewById(R.id.checkVandrarhem);
         checkBike = findViewById(R.id.checkBike);
         checkMotorbike = findViewById(R.id.checkMotorbike);
         checkBoat = findViewById(R.id.checkBoat);
@@ -112,7 +109,7 @@ public class Transport extends AppCompatActivity {
                 }
                 break;
 
-            case R.id.checkBus:
+            case R.id.checkVandrarhem:
                 if(checked){
                     selection.add("bus");
                 }else{

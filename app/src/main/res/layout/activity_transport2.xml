@@ -11,7 +11,7 @@
         layout="@layout/form_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="-50dp"
+        tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
 
     <TextView
@@ -20,198 +20,234 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="24dp"
         android:ems="10"
         android:fontFamily="@font/didact_gothic"
         android:text="@string/question_transport"
         android:textColor="@color/colorBlack"
-        android:textSize="30dp"
+        android:textSize="25dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<!--    <TextView
-        android:id="@+id/questionTransport"
-        android:layout_width="310dp"
-        android:layout_height="95dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
-        android:ems="10"
-        android:text="Hur ska du ta dig till ditt resmål?"
-        android:textColor="#8B0000"
-        android:textSize="25dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.162"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="@+id/include2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/include2"
-        app:layout_constraintVertical_bias="0.196" />-->
+        app:layout_constraintTop_toBottomOf="@+id/questionTransport">
 
-    <ImageView
-        android:id="@+id/imgCar"
-        android:layout_width="63dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginBottom="8dp"
-        android:adjustViewBounds="true"
-        android:clickable="false"
-        android:scaleType="fitCenter"
-        android:src="@drawable/car"
-        app:layout_constraintBottom_toTopOf="@+id/checkCar"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/questionTransport"
-        app:layout_constraintVertical_bias="0.0" />
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="180dp"
+            android:layout_height="410dp"
+            android:layout_marginTop="28dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/questionTransport"
+            tools:layout_editor_absoluteX="52dp">
 
-    <ImageView
-        android:id="@+id/imgBike"
-        android:layout_width="50dp"
-        android:layout_height="39dp"
-        android:adjustViewBounds="true"
-        android:clickable="true"
-        android:scaleType="fitCenter"
-        android:src="@drawable/bike"
-        app:layout_constraintBottom_toTopOf="@+id/checkBike"
-        app:layout_constraintTop_toBottomOf="@+id/questionTransport"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="218dp" />
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                app:srcCompat="@drawable/car" />
 
-    <CheckBox
-        android:id="@+id/checkCar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/didact_gothic"
-        android:onClick="onCheckboxClicked"
-        android:textColor="@color/colorBlack"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/questionTransport" />
+            <CheckBox
+                android:id="@+id/checkCar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/didact_gothic"
+                android:onClick="onCheckboxClicked"
+                android:text="@string/car"
+                android:textColor="@color/colorBlack"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
-    <CheckBox
-        android:id="@+id/checkTrain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="25dp"
-        android:text="@string/train"
-        android:textSize="20dp"
-        android:textColor="@color/colorBlack"
-        android:fontFamily="@font/didact_gothic"
-        android:textStyle="bold"
-        android:onClick="onCheckboxClicked"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkCar" />
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="16dp"
+                app:srcCompat="@drawable/train" />
 
-    <CheckBox
-        android:id="@+id/checkFlight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="25dp"
-        android:text="@string/flight"
-        android:textSize="20sp"
-        android:textColor="@color/colorBlack"
-        android:fontFamily="@font/didact_gothic"
-        android:textStyle="bold"
-        android:onClick="onCheckboxClicked"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkTrain" />
+            <CheckBox
+                android:id="@+id/checkTrain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/didact_gothic"
+                android:onClick="onCheckboxClicked"
+                android:text="@string/train"
+                android:textColor="@color/colorBlack"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
-    <CheckBox
-        android:id="@+id/checkBus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="25sp"
-        android:text="@string/bus"
-        android:textSize="20sp"
-        android:textColor="@color/colorBlack"
-        android:fontFamily="@font/didact_gothic"
-        android:textStyle="bold"        android:onClick="onCheckboxClicked"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkFlight" />
 
-    <CheckBox
-        android:id="@+id/checkBike"
-        android:layout_width="94dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="28dp"
-        android:fontFamily="@font/didact_gothic"
-        android:onClick="onCheckboxClicked"
-        android:text="@string/bike"
-        android:textColor="@color/colorBlack"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/checkBus"
-        app:layout_constraintTop_toBottomOf="@+id/questionTransport" />
+            <ImageView
+                android:id="@+id/imageView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="16dp"
+                app:srcCompat="@drawable/airplane" />
 
-    <CheckBox
-        android:id="@+id/checkMotorbike"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="25dp"
-        android:fontFamily="@font/didact_gothic"
-        android:onClick="onCheckboxClicked"
-        android:text="@string/motorbike"
-        android:textColor="@color/colorBlack"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/checkTrain"
-        app:layout_constraintTop_toBottomOf="@+id/checkBike" />
+            <CheckBox
+                android:id="@+id/checkFlight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/didact_gothic"
+                android:onClick="onCheckboxClicked"
+                android:text="@string/flight"
+                android:textColor="@color/colorBlack"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
-    <CheckBox
-        android:id="@+id/checkBoat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="25dp"
-        android:text="@string/boat"
-        android:textSize="20sp"
-        android:textColor="@color/colorBlack"
-        android:fontFamily="@font/didact_gothic"
-        android:textStyle="bold"
-        android:onClick="onCheckboxClicked"
-        app:layout_constraintStart_toEndOf="@+id/checkFlight"
-        app:layout_constraintTop_toBottomOf="@+id/checkMotorbike" />
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="16dp"
+                app:srcCompat="@drawable/bus" />
 
-    <CheckBox
-        android:id="@+id/otherTransport"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="24dp"
-        android:onClick="onCheckboxClicked"
-        android:text="@string/other"
-        android:textColor="@color/colorPink"
-        android:fontFamily="@font/didact_gothic"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/checkBus"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoat" />
+            <CheckBox
+                android:id="@+id/checkVandrarhem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/didact_gothic"
+                android:onClick="onCheckboxClicked"
+                android:text="@string/bus"
+                android:textColor="@color/colorBlack"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView10" />
 
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="145dp"
+            android:layout_height="410dp"
+            android:layout_marginTop="28dp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toEndOf="@+id/linearLayout1"
+            app:layout_constraintTop_toBottomOf="@+id/questionTransport">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                app:srcCompat="@drawable/bike" />
+
+            <CheckBox
+                android:id="@+id/checkBike"
+                android:layout_width="94dp"
+                android:layout_height="32dp"
+                android:fontFamily="@font/didact_gothic"
+                android:onClick="onCheckboxClicked"
+                android:text="@string/bike"
+                android:textColor="@color/colorBlack"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkBike"
+                app:srcCompat="@drawable/motorbike" />
+
+            <CheckBox
+                android:id="@+id/checkMotorbike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/didact_gothic"
+                android:onClick="onCheckboxClicked"
+                android:text="@string/motorbike"
+                android:textColor="@color/colorBlack"
+                android:textSize="20sp" />
+
+
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="16dp"
+                app:srcCompat="@drawable/boat" />
+
+            <CheckBox
+                android:id="@+id/checkBoat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/didact_gothic"
+                android:onClick="onCheckboxClicked"
+                android:text="@string/boat"
+                android:textColor="@color/colorBlack"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView10"
+                app:layout_constraintTop_toBottomOf="@+id/checkBoat"
+                app:srcCompat="@drawable/rocket" />
+
+            <CheckBox
+                android:id="@+id/otherTransport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/didact_gothic"
+                android:onClick="onCheckboxClicked"
+                android:text="@string/other"
+                android:textColor="@color/colorBlack"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent" />
+        </LinearLayout>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/messageToUser"
-        android:layout_width="396dp"
-        android:layout_height="46dp"
+        android:layout_width="348dp"
+        android:layout_height="45dp"
+        android:textColor="@color/colorPink"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/include2"
+        app:layout_constraintTop_toBottomOf="@id/questionTransport" />
+
+<!--    <TextView
+        android:id="@+id/messageToUser"
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
         android:layout_margin="10dp"
-        android:textColor="@color/colorAccent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/colorPink"
         android:textSize="24sp"
-        tools:layout_editor_absoluteX="7dp"
-        tools:layout_editor_absoluteY="440dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>-->
+
 
 </android.support.constraint.ConstraintLayout>

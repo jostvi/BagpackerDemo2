@@ -7,6 +7,7 @@ import java.util.Comparator;
 public class SubList {
     private String name;
     private ArrayList<Packable> itemList = new ArrayList<>();
+    private boolean isExpanded = true;
 
     public String getName(){
         return name;
@@ -30,5 +31,13 @@ public class SubList {
                 return o1.getItemName().compareTo(o2.getItemName());
             }
         });
+    }
+
+    public void setExpanded(boolean isExpanded){
+        this.isExpanded = isExpanded;
+    }
+
+    public boolean getExpanded(){
+        return isExpanded;
     }
 }
