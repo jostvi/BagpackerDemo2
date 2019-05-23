@@ -11,6 +11,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -98,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         final String password = codeInput.getText().toString().trim();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         String url = "https://bagpacker.pythonanywhere.com/get_list/?param1=" + password;
+        final ProgressBar progressBar = findViewById(R.id.progressLoader);
 
         JsonObjectRequest request = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -113,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                                 "\nSkrev du rätt lösenord?", Toast.LENGTH_LONG).show();
                     }
                 });
-
+        progressBar.setVisibility(View.VISIBLE);
         requestQueue.add(request);
     }
 

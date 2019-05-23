@@ -7,7 +7,7 @@
 	<title>Bagpacker</title>
 	<meta charset="utf8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="/static/style.css" rel="stylesheet">
+	<link href="../static/style.css" rel="stylesheet">
 	<link rel='shortcut icon' type='image/x-icon' href="/static/favicon.png">
 	<link href="https://fonts.googleapis.com/css?family=Didact+Gothic|Loved+by+the+King|Sue+Ellen+Francisco"
 		rel="stylesheet">
@@ -44,15 +44,14 @@
 		<h1>Din packlista</h1>
 		<div id="grid-wrapper">
 			<div class="grid-category" id="clothes">
-				<h2 class="sticky">Kläder<input type="image" src="../static/arrows.png" alt="arrow" class="styledFunction"
-						id="myFunction1"><i class="fas fa-plus" id="btn-item1"></i></h2>
-
+					<h2 class="sticky">Kläder<input type="image" src="../static/arrows.png" alt="arrow"
+						class="styledFunction" id="myFunction1"><i class="fas fa-plus" id="btn-item1"></i></h2>
 				<div class="margin-top">
 					<div class="table_div" id="kat1">
 						<ul id="item_list1">
 							% for item in item_list:
 							%if item['category'] == "kläder":
-							<li>
+							<li class="edit_list">
 								<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">
 								<div class="align_left">
 									<span>{{item['item']}}</span>
@@ -75,7 +74,7 @@
 						<ul id="item_list2">
 							% for item in item_list:
 							%if item['category'] == "necessär":
-							<li>
+							<li class="edit_list">
 								<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">
 								<div class="align_left">
 									<span>{{item['item']}}</span>
@@ -98,7 +97,7 @@
 						<ul id="item_list3">
 							% for item in item_list:
 							%if item['category'] == "resehandlingar":
-							<li>
+							<li class="edit_list">
 								<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">
 								<div class="align_left">
 									<span>{{item['item']}}</span>
@@ -121,7 +120,7 @@
 						<ul id="item_list4">
 							% for item in item_list:
 							%if item['category'] == "elektronik":
-							<li>
+							<li class="edit_list">
 								<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">
 								<div class="align_left">
 									<span>{{item['item']}}</span>
@@ -144,7 +143,7 @@
 						<ul id="item_list5">
 							% for item in item_list:
 							%if item['category'] == "specialutrustning":
-							<li>
+							<li class="edit_list">
 								<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">
 								<div class="align_left">
 									<span>{{item['item']}}</span>
@@ -167,7 +166,7 @@
 						<ul id="item_list6">
 							% for item in item_list:
 							%if item['category'] == "övrigt":
-							<li>
+							<li class="edit_list">
 								<input type="image" src="../static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">
 								<div class="align_left">
 									<span>{{item['item']}}</span>
@@ -194,7 +193,7 @@
 		</footer>
 
 
-	<script src="/static/jquery_script.js"></script>
+	<script src="../static/jquery_script.js"></script>
 	<script src="/static/script.js"></script>
 </body>
 

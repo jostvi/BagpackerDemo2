@@ -390,9 +390,6 @@ input.invalid {
   background-color: rgba(253,255,31, 0.8);
 }
 
-#myFunction1 {
-  display: none;
-}
 .sticky {
 position: sticky;
 background-color: #FB005B;
@@ -440,7 +437,6 @@ padding-right: 15px;
 }
 
 .deleteButton {
-  display: table-cell;
   height: 25px;
   width: auto;
   border: none;
@@ -1014,4 +1010,26 @@ font-size: 20px;
 #myFunction1{
   position: relative;
   z-index: -1;
+}
+
+.edit_list{
+  list-style: none;
+  height: 45px;
+  /* padding-right: 15px; */
+  display: table;
+}
+
+.editalign_right{
+  display:table-cell;
+  text-align:right;
+  padding: 0px;
+  padding-right: 15px;
+}
+.editalign_left{
+width: 100%;
+display:table-cell;
+text-align:left;
+padding-left: 15px;
+padding-bottom: 10px;
+font-size: 25px;
 }

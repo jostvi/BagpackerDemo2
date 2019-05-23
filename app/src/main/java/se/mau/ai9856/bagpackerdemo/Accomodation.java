@@ -20,6 +20,7 @@ public class Accomodation extends AppCompatActivity {
     private CheckBox checkCottage;
     private CheckBox checkOther;
     private CheckBox checkHostel;
+    private Button btnOk;
     private TextView messageToUser;
     private ArrayList<String> selection = new ArrayList<String>();
     private String url;
@@ -48,8 +49,9 @@ public class Accomodation extends AppCompatActivity {
         checkHostel = findViewById(R.id.checkHostel);
         messageToUser = findViewById(R.id.messageToUser);
 
-        Button btnOk = findViewById(R.id.btnOk);
-
+        btnOk = findViewById(R.id.btnNext);
+        btnOk.setEnabled(false);
+        btnOk.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
         btnOk.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -71,10 +73,26 @@ public class Accomodation extends AppCompatActivity {
                     intent.putExtra(URL, url);
                     startActivity(intent);
                 }
-
             }
         });
     }
+
+    public void btnOkChecked(){
+        if (checkHotel.isChecked() || checkApartment.isChecked()
+                || checkWithFriend.isChecked() || checkCaravan.isChecked()
+                || checkTent.isChecked() || checkCottage.isChecked()
+                || checkOther.isChecked() || checkHostel.isChecked()) {
+            btnOk.setEnabled(true);
+            btnOk.setTextColor(ContextCompat.getColor(Accomodation.this, R.color.colorYellow));
+
+        }else{
+            btnOk.setEnabled(false);
+            btnOk.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
+
+        }
+    }
+
+
 
     public void onCheckboxClicked(View view) {
         boolean checked = ((CheckBox) view).isChecked();
@@ -151,5 +169,6 @@ public class Accomodation extends AppCompatActivity {
                 }
                 break;
         }
+        btnOkChecked();
     }
 }

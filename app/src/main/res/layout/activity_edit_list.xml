@@ -7,106 +7,123 @@
     tools:context=".EditableListActivity">
     <!--android:background="@drawable/scanningar_16_9_ljus"-->
 
-
-    <LinearLayout
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
-        android:orientation="vertical">
+        android:layout_height="170dp"
+        android:background="@drawable/header_scanningar">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:orientation="vertical">
 
-
-            <ImageButton
-                android:id="@+id/btnHome"
-                android:layout_width="33dp"
-                android:layout_height="33dp"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@color/colorPrimaryDark"
-                android:scaleType="centerCrop"
-                android:src="@drawable/home_btn" />
-
-            <!--android:src="@drawable/homebtn" />-->
-
-
-            <TextView
-                android:id="@+id/listTitle"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_toStartOf="@+id/btnInfo"
-                android:background="@color/colorPrimaryDark"
-                android:textAlignment="center"
-                android:textColor="@color/cardview_light_background"
-                android:textSize="32sp" />
+                android:layout_height="wrap_content">
 
-            <ImageButton
-                android:id="@+id/btnInfo"
-                android:layout_width="33sp"
-                android:layout_height="33sp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@color/colorPrimaryDark"
-                android:onClick="showPopupInfo"
-                android:src="@android:drawable/ic_dialog_info"
-                tools:src="@android:drawable/ic_dialog_info" />
 
-        </RelativeLayout>
+                <ImageButton
+                    android:id="@+id/btnHome"
+                    android:layout_width="33dp"
+                    android:layout_height="33dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/home_btn" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <!--android:src="@drawable/homebtn" />-->
 
-            <EditText
-                android:id="@+id/etNewItem"
+
+                <TextView
+                    android:id="@+id/listTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_toStartOf="@+id/btnInfo"
+                    android:background="@android:color/transparent"
+                    android:textAlignment="center"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="32sp" />
+
+                <ImageButton
+                    android:id="@+id/btnInfo"
+                    android:layout_width="33sp"
+                    android:layout_height="33sp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@android:color/transparent"
+                    android:onClick="showPopupInfo"
+                    android:src="@android:drawable/ic_dialog_info"
+                    tools:src="@android:drawable/ic_dialog_info" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/btnAddItem"
-                android:layout_toStartOf="@id/btnSaveList"
-                android:hint="Lägg till föremål"
-                android:inputType="textPersonName"
-                android:imeOptions="actionDone"
-                android:textColor="#FFFFFF"
-                android:textColorHint="#FFFFFF"
-                android:textSize="24sp"/>
+                android:layout_height="wrap_content">
 
-            <ImageButton
-                android:id="@+id/btnAddItem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_alignParentStart="true"
-                android:background="@color/colorPrimaryDark"
-                android:src="@android:drawable/ic_input_add" />
+                <EditText
+                    android:id="@+id/etNewItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="43dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toStartOf="@id/btnSaveList"
+                    android:layout_toEndOf="@id/btnAddItem"
+                    android:background="#BFFFFFFF"
+                    android:hint="Lägg till föremål"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPersonName"
+                    android:textColor="#6D000000"
+                    android:textColorHint="#6D000000"
+                    android:textSize="18sp" />
 
-            <ImageButton
-                android:id="@+id/btnSaveList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@color/colorPrimaryDark"
-                android:src="@android:drawable/ic_menu_save"
-                android:layout_alignParentEnd="true"/>
+                <ImageButton
+                    android:id="@+id/btnAddItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@android:color/transparent"
+                    android:src="@android:drawable/ic_input_add" />
 
-        </RelativeLayout>
+                <ImageButton
+                    android:id="@+id/btnSaveList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@android:color/transparent"
+                    android:src="@android:drawable/ic_menu_save" />
 
-        <Spinner
-            android:id="@+id/spChooseCategory"
-            android:layout_width="match_parent"
-            android:layout_height="45sp"
-            android:background="@color/colorWhite" />
+            </RelativeLayout>
 
-    </LinearLayout>
 
+            <Spinner
+                android:id="@+id/spChooseCategory"
+                android:layout_width="295dp"
+                android:layout_height="43dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginHorizontal="55dp"
+                android:layout_marginBottom="10dp"
+                android:background="#BCFFFFFF"
+                android:clipToPadding="false" />
+
+        </LinearLayout>
+    </FrameLayout>
 
     <ExpandableListView
         android:id="@+id/expListView"
