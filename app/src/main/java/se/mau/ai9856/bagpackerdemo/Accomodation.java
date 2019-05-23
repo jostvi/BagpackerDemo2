@@ -20,6 +20,7 @@ public class Accomodation extends AppCompatActivity {
     private CheckBox checkTent;
     private CheckBox checkCottage;
     private CheckBox checkOther;
+    private CheckBox checkVandrarhem;
     private TextView messageToUser;
     private ArrayList<String> selection = new ArrayList<String>();
     private String url;
@@ -45,6 +46,7 @@ public class Accomodation extends AppCompatActivity {
         checkTent = findViewById(R.id.checkTent);
         checkCottage = findViewById(R.id.checkCottage);
         checkOther = findViewById(R.id.otherAccommodation);
+        checkVandrarhem = findViewById(R.id.checkVandrarhem);
         messageToUser = findViewById(R.id.messageToUser);
 
         Button btnOk = findViewById(R.id.btnOk);
@@ -62,7 +64,8 @@ public class Accomodation extends AppCompatActivity {
                 url = url.substring(0, url.length()-1);
                 if (!checkHotel.isChecked() && !checkApartment.isChecked()
                         && !checkWithFriend.isChecked() && !checkCaravan.isChecked()
-                        && !checkTent.isChecked() && !checkCottage.isChecked() && !checkOther.isChecked()){
+                        && !checkTent.isChecked() && !checkCottage.isChecked()
+                        && !checkOther.isChecked() && !checkVandrarhem.isChecked()){
                     messageToUser.setText("Välj något");
                 } else {
                     Intent intent = new Intent(Accomodation.this, TripActivity.class);
