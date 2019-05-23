@@ -7,7 +7,7 @@
     tools:context=".Transport">
 
     <include
-        android:id="@+id/include2"
+        android:id="@+id/form"
         layout="@layout/form_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -38,10 +38,11 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintEnd_toEndOf="@+id/include2"
+        android:layout_marginEnd="8dp"
+        android:gravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/questionTransport">
 
@@ -230,8 +231,9 @@
 
     <TextView
         android:id="@+id/messageToUser"
-        android:layout_width="348dp"
-        android:layout_height="45dp"
+        android:layout_width="303dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="4dp"
         android:textColor="@color/colorPink"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/include2"

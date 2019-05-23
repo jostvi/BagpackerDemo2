@@ -47,7 +47,7 @@ public class Transport extends AppCompatActivity {
         checkMotorbike = findViewById(R.id.checkMotorbike);
         checkBoat = findViewById(R.id.checkBoat);
         checkOther = findViewById(R.id.otherTransport);
-        btnOk = findViewById(R.id.btnOk);
+        btnOk = findViewById(R.id.btnNext);
         btnOk.setEnabled(false);
         btnOk.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
         messageToUser = findViewById(R.id.messageToUser);

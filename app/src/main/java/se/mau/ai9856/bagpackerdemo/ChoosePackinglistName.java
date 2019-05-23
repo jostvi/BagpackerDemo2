@@ -48,7 +48,7 @@ public class ChoosePackinglistName extends AppCompatActivity {
         final String url = getIntent().getStringExtra(URL);
         packinglistName = findViewById(R.id.packinglistName);
         messageToUser = findViewById(R.id.messageToUser);
-        Button btnOk = findViewById(R.id.btnOk);
+        Button btnOk = findViewById(R.id.btnNext);
         final ProgressBar progressBar = findViewById(R.id.progressLoader);
 
         btnOk.setOnClickListener(new View.OnClickListener() {

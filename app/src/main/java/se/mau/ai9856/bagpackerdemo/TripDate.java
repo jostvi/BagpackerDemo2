@@ -12,13 +12,10 @@ import android.widget.Toast;
 
 import com.squareup.timessquare.CalendarPickerView;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
 public class TripDate extends AppCompatActivity {
     private List<Date> listDate;
@@ -51,7 +48,7 @@ public class TripDate extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.YEAR, 1);
 
-        final Button btnOk = findViewById(R.id.btnOk);
+        final Button btnOk = findViewById(R.id.btnNext);
         btnOk.setEnabled(false);
         btnOk.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
         datePicker = findViewById(R.id.datePicker);
