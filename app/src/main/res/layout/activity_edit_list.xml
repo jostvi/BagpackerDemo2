@@ -3,14 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/scanningar_16_9_ljus"
     android:orientation="vertical"
     tools:context=".EditableListActivity">
+    <!--android:background="@drawable/scanningar_16_9_ljus"-->
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
+        android:background="@color/colorPrimaryDark"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -29,7 +30,11 @@
                 android:layout_marginBottom="10dp"
                 android:background="@color/colorPrimaryDark"
                 android:scaleType="centerCrop"
+
                 android:src="@drawable/homebtn" />
+
+                <!--android:src="@drawable/home_btn" />-->
+
 
             <TextView
                 android:id="@+id/listTitle"
@@ -99,7 +104,7 @@
             android:id="@+id/spChooseCategory"
             android:layout_width="match_parent"
             android:layout_height="45sp"
-            android:background="@color/cardview_light_background" />
+            android:background="@color/colorWhite" />
 
     </LinearLayout>
 
