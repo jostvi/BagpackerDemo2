@@ -9,11 +9,10 @@ body {
     font-size: 18px !important;
     margin: 0;
     padding: 0;
-    min-height: 600px;
+    min-height: 400px;
     background-color: white;
     /* background-image: url("/static/crumpled-2537807_1920.jpg");
     /* background-image: url("/static/scanningar_ljus_webb.png"); */
-    background-repeat: y;
     background-position: top; 
     background-size: 100%;
 }
@@ -36,7 +35,7 @@ h1 {
 
 h2 {
   font-family: 'Didact Gothic', sans-serif !important;
-  color: #FDFF1F !important;
+  color: white;
 }
 
 button {
@@ -69,19 +68,20 @@ footer {
     background-image: url("background.jpg");
     background-size: 100%;
     background-position: top;
+    background-repeat: repeat-y;
 }
 
 
 
 #create {
-  background-color: #FDFF1F;
+  background-color: #FDFF1F !important;
   color: #FB005B !important;
-  width: 20%;
+  width: 220px;
   margin: auto;
   display: block;
   margin-top: 25%;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: 3px !important;
   border: none;
   box-shadow: 0 0 5px black;
   font-weight: bold;
@@ -89,14 +89,14 @@ footer {
 }
 
 #fetch {
-  background-color: #FDFF1F;
+  background-color: #FDFF1F !important;
   color: #FB005B !important;
-  width: 20%;
+  width: 220px;
   margin: auto;
   display: block;
   margin-top: 2%;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: 3px !important;
   border: none;
   box-shadow: 0 0 5px black;
   font-weight: bold;
@@ -117,6 +117,22 @@ footer {
   border-radius: 3px;
 }
 
+#errormessage {
+  background-color: rgba(255, 255, 255, 0.5);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 60px;
+  padding: 40px;
+  width: 60%;
+  min-width: 300px;
+  /* box-shadow: 0 0 10px; */
+  border-radius: 3px;
+}
+
+#errorpic {
+  width: 100%;
+  margin: auto;
+}
 input {
   padding: 10px;
   width: 100%;
@@ -329,6 +345,9 @@ input.invalid {
   background-color: rgba(253,255,31, 0.8);
 }
 
+#myFunction1 {
+  display: none;
+}
 .sticky {
 position: sticky;
 background-color: #FB005B;
@@ -341,7 +360,7 @@ z-index: 1;
 }
 
 .fa-arrows-alt-v {
-  color: #FDFF1F;
+  color: white;
   float: right;
   padding-right: 3px;
   padding-top: 3px;
@@ -375,6 +394,14 @@ text-align:right;
 padding-right: 25px;
 }
 
+.deleteButton {
+  float: right;
+  height: auto;
+  width: 45px;
+  border: none;
+  /* margin-top: 10px; */
+} 
+
 .input_quantity {
 width: 60px;
 border-radius: 12px;
@@ -395,7 +422,7 @@ background-color: rgba(253,255,31, 0.8);
 }
 
 .scrollpic {
-  color: #FDFF1F;
+  color: white !important;
 }
 .listicon {
   height: 30px;
@@ -414,6 +441,7 @@ top: 60px;
 
 .item_checkbox {
 padding-left: 10px;
+width: 50px;
 }
 .ap-input, .ap-hint {
   display: inline-block;
@@ -425,7 +453,7 @@ padding-left: 10px;
 }
 
 #button {
-  width: 15%;
+  width: 180px;
   display: block;
   box-align: center;
   margin: auto;
@@ -542,6 +570,7 @@ padding-left: 10px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  margin-top: 0;
 }
 
 
@@ -592,6 +621,7 @@ padding-left: 10px;
 
 
 
+
 @media (max-width: 1100px) {
   #grid-wrapper {
     margin: auto;
@@ -610,6 +640,10 @@ padding-left: 10px;
 }
 
 @media (max-width: 950px) {
+
+  #packlista {
+    width: 85%;
+  }
   .navbartoggle {
     display: block;
     position: absolute;
@@ -665,6 +699,11 @@ padding-left: 10px;
   #popover-link {
     display: initial;
   }
+
+  #headerpic {
+    position: absolute;
+    z-index: 2;
+  }
 }
   
 
@@ -683,6 +722,9 @@ padding-left: 10px;
     'misc'
   }
 
+  #packlista {
+    width: 90%;
+  }
   #multi-step-form {
     width: 80%;
   }
@@ -707,6 +749,18 @@ padding-left: 10px;
     width: 100%;
   }
 
+  #myFunction1 {
+    display: initial;
+  }
+
+  #packlista {
+    width: 100%;
+  }
+
+  .sticky {
+    font-size: 24px;
+  }
+
   .dots {
     margin-left: 5px;
     margin-right: 5px;
@@ -726,6 +780,11 @@ padding-left: 10px;
 
   .col-xs-5 {
     padding: 0 !important;
+  }
+
+  #packlista {
+    padding-right: 0;
+    padding-left: 0;
   }
 }
 
@@ -756,7 +815,6 @@ padding-left: 10px;
 
   #packlista {
     margin-top: 0;
-    width: 100%;
   }
 }
 
@@ -790,12 +848,12 @@ padding-left: 10px;
   left: 0;
   height: 25px;
   width: 25px;
-  background-color: grey;
+  background-color: lightgrey;
 }
 
 /* On mouse-over, add a grey background color */
 .cbcontainer:hover input ~ .checkmark {
-  background-color: lightgrey;
+  background-color: grey;
 }
 
 /* When the checkbox is checked, add a blue background */
@@ -831,27 +889,40 @@ padding-left: 10px;
 
 
 /*Sebastians kod*/
-.btn-item{
+.btn-item{}
+.fa-plus-circle{
   float: right;
-  height: 7%;
-  width: 7%;
+  height: auto;
+  width: 10%;
+  border: none;
+  color: yellow;
 }
-#btn-remove{
+.fa-plus{
+  float: right;
+  height: auto;
+  width: 10%;
+  border: none;
+  color: yellow;
+}
+.btn-item{
+float: right;
+height: 15%;
+width: 15%;
+border: none;
+}
+.add_item{
+  display: inline-flex;
+  width: 30px;
+  height: 30px;
+  font-size: 15px;
+  padding: 0px;
+}
+/* #btn-remove{
   float: right;
   display: inline-block;
   height: 10px;
   width: 10px;
-}
-
-.deleteButton{
-float: right;
-padding: 0px;
-width: 17%;
-height: 16px;
-width: auto;
-border: none;
-margin-top: 10px;
-}
+} */
 
 ul{
 padding: 0px;
@@ -860,14 +931,15 @@ padding: 0px;
 li{
 list-style: none;
 width: 100%;
-height: 50px;
-padding-right: 15px;
-display: inline-block;
+height: 45px;
+/* padding-right: 15px; */
+display: inline-flex;
 }
 .styledFunction {
-height: 3%;
-width: 3%;
+height: auto;
+width: 13%;
 float: right;
+border: none;
 }
 .rotate {
   -moz-transform: rotate(-180deg);
@@ -879,6 +951,13 @@ float: right;
 display: inline;
 font-size: 20px;
 }
-.add_item{
-width: 15%;
+.item-box{
+  display: inline-block;
+  width: 65%;
+  height: 65%;
+  padding-right:0px;
+}
+#myFunction1{
+  position: relative;
+  z-index: -1;
 }

@@ -55,8 +55,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeComponents() {
         setContentView(R.layout.activity_main);
-        //btnGetList = findViewById(R.id.getListBtn);
-        //btnGetList.setText("Hämta lista");
         EditText codeInput = findViewById(R.id.password_input);
         Button btnCreateAccount = findViewById(R.id.btnCreateAccount);
         btnCreateAccount.setOnClickListener(new View.OnClickListener() {

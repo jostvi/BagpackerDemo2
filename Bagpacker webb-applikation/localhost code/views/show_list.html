@@ -55,9 +55,10 @@
                 <p id="rain_info"><img src="/static/umbrella.png" class="listicon"> Regnrisk: {{rain_risk}}</p> 
                 <p id="weight_info"><img src="/static/weight.png" class="listicon"> Din packning väger {{total_weight}} kg.</p>
         </div>
+        <form action="/save_list/" method="POST">
         <div id="grid-wrapper">
             <div class="grid-category" id="clothes">
-                <h2 class="sticky">Kläder <i class="fas fa-arrows-alt-v"></i></h2>
+                <h2 class="sticky">Kläder<i class="fas fa-arrows-alt-v"></i></h2>
                 <div class="margin-top">
                 
                     % for item in item_list:
@@ -65,7 +66,7 @@
                         <div class="table_div">
                             <div class="align_left">
                                     <label class="cbcontainer">{{item['item']}}
-                                            <input type="checkbox" value="true">
+                                            <input type="checkbox" name="{{item['id']}}" value="true">
                                             <span class="checkmark"></span>
                                     </label>
                             </div>
@@ -86,7 +87,7 @@
                         <div class="table_div">
                                 <div class="align_left">
                                         <label class="cbcontainer">{{item['item']}}
-                                                <input type="checkbox" value="true">
+                                                <input type="checkbox" name="{{item['id']}}" value="true">
                                                 <span class="checkmark"></span>
                                         </label>
                                 </div>
@@ -106,7 +107,7 @@
                         <div class="table_div">
                                 <div class="align_left">
                                         <label class="cbcontainer">{{item['item']}}
-                                                <input type="checkbox" value="true">
+                                                <input type="checkbox" name="{{item['id']}}" value="true">
                                                 <span class="checkmark"></span>
                                         </label>
                                 </div>
@@ -126,7 +127,7 @@
                         <div class="table_div">
                                 <div class="align_left">
                                         <label class="cbcontainer">{{item['item']}}
-                                                <input type="checkbox" value="true">
+                                                <input type="checkbox" name="{{item['id']}}" value="true">
                                                 <span class="checkmark"></span>
                                         </label>
                                 </div>
@@ -146,7 +147,7 @@
                         <div class="table_div">
                                 <div class="align_left">
                                         <label class="cbcontainer">{{item['item']}}
-                                                <input type="checkbox" value="true">
+                                                <input type="checkbox" name="{{item['id']}}" value="true">
                                                 <span class="checkmark"></span>
                                         </label>
                                 </div>
@@ -166,7 +167,7 @@
                         <div class="table_div">
                                 <div class="align_left">
                                         <label class="cbcontainer">{{item['item']}}
-                                                <input type="checkbox" value="true">
+                                                <input type="checkbox" name="{{item['id']}}" value="true">
                                                 <span class="checkmark"></span>
                                         </label>
                                 </div>
@@ -179,10 +180,19 @@
                 </div>
             </div>
         </div>
-        <form action="/save_list/" method="POST">
+            <input type="hidden" name="destination" value="{{location[0]}}, {{location[1]}}">
+            <input type="hidden" name="temp_min" value="{{temp_min}}">
+            <input type="hidden" name="temp_max" value="{{temp_max}}">
+            <input type="hidden" name="temp_mean" value="{{mean_temp}}">
+            <input type="hidden" name="which_data" value="{{which_data}}">
+            <input type="hidden" name="rain_risk" value="{{rain_risk}}">
             <input type="hidden" name="saved_list" value="{{item_list}}">
             <input type="submit" id="button" value="Spara listan">
         </form>
+        <!-- <form action="/edit_list/" method="POST">
+            <input type="hidden" name="saved_list" value="{{item_list}}">
+            <input type="submit" id="button" value="Redigera listan">
+        </form> -->
 
     </main>
     <script src="/static/script.js"></script>

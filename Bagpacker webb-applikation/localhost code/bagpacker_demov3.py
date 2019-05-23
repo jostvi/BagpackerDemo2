@@ -340,7 +340,7 @@ def show_startpage():
 def show_form():
     '''Returnerar formulär'''
     
-    return template ("javascriptform2")
+    return template ("javascriptform")
 
 @route("/validate_destination", method="POST")
 def validate_destination():
@@ -455,7 +455,7 @@ def generate_list_android():
 
 @route("/get_saved_list/")
 def get_saved_list():
-
+#aktuell!!!
     list_id = request.query.param1
     conn = psycopg2.connect(host="pgserver.mah.se",
                             database="bagpacker", user="ai8134", password="h9rbyai5")
@@ -493,19 +493,55 @@ def get_list_from_db():
 
 @route("/save_list/", method="POST")
 def save_list():
+#aktuell
     item_list_to_save = getattr(request.forms, "saved_list")
-    item_list = json.loads(item_list_to_save.replace("\'", "\""))  
+    item_list = json.loads(item_list_to_save.replace("\'", "\""))
+    complete_list = []
+    for item in item_list:
+        checked = getattr(request.forms, str(item['id']))
+        if checked == "true":
+            item['checked'] = True
+        else:
+            item['checked'] = False
+        complete_list.append(item)
     code = random.randint(100000,1000000)
     conn = psycopg2.connect(host="pgserver.mah.se",
                             database="bagpacker", user="ai8134", password="h9rbyai5")
     cur = conn.cursor()
-    for item in item_list:
-        cur.execute('INSERT into saved_lists VALUES (%s, %s, %s)', (code, item['id'], item['quantity']))
+    for item in complete_list:
+        cur.execute('INSERT into saved_lists VALUES (%s, %s, %s, %s)', (code, item['id'], item['quantity'], item['checked']))
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    destination = getattr(request.forms, "destination")
+    temp_min = int(getattr(request.forms, "temp_min"))
+    temp_max = int(getattr(request.forms, "temp_max"))
+    temp_mean = int(getattr(request.forms, "temp_mean"))
+    which_data = getattr(request.forms, "which_data")
+    rain_risk = getattr(request.forms, "rain_risk")
+    print(rain_risk)
+    if rain_risk == "hög":
+        rain = True
+    else:
+        rain = False
+
+    conn = psycopg2.connect(host="pgserver.mah.se",
+                            database="bagpacker", user="ai8134", password="h9rbyai5")
+    cur = conn.cursor()
+    cur.execute('INSERT into weather_data VALUES (%s, %s, %s, %s, %s, %s, %s)', (code, destination, temp_min, temp_max, temp_mean, which_data, rain))
     conn.commit()
     cur.close()
     conn.close()
     return json.dumps(code)
 
+@route("/edit_list/", method="POST")
+def edit_list():
+    item_list_to_edit = getattr(request.forms, "saved_list")
+    item_list = json.loads(item_list_to_edit.replace("\'", "\""))
+    print(item_list)
+    
+    return template('edit_list', item_list = item_list)
 
 ## Tillfällig lösning: lista sparas som sträng och kan hämtas med hjälp av en kod
 ##@route("/save_list/", method="POST")
