@@ -46,8 +46,11 @@
                     android:layout_marginStart="50dp"
                     android:layout_toStartOf="@+id/btnInfo"
                     android:background="@android:color/transparent"
+                    android:textAllCaps="true"
+                    android:fontFamily="sans-serif"
+                    android:textStyle="italic"
                     android:textAlignment="center"
-                    android:textColor="@color/cardview_light_background"
+                    android:textColor="@android:color/black"
                     android:textSize="32sp" />
 
                 <ImageButton
@@ -74,9 +77,10 @@
                     android:id="@+id/etNewItem"
                     android:layout_width="wrap_content"
                     android:layout_height="43dp"
+                    android:layout_marginStart="3dp"
                     android:layout_marginEnd="10dp"
                     android:layout_toStartOf="@id/btnSaveList"
-                    android:layout_toEndOf="@id/btnAddItem"
+                    android:layout_toEndOf="@+id/btnAddItem"
                     android:background="#BFFFFFFF"
                     android:hint="Lägg till föremål"
                     android:imeOptions="actionDone"
@@ -117,7 +121,8 @@
                 android:layout_width="295dp"
                 android:layout_height="43dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginHorizontal="55dp"
+                android:layout_marginStart="55dp"
+                android:layout_marginEnd="55dp"
                 android:layout_marginBottom="10dp"
                 android:background="#BCFFFFFF"
                 android:clipToPadding="false" />
