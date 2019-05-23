@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,7 +19,7 @@ public class Accomodation extends AppCompatActivity {
     private CheckBox checkTent;
     private CheckBox checkCottage;
     private CheckBox checkOther;
-    private CheckBox checkVandrarhem;
+    private CheckBox checkHostel;
     private TextView messageToUser;
     private ArrayList<String> selection = new ArrayList<String>();
     private String url;
@@ -30,13 +29,13 @@ public class Accomodation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accomodation2);
-        TextView bulletDate=findViewById(R.id.page2);
+        TextView bulletDate = findViewById(R.id.page2);
         bulletDate.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
-        TextView bulletDestination=findViewById(R.id.page1);
+        TextView bulletDestination = findViewById(R.id.page1);
         bulletDestination.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
-        TextView bulletTransport=findViewById(R.id.page3);
+        TextView bulletTransport = findViewById(R.id.page3);
         bulletTransport.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
-        TextView bulletAccomodation=findViewById(R.id.page4);
+        TextView bulletAccomodation = findViewById(R.id.page4);
         bulletAccomodation.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
 
         checkHotel = findViewById(R.id.checkHotel);
@@ -46,26 +45,26 @@ public class Accomodation extends AppCompatActivity {
         checkTent = findViewById(R.id.checkTent);
         checkCottage = findViewById(R.id.checkCottage);
         checkOther = findViewById(R.id.otherAccommodation);
-        checkVandrarhem = findViewById(R.id.checkVandrarhem);
+        checkHostel = findViewById(R.id.checkHostel);
         messageToUser = findViewById(R.id.messageToUser);
 
         Button btnOk = findViewById(R.id.btnOk);
 
-        btnOk.setOnClickListener(new View.OnClickListener(){
+        btnOk.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 //                url = getIntent().getStringExtra(URL);
 //                url+="&param5="+selection;
                 url = getIntent().getStringExtra(URL) + "&param5=";
-                for(String string : selection){
+                for (String string : selection) {
                     url += string + ",";
                 }
-                url = url.substring(0, url.length()-1);
+                url = url.substring(0, url.length() - 1);
                 if (!checkHotel.isChecked() && !checkApartment.isChecked()
                         && !checkWithFriend.isChecked() && !checkCaravan.isChecked()
                         && !checkTent.isChecked() && !checkCottage.isChecked()
-                        && !checkOther.isChecked() && !checkVandrarhem.isChecked()){
+                        && !checkOther.isChecked() && !checkHostel.isChecked()) {
                     messageToUser.setText("Välj något");
                 } else {
                     Intent intent = new Intent(Accomodation.this, TripActivity.class);
@@ -77,69 +76,77 @@ public class Accomodation extends AppCompatActivity {
         });
     }
 
-    public void onCheckboxClicked(View view){
+    public void onCheckboxClicked(View view) {
         boolean checked = ((CheckBox) view).isChecked();
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.checkHotel:
-                if(checked){
+                if (checked) {
                     selection.add("hotel");
-                }else{
+                } else {
                     selection.remove("hotel");
                 }
                 break;
 
             case R.id.checkApartment:
-                if(checked){
+                if (checked) {
                     selection.add("apartment");
-                }else{
+                } else {
                     selection.remove("apartment");
                 }
                 break;
 
             case R.id.checkWithFriend:
-                if(checked){
+                if (checked) {
                     selection.add("friends");
-                }else{
+                } else {
                     selection.remove("friends");
                 }
                 break;
 
             case R.id.checkCaravan:
-                if(checked){
+                if (checked) {
                     selection.add("camper");
-                }else{
+                } else {
                     selection.remove("camper");
                 }
                 break;
 
             case R.id.checkBike:
-                if(checked){
+                if (checked) {
                     selection.add("bike");
-                }else{
+                } else {
                     selection.remove("bike");
                 }
                 break;
 
             case R.id.checkTent:
-                if(checked){
+                if (checked) {
                     selection.add("tent");
-                }else{
+                } else {
                     selection.remove("tent");
                 }
                 break;
 
             case R.id.checkCottage:
-                if(checked){
+                if (checked) {
                     selection.add("cottage");
-                }else{
+                } else {
                     selection.remove("cottage");
                 }
                 break;
 
+            case R.id.checkHostel:
+                if (checked) {
+                    selection.add("hostel");
+                } else {
+                    selection.remove("hostel");
+                }
+                break;
+
             case R.id.otherAccommodation:
-                if(checked){
+                if (checked) {
                     selection.add("other");
-                }else{
+                } else {
                     selection.remove("other");
                 }
                 break;

@@ -135,7 +135,7 @@
                 app:srcCompat="@drawable/bus" />
 
             <CheckBox
-                android:id="@+id/checkVandrarhem"
+                android:id="@+id/checkHostel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/didact_gothic"
