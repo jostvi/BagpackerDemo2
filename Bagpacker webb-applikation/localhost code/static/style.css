@@ -353,7 +353,7 @@ position: sticky;
 background-color: #FB005B;
 color: white;
 width: 100%;
-padding: 10px 20px 10px 20px;
+padding: 10px 5px 10px 5px;
 top: 0;
 margin-bottom: 10px;
 z-index: 1;
@@ -363,7 +363,7 @@ z-index: 1;
   color: white;
   float: right;
   padding-right: 3px;
-  padding-top: 3px;
+  padding-top: 0;
 }
 .quantity {
 align: right;
@@ -380,26 +380,35 @@ display: block;
 
 .align_left {
 display:table-cell;
-/* display: inline-block; */
 text-align:left;
 padding-left: 15px;
 padding-bottom: 10px;
+font-size: 25px;
 
 }
 
 .align_right {
 display:table-cell;
-/* display: inline-block; */
 text-align:right;
-padding-right: 25px;
+padding: 0px;
+padding-right: 15px;
 }
 
 .deleteButton {
-  float: right;
-  height: auto;
-  width: 45px;
+  display: table-cell;
+  height: 25px;
+  width: auto;
   border: none;
   /* margin-top: 10px; */
+  padding: 7px 0px 0px 10px;
+}
+.deleteButton2 {
+  display: inline;
+  height: 25px;
+  width: auto;
+  border: none;
+  /* margin-top: 10px; */
+  padding: 7px 0px 0px 10px;
 } 
 
 .input_quantity {
@@ -407,7 +416,7 @@ width: 60px;
 border-radius: 12px;
 border: none;
 text-align: right;
-background-color: rgba(253,255,31, 0.8);
+background-color: rgba(253,255,31, 0.1) !important;
 }
 
 #packlista {
@@ -890,20 +899,19 @@ width: 50px;
 
 /*Sebastians kod*/
 .btn-item{}
-.fa-plus-circle{
-  float: right;
-  height: auto;
-  width: 10%;
-  border: none;
-  color: yellow;
-}
+
 .fa-plus{
   float: right;
   height: auto;
   width: 10%;
   border: none;
   color: yellow;
+  font-size: 25px;
 }
+.fas{
+  padding-top: 4px;
+}
+
 .btn-item{
 float: right;
 height: 15%;
@@ -912,10 +920,11 @@ border: none;
 }
 .add_item{
   display: inline-flex;
-  width: 30px;
+  width: auto;
   height: 30px;
   font-size: 15px;
-  padding: 0px;
+  padding: 5px;
+  margin: 5px;
 }
 /* #btn-remove{
   float: right;
@@ -933,7 +942,7 @@ list-style: none;
 width: 100%;
 height: 45px;
 /* padding-right: 15px; */
-display: inline-flex;
+display: table;
 }
 .styledFunction {
 height: auto;

@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.squareup.timessquare.CalendarPickerView;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -25,6 +26,10 @@ public class TripDate extends AppCompatActivity {
     private String url;
     private static final String URL = "url";
     private static String simpleStartDate, simpleEndDate;
+    private static final String STARTDATESAVE = "startDateSave";
+    private static final String STOPDATESAVE = "stopDateSave";
+   /* private Date startDate;
+    private SimpleDateFormat sdf;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +40,12 @@ public class TripDate extends AppCompatActivity {
         TextView bulletDestination=findViewById(R.id.page1);
         bulletDestination.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
 
+        if (savedInstanceState != null) {
+            simpleStartDate = savedInstanceState.getString(STARTDATESAVE);
+            simpleEndDate = savedInstanceState.getString(STOPDATESAVE);
 
-        //String url = getIntent().getStringExtra(URL);
+        }
+
 
         Date today = new Date();
         Calendar calendar = Calendar.getInstance();
@@ -121,7 +130,29 @@ public class TripDate extends AppCompatActivity {
 
             }
         });
+
     }
+
+    /*@Override
+    protected void onResume() {
+        super.onResume();
+        try {
+            startDate = sdf.parse(simpleStartDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        // destination.setText(dest);
+    }
+*/
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(STARTDATESAVE, simpleStartDate);
+     //   outState.putString(STOPDATESAVE, simpleEndDate);
+
+    }
+
 
     public static String getStartDate(){
         return simpleStartDate;

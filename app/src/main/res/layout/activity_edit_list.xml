@@ -32,6 +32,9 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/home_btn" />
 
+            <!--android:src="@drawable/homebtn" />-->
+
+
             <TextView
                 android:id="@+id/listTitle"
                 android:layout_width="match_parent"

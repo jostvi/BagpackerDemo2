@@ -3,6 +3,7 @@ package se.mau.ai9856.bagpackerdemo;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -44,7 +46,6 @@ public class EditableListActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        fromSaved = true;
         confirmExit();
     }
 
@@ -146,8 +147,9 @@ public class EditableListActivity extends AppCompatActivity {
     }
 
     private void exitEditing() {
-        Intent intent;
-        if (fromSaved) {
+        Intent intent = getIntent();
+        String fromSaved = intent.getStringExtra("SAVED"); // OBS! Nödlösning! Skriv om!
+        if (fromSaved != null) {
             intent = new Intent(this, ShowSavedListActivity.class);
             startActivity(intent);
         } else {
@@ -163,10 +165,9 @@ public class EditableListActivity extends AppCompatActivity {
         if (newItem.isEmpty()) {
             etNewItem.setHintTextColor(ContextCompat.getColor(EditableListActivity.this,
                     R.color.colorPink));
-            etNewItem.setHint("Du måste ge din sak ett namn!");
-        }
-        if (category.isEmpty()){
-            spinner.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+            etNewItem.setHint("Ange ett namn");
+        }else if (category.isEmpty()){
+            spinner.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPink));
         } else {
             for (SubList subList : expList) {
                 if (subList.getName().equals(category)) {
@@ -226,9 +227,10 @@ public class EditableListActivity extends AppCompatActivity {
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
         boolean focusable = true;
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+        popupWindow.setElevation(100);
         TextView popupText = popupWindow.getContentView().findViewById(R.id.popupText);
         popupText.setText(info);
-        popupWindow.showAtLocation(v, Gravity.TOP, 0, 0);
+        popupWindow.showAtLocation(v, Gravity.CENTER, 0, -100);
         popupView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -243,19 +245,14 @@ public class EditableListActivity extends AppCompatActivity {
         public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
             if (parent.getSelectedItemPosition() > 0) {
                 category = (String) parent.getSelectedItem();
+                spinner.setBackgroundColor(ContextCompat.getColor(EditableListActivity.this,
+                        R.color.colorWhite));
             } else {
                 category = "";
-                //etNewItem.setHintTextColor(ContextCompat.getColor(EditableListActivity.this,
-                //        R.color.colorPink));
-                //etNewItem.setHint("välj kategori, please");
             }
         }
 
         @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {
-
-            //category = "";
-            //etNewItem.setText("no category");
-        }                                // Lägg till felmeddelande om ingen kategori är vald
+        public void onNothingSelected(AdapterView<?> adapterView) {}
     }
 }
