@@ -468,7 +468,7 @@ width: 60px;
 border-radius: 12px;
 border: none;
 text-align: right;
-background-color: rgba(253,255,31, 0.8);
+background-color: rgba(253,255,31, 0.1) !important;
 }
 
 #packlista {
