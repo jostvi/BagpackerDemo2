@@ -51,7 +51,9 @@ public class TripDate extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.YEAR, 1);
 
-        Button btnOk = findViewById(R.id.btnOk);
+        final Button btnOk = findViewById(R.id.btnOk);
+        btnOk.setEnabled(false);
+        btnOk.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
         datePicker = findViewById(R.id.datePicker);
 
         datePicker.init(today, calendar.getTime())
@@ -85,7 +87,8 @@ public class TripDate extends AppCompatActivity {
                 for(int i=0; i<listDate.size(); i++){
                     Date tempDate = listDate.get(i);
                     String formattedDate = sdf.format(tempDate);
-                }
+
+
 
                 url = getIntent().getStringExtra(URL);
                 Date startDate = listDate.get(0);
@@ -93,9 +96,17 @@ public class TripDate extends AppCompatActivity {
                 simpleStartDate = sdf.format(startDate);
                 simpleEndDate = sdf.format(stopDate);
 
+                } if ( !(simpleStartDate.equals(simpleEndDate)) ) {
+                    btnOk.setEnabled(true);
+                    btnOk.setTextColor(ContextCompat.getColor(TripDate.this, R.color.colorYellow));
+                }
+
+
                 url +="&param2=20" + simpleStartDate + "&param3=20" + simpleEndDate;//tripDate
                 Log.e("hej ", "url" + url);
+
             }
+
 
             @Override
             public void onDateUnselected(Date date) {
@@ -118,6 +129,7 @@ public class TripDate extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+
                 String message = "Välj avrese- och returresedatum";
                 if (datePicker.getSelectedDates().size() == 0 || datePicker.getSelectedDates().size() == 1) {
                     Toast.makeText(TripDate.this, message, Toast.LENGTH_SHORT).show();
@@ -127,7 +139,6 @@ public class TripDate extends AppCompatActivity {
                     intent.putExtra(URL, url);
                     startActivity(intent);
                 }
-
             }
         });
 

@@ -38,7 +38,6 @@ public class Transport extends AppCompatActivity {
         bulletDate.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
         TextView bulletTransport=findViewById(R.id.page3);
         bulletTransport.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
-
         questionTransport = findViewById(R.id.questionTransport);
         checkCar = findViewById(R.id.checkCar);
         checkTrain = findViewById(R.id.checkTrain);
@@ -49,10 +48,9 @@ public class Transport extends AppCompatActivity {
         checkBoat = findViewById(R.id.checkBoat);
         checkOther = findViewById(R.id.otherTransport);
         btnOk = findViewById(R.id.btnOk);
+        btnOk.setEnabled(false);
+        btnOk.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
         messageToUser = findViewById(R.id.messageToUser);
-
-
-
 
         btnOk.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -77,9 +75,20 @@ public class Transport extends AppCompatActivity {
                 }
             }
         });
-
     }
 
+    public void btnOkChecked(){
+        if(checkCar.isChecked() || checkTrain.isChecked() || checkFlight.isChecked()
+                || checkBus.isChecked() || checkBike.isChecked() || checkBoat.isChecked()
+                || checkMotorbike.isChecked() || checkOther.isChecked()) {
+            btnOk.setEnabled(true);
+            btnOk.setTextColor(ContextCompat.getColor(Transport.this, R.color.colorYellow));
+        }else{
+            btnOk.setEnabled(false);
+            btnOk.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
+
+        }
+    }
 
 
     public void onCheckboxClicked(View view){
@@ -149,6 +158,7 @@ public class Transport extends AppCompatActivity {
                 }
                 break;
         }
+         btnOkChecked();
 
         /*url = getIntent().getStringExtra(URL);
         url+="&param3="+selection;

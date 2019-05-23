@@ -22,6 +22,7 @@ public class Accomodation extends AppCompatActivity {
     private CheckBox checkOther;
     private CheckBox checkVandrarhem;
     private TextView messageToUser;
+    private Button btnOk;
     private ArrayList<String> selection = new ArrayList<String>();
     private String url;
     private static final String URL = "url";
@@ -49,7 +50,9 @@ public class Accomodation extends AppCompatActivity {
         checkVandrarhem = findViewById(R.id.checkVandrarhem);
         messageToUser = findViewById(R.id.messageToUser);
 
-        Button btnOk = findViewById(R.id.btnOk);
+        btnOk.findViewById(R.id.btnOk);
+        btnOk.setEnabled(false);
+        btnOk.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
 
         btnOk.setOnClickListener(new View.OnClickListener(){
 
