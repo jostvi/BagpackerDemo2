@@ -7,7 +7,7 @@
 	<title>Bagpacker</title>
 	<meta charset="utf8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="../static/style.css" rel="stylesheet">
+	<link href="/static/style.css" rel="stylesheet">
 	<link rel='shortcut icon' type='image/x-icon' href="/static/favicon.png">
 	<link href="https://fonts.googleapis.com/css?family=Didact+Gothic|Loved+by+the+King|Sue+Ellen+Francisco"
 		rel="stylesheet">
@@ -20,32 +20,28 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	<script>
-		$(document).ready(function () {
-			$('[data-toggle="popover"]').popover();
-		});
-	</script>
 
 </head>
 
 <body>
-	<header>
-		<nav>
-			<a href="/newlist"><img src="/static/BackpackerLogotyp.png" alt="Bagpacker" id="headerpic"></a>
-			<div id="navlist">
-				<a href="/newlist" class="active">Ny packlista</a>
-				<a href="/">Hämta packlista</a>
-				<a href="/">Packtips</a>
-				<a href="/">Om oss</a>
-			</div>
-		</nav>
-	</header>
+        <header>
+                <a href="/newlist"><img src="/static/BackpackerLogotyp.png" alt="Bagpacker" id="headerpic"></a>
+                <nav class="navigationbar">
+                        <span class="navbartoggle" id=js-navbar-toggle>
+                            <i class="fas fa-bars"></i>
+                        </span>
+                        
+                        <ul class="main-nav" id="js-menu">
+                                <li class="current"><a href="/newlist" class="nav-links current">Ny packlista</a></li>
+                                <li><a href="/" class="nav-links">Hämta packlista</a></li>
+                                <li><a href="/" class="nav-links">Packtips</a></li>
+                                <li><a href="/" class="nav-links">Om oss</a></li>
+                        </ul>      
+                </nav>
+        </header>
 
 	<main id="packlista">
-		<h1>Din packlista<a href="#" id="popover-link" data-toggle="popover" title="Så här har vi genererat packlistan"
-				data-html="true"
-				data-content="Packlistan för din resa till {{location}} är baserad på {{which_data}} väderdata. Temperaturen beräknas ligga mellan {{temp_min}} och {{temp_max}} °C. Regnrisken är {{rain_risk}}. Din packning väger {{total_weight}} kilo."
-				data-placement="right" data-trigger="hover"> <i class="fas fa-info-circle" id="info"></i></a></h1>
+		<h1>Din packlista</h1>
 		<div id="grid-wrapper">
 			<div class="grid-category" id="clothes">
 				<h2 class="sticky">Kläder<input type="image" src="../static/arrows.png" alt="arrow" class="styledFunction"
@@ -193,12 +189,13 @@
         </form> 
 	</main>
 
-	<footer>
-		&copy; Team Bagpacker 2019
-	</footer>
+		<footer>
+			&copy; Team Bagpacker 2019
+		</footer>
 
 
-	<script src="../static/jquery_script.js"></script>
+	<script src="/static/jquery_script.js"></script>
+	<script src="/static/script.js"></script>
 </body>
 
 
