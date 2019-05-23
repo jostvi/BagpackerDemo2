@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/scanningar_16_9_ljus"
+    android:background="@color/colorWhite"
     android:orientation="vertical"
     tools:context=".EditableListActivity">
 
@@ -27,9 +27,9 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/colorWhite"
                 android:scaleType="centerCrop"
-                android:src="@drawable/homeBtn" />
+                android:src="@drawable/home_btn" />
 
             <TextView
                 android:id="@+id/listTitle"
@@ -37,9 +37,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
                 android:layout_toStartOf="@+id/btnInfo"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/colorWhite"
                 android:textAlignment="center"
-                android:textColor="@color/cardview_light_background"
+                android:textColor="@color/colorBlack"
                 android:textSize="32sp" />
 
             <ImageButton
@@ -51,10 +51,10 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/colorWhite"
                 android:onClick="showPopupInfo"
-                android:src="@android:drawable/ic_dialog_info"
-                tools:src="@android:drawable/ic_dialog_info" />
+                android:src="@android:drawable/ic_menu_info_details"
+                tools:src="@android:drawable/ic_menu_info_details" />
 
         </RelativeLayout>
 
@@ -66,14 +66,14 @@
                 android:id="@+id/etNewItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/btnAddItem"
                 android:layout_toStartOf="@id/btnSaveList"
+                android:layout_toEndOf="@id/btnAddItem"
                 android:hint="Lägg till föremål"
-                android:inputType="textPersonName"
                 android:imeOptions="actionDone"
-                android:textColor="#FFFFFF"
+                android:inputType="textPersonName"
+                android:textColor="@color/colorBlack"
                 android:textColorHint="#FFFFFF"
-                android:textSize="24sp"/>
+                android:textSize="24sp" />
 
             <ImageButton
                 android:id="@+id/btnAddItem"
@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_alignParentStart="true"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/colorWhite"
                 android:src="@android:drawable/ic_input_add" />
 
             <ImageButton
@@ -89,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/colorWhite"
                 android:src="@android:drawable/ic_menu_save"
                 android:layout_alignParentEnd="true"/>
 

@@ -230,6 +230,15 @@
 
     <TextView
         android:id="@+id/messageToUser"
+        android:layout_width="348dp"
+        android:layout_height="45dp"
+        android:textColor="@color/colorPink"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/include2"
+        app:layout_constraintTop_toBottomOf="@id/questionTransport" />
+
+<!--    <TextView
+        android:id="@+id/messageToUser"
         android:layout_width="match_parent"
         android:layout_height="37dp"
         android:layout_margin="10dp"
@@ -238,7 +247,7 @@
         android:textColor="@color/colorPink"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"/>-->
 
 
 </android.support.constraint.ConstraintLayout>
