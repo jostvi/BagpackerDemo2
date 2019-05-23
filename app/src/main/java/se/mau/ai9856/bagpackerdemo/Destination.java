@@ -31,6 +31,7 @@ public class Destination extends AppCompatActivity {
     private Button btnOk;
     private boolean validationOk = false;
     private static final String URL = "url";
+  //  private String shortResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
