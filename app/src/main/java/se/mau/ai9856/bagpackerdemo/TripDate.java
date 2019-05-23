@@ -63,7 +63,9 @@ public class TripDate extends AppCompatActivity {
                 // String selectedDate = DateFormat.getDateInstance(DateFormat.FULL).format(date);
                 Calendar calSelected = Calendar.getInstance();
                 calSelected.setTime(date);
-
+                btnOk.setEnabled(false);
+                btnOk.setTextColor(ContextCompat.getColor(TripDate.this,
+                        R.color.colorInputField));
                /* String startDatum = "" + calSelected.get(Calendar.DAY_OF_MONTH)
                            + " " + (calSelected.get(Calendar.MONTH) + 1)
                             + " " + calSelected.get(Calendar.YEAR);
@@ -98,10 +100,7 @@ public class TripDate extends AppCompatActivity {
                     btnOk.setTextColor(ContextCompat.getColor(TripDate.this, R.color.colorYellow));
                 }
 
-
-                url +="&param2=20" + simpleStartDate + "&param3=20" + simpleEndDate;//tripDate
-                Log.e("hej ", "url" + url);
-
+                url +="&param2=20" + simpleStartDate + "&param3=20" + simpleEndDate;
             }
 
 
@@ -110,17 +109,6 @@ public class TripDate extends AppCompatActivity {
 
             }
         });
-
-
-
-        //    Log.e("hej ", "url" + url);
-        //   url = getIntent().getStringExtra(URL);
-
-        //   String startDate = listDate.get(0).toString();
-        //  String stopDate = listDate.get(listDate.size()-1).toString();
-
-
-
 
         btnOk.setOnClickListener(new View.OnClickListener(){
 
