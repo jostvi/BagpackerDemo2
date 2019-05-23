@@ -8,7 +8,9 @@
         <link rel='shortcut icon' type='image/x-icon' href="/static/favicon.png">
         <link href="https://fonts.googleapis.com/css?family=Didact+Gothic|Loved+by+the+King|Sue+Ellen+Francisco" rel="stylesheet">
         <link rel="stylesheet" href="static/style.css">
-        <link href="https://fonts.googleapis.com/css?family=Didact+Gothic|Loved+by+the+King|Sue+Ellen+Francisco" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
     </head>
 
 
@@ -17,6 +19,13 @@
         <input type="button" id="create" onclick="window.location.href='/newlist'" value="Ny resa">
         <input type="button" id="fetch" value="Min packlista">
     
+    <script>
+        $(document).ready(function(){
+            $("#fetch").click(function(){
+            $(this).replaceWith('<form action="/get_saved_list method="POST" id="codeform"><input type="text" id="codeinput" name="code" placeholder="Ange kod"><button type="submit" id="codesubmit"><i class="fas fa-cloud-download-alt"></i></button></form>')
+        });
+        });
+    </script>
     </body>
 
     </html>

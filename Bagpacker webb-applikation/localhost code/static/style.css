@@ -103,7 +103,50 @@ footer {
   font-family: 'Didact Gothic', sans-serif;
 }
 
+#codeform {
+  display:flex;
+  flex-direction:row;
+  width: 220px;
+  /* This bit draws the box around it */
+  height: 54px;
+  margin: auto;
+  margin-top: 2%;
+}
+#codeinput {
+  width: 120px;
+  margin: auto;
+  display: flex;
+  flex-grow:2;
+  /* And hide the input's outline, so the form looks like the outline */
+  border:none;
+  height: 54px;
+  padding: 0px 0 0 10px;
+  border-radius: 3px 0px 0px 3px;
+  font-family: 'Didact Gothic', sans-serif;
+}
 
+#codeinput:focus {
+  padding: 0 0 0 10px !important;
+  border: none;
+}
+
+#codesubmit {
+  width: 60px;
+  margin: auto;
+  font-size: 26px;
+  display: flex;
+  border:1px solid #FDFF1F;
+  background: #FDFF1F;
+  color: #FB005B;
+  height: 54px;
+  padding: 0;
+  border-radius: 0px 3px 3px 0px;
+}
+
+.fa-cloud-download-alt {
+  color: #FB005B !important;
+  padding: 0px 15px 15px 0px;
+}
 /*Form*/
 #multi-step-form {
   background-color: rgba(255, 255, 255, 0.5);
