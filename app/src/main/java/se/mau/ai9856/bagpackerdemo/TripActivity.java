@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,8 +19,10 @@ public class TripActivity extends AppCompatActivity {
     private CheckBox checkSightseeing;
     private CheckBox checkCulture;
     private CheckBox checkNightlife;
+    private CheckBox checkTraining;
     private CheckBox checkOther;
     private TextView messageToUser;
+    private Button btnOk;
     private ArrayList<String> selection = new ArrayList<>();
     private String url;
     private static final String URL = "url";
@@ -45,12 +46,12 @@ public class TripActivity extends AppCompatActivity {
         checkSightseeing = findViewById(R.id.checkSightseeing);
         checkCulture = findViewById(R.id.checkCulture);
         checkNightlife = findViewById(R.id.checkNightlife);
+        checkTraining = findViewById(R.id.checkTrainer);
         checkOther = findViewById(R.id.otherActivity);
         messageToUser = findViewById(R.id.messageToUser);
-
-
-        Button btnOk = findViewById(R.id.btnOk);
-
+        btnOk = findViewById(R.id.btnNext);
+        btnOk.setEnabled(false); //refactora och sätt pilen som diabled i form_layout
+        btnOk.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
         btnOk.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -65,7 +66,7 @@ public class TripActivity extends AppCompatActivity {
                 if (!checkOutdoor.isChecked() && !checkWintersport.isChecked()
                         && !checkBeach.isChecked() && !checkSightseeing.isChecked()
                         && !checkCulture.isChecked() && !checkNightlife.isChecked()
-                        && !checkOther.isChecked()){
+                        && !checkOther.isChecked() && !checkTraining.isChecked()){
                     messageToUser.setText("Välj något");
                 } else {
                     Intent intent = new Intent(TripActivity.this, ChoosePackinglistName.class);
@@ -74,6 +75,21 @@ public class TripActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void btnOkChecked(){
+        if (checkOutdoor.isChecked() || checkWintersport.isChecked()
+                || checkBeach.isChecked() || checkSightseeing.isChecked()
+                || checkCulture.isChecked() || checkNightlife.isChecked()
+                || checkOther.isChecked() || checkTraining.isChecked()) {
+            btnOk.setEnabled(true);
+            btnOk.setTextColor(ContextCompat.getColor(TripActivity.this, R.color.colorYellow));
+
+        }else{
+            btnOk.setEnabled(false);
+            btnOk.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
+
+        }
     }
 
     public void onCheckboxClicked(View view){
@@ -127,6 +143,14 @@ public class TripActivity extends AppCompatActivity {
                 }
                 break;
 
+            case R.id.checkTrainer:
+                if(checked){
+                    selection.add("training");
+                }else{
+                    selection.remove("training");
+                }
+                break;
+
             case R.id.otherActivity:
                 if(checked){
                     selection.add("other");
@@ -135,5 +159,6 @@ public class TripActivity extends AppCompatActivity {
                 }
                 break;
         }
+        btnOkChecked();
     }
 }

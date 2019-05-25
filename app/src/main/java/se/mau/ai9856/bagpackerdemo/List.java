@@ -1,5 +1,7 @@
 package se.mau.ai9856.bagpackerdemo;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,7 +15,7 @@ public class List {
     private String jsonString;
     private float totalWeight = 0;
 
-    public List(JSONObject json, String name, boolean infoAvailable){
+    public List(JSONObject json, String name, boolean isNewList){
         LinkedHashMap<String, SubList> categorySubList = new LinkedHashMap<>();
         ArrayList<SubList> expList = new ArrayList<>();
         this.name = name;
@@ -33,16 +35,20 @@ public class List {
                 Packable item = new Packable(jObject.getString("item"),
                         Integer.parseInt(jObject.getString("quantity")),
                         Float.parseFloat(jObject.getString("weight")));
-                subList.addItem(item);
+                if(!isNewList){
+                    if(jObject.getInt("checked") == 1)
+                        item.isSelected = true;
+                    else if (jObject.getInt("checked") == 0)
+                        item.isSelected = false;
+                }
                 totalWeight += (item.getQuantity() * item.getWeight());
+                subList.addItem(item);
             }
-            if(infoAvailable){
-                createInfoString(json);
-            } else {
-                info = "Detta är en gammal lista.\nAlltså finns ingen väderdata";
-            }
+            createInfoString(json, isNewList);
+
         }catch(JSONException e){
             e.printStackTrace();
+            Log.e("ERROR", "Fel vid hämtning av JSON");
         }
 
         Gson gson = new Gson();
@@ -61,36 +67,42 @@ public class List {
         return jsonString;
     }
 
-    private void createInfoString(JSONObject json) throws JSONException {
-        String dest = json.getString("destination");
+    private void createInfoString(JSONObject json, boolean isNew) throws JSONException {
         int minTemp = json.getInt("temp_min");
         int maxTemp = json.getInt("temp_max");
         String weatherData = json.getString("weather_data");
-        String rain;
-        if(weatherData.equals("aktuell")){
-            boolean isRaining = json.getBoolean("rain");
-            if(isRaining)
-                rain = "hög";
-            else
-                rain = "låg";
+        String dest, startDate, endDate, rain = "oklart";
+        if(isNew){
+            dest = Destination.getResponse();
+            startDate = TripDate.getStartDate();
+            endDate = TripDate.getEndDate();
+            if(weatherData.equals("aktuell")){
+                boolean isRaining = json.getBoolean("rain");
+                if(isRaining)
+                    rain = "hög";
+                else
+                    rain = "låg";
+            } else{
+                int isRaining = json.getInt("rain");
+                if(isRaining == 0)
+                    rain = "låg";
+                else if(isRaining == 1)
+                    rain = "hög";
+            }
         } else{
+            dest = json.getString("destination");
+            startDate = "???";
+            endDate = "???";
             int isRaining = json.getInt("rain");
             if(isRaining == 0)
                 rain = "låg";
             else if(isRaining == 1)
                 rain = "hög";
-            else
-                rain = "oklar";
         }
 
-        info = dest + "\n" + TripDate.getStartDate() + " - " + TripDate.getEndDate() + "\n" +
-                "min: " + minTemp + " °C, max: " + maxTemp + " °C\n" +
-                "Regnrisk: " + rain + "\n" + "Totalvikt ca: " + String.format("%.2f", totalWeight);
 
-        /*"Packlistan för din resa till " + dest + " (" + TripDate.getStartDate() + " - "
-                + TripDate.getEndDate() + ") är baserad på " + weatherData
-                + " väderdata.\nTemperaturen beräknas ligga mellan " + minTemp
-                + " och " + maxTemp + " °C\nDin packning väger ca "
-                + String.format("%.2f", totalWeight) + " kg\nRegnrisk: " + rain;*/
+        info = dest + "\n" + startDate + " - " + endDate + "\n" + "min: " + minTemp + " °C, max: "
+                + maxTemp + " °C\n" + "Regnrisk: " + rain + "\n" + "Totalvikt ca: "
+                + String.format("%.2f", totalWeight);
     }
 }

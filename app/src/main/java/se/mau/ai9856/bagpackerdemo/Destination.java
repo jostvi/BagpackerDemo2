@@ -31,6 +31,7 @@ public class Destination extends AppCompatActivity {
     private String valUrl, dest;
     private Button btnOk;
     private boolean validationOk = false;
+    private static String shortResponse;
     private static final String URL = "url";
     private static final String DESTINATION_SAVE = "destinationToSave";
 
@@ -51,7 +52,7 @@ public class Destination extends AppCompatActivity {
 
     private void initializeComponents() {
         setContentView(R.layout.activity_destination2);
-        btnOk = findViewById(R.id.btnOk);
+        btnOk = findViewById(R.id.btnNext);
         btnOk.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +115,7 @@ public class Destination extends AppCompatActivity {
                         if (validationOk) {
                             try {
                                 String[] fullResponse = response.getString("destination").split(",");
-                                String shortResponse = fullResponse[0] + "," + fullResponse[fullResponse.length - 1];
+                                shortResponse = fullResponse[0] + "," + fullResponse[fullResponse.length - 1];
                                 destination.setText(shortResponse);
                                 dest = fullResponse[0];
                                 btnOk.setTextColor(ContextCompat.getColor(Destination.this,
@@ -166,5 +167,7 @@ public class Destination extends AppCompatActivity {
 
     }
 
-
+    public static String getResponse(){
+        return shortResponse;
+    }
 }

@@ -6,84 +6,108 @@
     android:background="@color/colorYellow"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark">
+        android:layout_height="150dp"
+        android:background="@drawable/header_scanningar">
 
-        <ImageButton
-            android:id="@+id/btnHome"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@color/colorPrimaryDark"
-            android:scaleType="centerCrop"
-            android:src="@drawable/logotyp_bild" />
-
-        <TextView
-            android:id="@+id/titleTextView"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toStartOf="@id/btnInfo"
-            android:layout_marginStart="50dp"
-            android:background="@color/colorPrimaryDark"
-            android:textAlignment="center"
-            android:textColor="@color/cardview_light_background"
-            android:textSize="32sp" />
-
-        <ImageButton
-            android:id="@+id/btnInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:onClick="showPopupInfo"
-            android:src="@android:drawable/ic_dialog_info"
-            android:background="@color/colorPrimaryDark"
-            android:layout_alignParentEnd="true"/>
-
-        <Button
-            android:id="@+id/btnLogOut"
-            android:layout_width="151dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="9dp"
-            android:text="Logga ut"
-            android:textSize="18sp"
-            android:visibility="gone"/>
-
-
-    </RelativeLayout>
-
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark">
-
-        <Button
-            android:id="@+id/btnEditList"
-            android:layout_width="200sp"
-            android:layout_height="wrap_content"
+            android:layout_height="201dp"
             android:layout_alignParentStart="true"
-            android:onClick="goToEditMode"
-            android:text="Redigera"
-            android:textSize="18sp" />
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent">
 
-        <Button
-            android:id="@+id/btnDeleteList"
-            android:layout_width="200sp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:onClick="deleteList"
-            android:text="Radera"
-            android:textSize="18sp" />
+            <ImageButton
+                android:id="@+id/btnHome"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@android:color/transparent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/home_btn" />
 
-    </RelativeLayout>
+
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_toStartOf="@id/btnInfo"
+                android:background="@android:color/transparent"
+                android:fontFamily="sans-serif"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@android:color/black"
+                android:textSize="32sp"
+                android:textStyle="italic" />
+
+            <ImageButton
+                android:id="@+id/btnInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="10dp"
+                android:background="@android:color/transparent"
+                android:onClick="showPopupInfo"
+                android:src="@android:drawable/ic_dialog_info" />
+
+            <Button
+                android:id="@+id/btnLogOut"
+                android:layout_width="151dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="9dp"
+                android:text="Logga ut"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="135dp"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent">
+
+            <Button
+                android:id="@+id/btnEditList"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentEnd="false"
+                android:layout_alignParentRight="false"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="28dp"
+                android:layout_marginBottom="0dp"
+                android:background="@drawable/button_border"
+                android:backgroundTint="@color/colorYellow"
+                android:onClick="goToEditMode"
+                android:text="ÄNDRA"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/btnDeleteList"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="false"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="28dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="0dp"
+                android:background="@color/colorYellow"
+                android:onClick="deleteList"
+                android:text="TA BORT"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+    </FrameLayout>
 
     <ExpandableListView
         android:id="@+id/SavedexpListView"

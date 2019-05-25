@@ -49,6 +49,12 @@ $(document).ready(function(){
 $("#multi-step-form fieldset").hide();
 $("#fieldset1").show()
 
+$("#destination").on("keyup change", function() {
+    if ($(this).val() != "") {
+        $("#destination-error").text("");
+    }
+});
+
 $("#fieldset1 .next").on("click", function() {
     const url = '/validate_destination';
     const destination = $("#destination").val();
@@ -69,7 +75,7 @@ $("#fieldset1 .next").on("click", function() {
             $("#destination-error").text("");
 
             $("#fieldset1").hide();
-            $("#current-form-state span").first().addClass("active");
+            $("#current-form-state span").first().addClass("activedot");
             $("#fieldset2").show();
         }
     });
@@ -87,7 +93,7 @@ $("#fieldset2 .next").on("click", function() {
 
     if($("#to").val() != "" && $("#from").val() != "" && nrOfEl == 0) {
         $("#fieldset2").hide();
-        $("#current-form-state span").first().next().addClass("active");
+        $("#current-form-state span").first().next().addClass("activedot");
         $("#fieldset3").show();
         $("#to-error").text("");
     }
@@ -96,14 +102,14 @@ $("#fieldset2 .next").on("click", function() {
 });
 $("#fieldset2 .previous").on("click", function() {
     $("#fieldset2").hide();
-    $("#current-form-state span").first().removeClass("active");
+    $("#current-form-state span").first().removeClass("activedot");
     $("#fieldset1").show();
 });
 
 $("#fieldset3 .next").on("click", function() {
     if($('#fieldset3 input[name=transport]:checked').length > 0) {
         $("#fieldset3").hide();
-        $("#current-form-state span").first().next().next().addClass("active");
+        $("#current-form-state span").first().next().next().addClass("activedot");
         $("#fieldset4").show();
         $("#transport_validation").text(" ");
     }
@@ -113,14 +119,14 @@ $("#fieldset3 .next").on("click", function() {
 });
 $("#fieldset3 .previous").on("click", function() {
     $("#fieldset3").hide();
-    $("#current-form-state span").first().next().removeClass("active");
+    $("#current-form-state span").first().next().removeClass("activedot");
     $("#fieldset2").show();
 });
 
 $("#fieldset4 .next").on("click", function() {
     if($('#fieldset4 input[name=accommodation]:checked').length > 0) {
         $("#fieldset4").hide();
-        $("#current-form-state span").first().next().next().next().addClass("active");
+        $("#current-form-state span").first().next().next().next().addClass("activedot");
         $("#fieldset5").show();
         $("#accommodation_validation").text(" ");
     }
@@ -130,7 +136,7 @@ $("#fieldset4 .next").on("click", function() {
 });
 $("#fieldset4 .previous").on("click", function() {
     $("#fieldset4").hide();
-    $("#current-form-state span").first().next().next().removeClass("active");
+    $("#current-form-state span").first().next().next().removeClass("activedot");
     $("#fieldset3").show();
 });
 
@@ -147,7 +153,7 @@ $("#submit-form-btn").on("click", function(e) {
 });
 $("#fieldset5 .previous").on("click", function() {
     $("#fieldset5").hide();
-    $("#current-form-state span").first().next().next().next().removeClass("active");
+    $("#current-form-state span").first().next().next().next().removeClass("activedot");
     $("#fieldset4").show();
 });
 

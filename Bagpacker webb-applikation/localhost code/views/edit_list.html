@@ -7,7 +7,7 @@
 	<title>Bagpacker</title>
 	<meta charset="utf8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="../static/style.css" rel="stylesheet">
+	<link href="/static/style.css" rel="stylesheet">
 	<link rel='shortcut icon' type='image/x-icon' href="/static/favicon.png">
 	<link href="https://fonts.googleapis.com/css?family=Didact+Gothic|Loved+by+the+King|Sue+Ellen+Francisco"
 		rel="stylesheet">
@@ -20,47 +20,43 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	<script>
-		$(document).ready(function () {
-			$('[data-toggle="popover"]').popover();
-		});
-	</script>
 
 </head>
 
 <body>
-	<header>
-		<nav>
-			<a href="/newlist"><img src="/static/BackpackerLogotyp.png" alt="Bagpacker" id="headerpic"></a>
-			<div id="navlist">
-				<a href="/newlist" class="active">Ny packlista</a>
-				<a href="/">Hämta packlista</a>
-				<a href="/">Packtips</a>
-				<a href="/">Om oss</a>
-			</div>
-		</nav>
-	</header>
+        <header>
+                <a href="/"><img src="/static/BackpackerLogotyp.png" alt="Bagpacker" id="headerpic"></a>
+                <nav class="navigationbar">
+                        <span class="navbartoggle" id=js-navbar-toggle>
+                            <i class="fas fa-bars"></i>
+                        </span>
+                        
+                        <ul class="main-nav" id="js-menu">
+                                <li class="current"><a href="/newlist" class="nav-links current">Ny packlista</a></li>
+                                <li><a href="/fetch_list" class="nav-links">Hämta packlista</a></li>
+                                <li><a href="/packhacks" class="nav-links">Packtips</a></li>
+                                <li><a href="/about" class="nav-links">Om oss</a></li>
+                        </ul>      
+                </nav>
+        </header>
 
 	<main id="packlista">
-		<h1>Din packlista<a href="#" id="popover-link" data-toggle="popover" title="Så här har vi genererat packlistan"
-				data-html="true"
-				data-content="Packlistan för din resa till {{location}} är baserad på {{which_data}} väderdata. Temperaturen beräknas ligga mellan {{temp_min}} och {{temp_max}} °C. Regnrisken är {{rain_risk}}. Din packning väger {{total_weight}} kilo."
-				data-placement="right" data-trigger="hover"> <i class="fas fa-info-circle" id="info"></i></a></h1>
+		<h1>Din packlista</h1>
 		<div id="grid-wrapper">
 			<div class="grid-category" id="clothes">
-				<h2 class="sticky">Kläder<input type="image" src="../static/arrows.png" alt="arrow" class="styledFunction"
-						id="myFunction1"><i class="fas fa-plus-circle" id="btn-item1"></i></h2>
-
+					<h2 class="sticky">Kläder<input type="image" src="/static/arrows.png" alt="arrow"
+						class="styledFunction" id="myFunction1"><i class="fas fa-plus" id="btn-item1"></i></h2>
 				<div class="margin-top">
 					<div class="table_div" id="kat1">
 						<ul id="item_list1">
 							% for item in item_list:
 							%if item['category'] == "kläder":
-							<li>
-								<div class="align_left">
-									<i class="fas fa-check-circle"></i><span class="item_checkbox">{{item['item']}}</span>
+							<li class="edit_list">
+								<input type="image" src="/static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">
+								<div class="align_left_edit">
+									<span>{{item['item']}}</span>
 								</div>
-								<div class="align_right">
+								<div class="align_right_edit">
 									<input type="number" class="input_quantity" name="quantity" min="1" value="{{item['quantity']}}">
 								</div>
 							</li>
@@ -68,158 +64,137 @@
 							%end
 						</ul>
 					</div>
-					<input type="image" src="../static/add-button.gif" alt="Add" class="btn-item" id="btn-item1">
 				</div>
 			</div>
 			<div class="grid-category" id="hygiene">
-				<h2 class="sticky">Hygienartiklar<input type="image" src="../static/arrows.png" alt="arrow"
+				<h2 class="sticky">Hygienartiklar<input type="image" src="/static/arrows.png" alt="arrow"
 						class="styledFunction" id="myFunction2"><i class="fas fa-plus" id="btn-item2"></i></h2>
 				<div class="margin-top">
 					<div class="table_div" id="kat2">
 						<ul id="item_list2">
-							<!-- % for item in item_list:
-							%if item['category'] == "necessär": -->
-							<li>
-								<div class="align_left">
-									<i class="fas fa-check-circle"></i><span class="item_checkbox">{{item['item']}}</span>
+							% for item in item_list:
+							%if item['category'] == "necessär":
+							<li class="edit_list">
+								<input type="image" src="/static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">
+								<div class="align_left_edit">
+									<span>{{item['item']}}</span>
 								</div>
-								<div class="align_right">
+								<div class="align_right_edit">
 									<input type="number" class="input_quantity" name="quantity" min="1" value="{{item['quantity']}}">
 								</div>
 							</li>
+							%end
+							%end
 						</ul>
 					</div>
-					%end
-					%end
 				</div>
-				<input type="image" src="../static/add-button.gif" alt="Add" class="btn-item" id="btn-item2">
 			</div>
 			<div class="grid-category" id="traveldocs">
-				<h2 class="sticky">Resehandlingar<input type="image" src="../static/arrows.png" alt="arrow"
-						class="styledFunction" id="myFunction3"></h2>
+				<h2 class="sticky">Resehandlingar<input type="image" src="/static/arrows.png" alt="arrow"
+						class="styledFunction" id="myFunction3"><i class="fas fa-plus" id="btn-item3"></i></h2>
 				<div class="margin-top">
 					<div class="table_div" id="kat3">
 						<ul id="item_list3">
 							% for item in item_list:
 							%if item['category'] == "resehandlingar":
-							<li>
-								<div class="align_left">
-									<i class="fas fa-check-circle"></i><span class="item_checkbox">{{item['item']}}</span>
+							<li class="edit_list">
+								<input type="image" src="/static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">
+								<div class="align_left_edit">
+									<span>{{item['item']}}</span>
 								</div>
-								<div class="align_right">
+								<div class="align_right_edit">
 									<input type="number" class="input_quantity" name="quantity" min="1" value="{{item['quantity']}}">
 								</div>
 							</li>
+							%end
+							%end
 						</ul>
 					</div>
-					%end
-					%end
 				</div>
-				<input type="image" src="../static/add-button.gif" alt="Add" class="btn-item" id="btn-item3">
 			</div>
 			<div class="grid-category" id="electronics">
-				<h2 class="sticky">Elektronik<input type="image" src="../static/arrows.png" alt="arrow" class="styledFunction"
-						id="myFunction4"></h2>
+				<h2 class="sticky">Elektronik<input type="image" src="/static/arrows.png" alt="arrow" class="styledFunction"
+						id="myFunction4"><i class="fas fa-plus" id="btn-item4"></i></h2>
 				<div class="margin-top">
 					<div class="table_div" id="kat4">
 						<ul id="item_list4">
 							% for item in item_list:
 							%if item['category'] == "elektronik":
-							<li>
-								<div class="align_left">
-									<i class="fas fa-check-circle"></i><span class="item_checkbox">{{item['item']}}</span>
+							<li class="edit_list">
+								<input type="image" src="/static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">
+								<div class="align_left_edit">
+									<span>{{item['item']}}</span>
 								</div>
-								<div class="align_right">
+								<div class="align_right_edit">
 									<input type="number" class="input_quantity" name="quantity" min="1" value="{{item['quantity']}}">
 								</div>
 							</li>
+							%end
+							%end
 						</ul>
 					</div>
-					%end
-					%end
 				</div>
-				<input type="image" src="../static/add-button.gif" alt="Add" class="btn-item" id="btn-item4">
 			</div>
 			<div class="grid-category" id="specials">
-				<h2 class="sticky">Specialutrustning<input type="image" src="../static/arrows.png" alt="arrow"
-						class="styledFunction" id="myFunction5"></h2>
+				<h2 class="sticky">Specialutrustning<input type="image" src="/static/arrows.png" alt="arrow"
+						class="styledFunction" id="myFunction5"><i class="fas fa-plus" id="btn-item5"></i></h2>
 				<div class="margin-top">
 					<div class="table_div" id="kat5">
 						<ul id="item_list5">
 							% for item in item_list:
 							%if item['category'] == "specialutrustning":
-							<li>
-								<div class="align_left">
-									<i class="fas fa-check-circle"></i><span class="item_checkbox">{{item['item']}}</span>
+							<li class="edit_list">
+								<input type="image" src="/static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">
+								<div class="align_left_edit">
+									<span>{{item['item']}}</span>
 								</div>
-								<div class="align_right">
+								<div class="align_right_edit">
 									<input type="number" class="input_quantity" name="quantity" min="1" value="{{item['quantity']}}">
 								</div>
 							</li>
+							%end
+							%end
 						</ul>
 					</div>
-					%end
-					%end
 				</div>
-				<input type="image" src="../static/add-button.gif" alt="Add" class="btn-item" id="btn-item5">
 			</div>
 			<div class="grid-category" id="misc">
-				<h2 class="sticky">Övrigt<input type="image" src="../static/arrows.png" alt="arrow" class="styledFunction"
-						id="myFunction6"><input type="image" src="../static/add-button.gif" alt="Add" class="btn-item"
-						id="btn-item6"></h2>
+				<h2 class="sticky">Övrigt<input type="image" src="/static/arrows.png" alt="arrow" class="styledFunction"
+						id="myFunction6"><i class="fas fa-plus" id="btn-item6"></i></h2>
 				<div class="margin-top">
 					<div class="table_div" id="kat6">
 						<ul id="item_list6">
 							% for item in item_list:
 							%if item['category'] == "övrigt":
-							<li>
-								<div class="align_left">
-									<i class="fas fa-check-circle"></i><span class="item_checkbox">{{item['item']}}</span>
+							<li class="edit_list">
+								<input type="image" src="/static/delete.png" alt="Submit" class="deleteButton" onclick="removeItem(this)">
+								<div class="align_left_edit">
+									<span>{{item['item']}}</span>
 								</div>
-								<div class="align_right">
+								<div class="align_right_edit">
 									<input type="number" class="input_quantity" name="quantity" min="1" value="{{item['quantity']}}">
 								</div>
 							</li>
-							<li>skor</li>
-							<li>skor</li>
-							<li>skor</li>
-							<li>skor</li>
-							<li>skor</li>
-							<li>skor</li>
-							<li>skor</li>
-							<li>skor</li>
-							<li>skor</li>
-							<li>skor</li>
-							<li>skor</li>
-							<li>skor</li>
-							<li>skor</li>
-							<li>skor</li>
-							<li>skor</li>
-							<li>skor</li>
-
+							%end
+							%end
 						</ul>
 					</div>
-					%end
-					%end
 				</div>
-				<!-- <input type="image" src="../static/add-button.gif" alt="Add" class="btn-item" id="btn-item6"> -->
 			</div>
 		</div>
 		<!-- <form action="/save_list/" method="POST">
             <input type="hidden" name="saved_list" value="{{item_list}}">
             <input type="submit" id="button" value="Spara listan">
-        </form> -->
-
-		<input type="submit" id="button" onclick="sendList()" value="Spara listan">
-
+        </form>  -->
 	</main>
 
-	<footer>
-		&copy; Team Bagpacker 2019
-	</footer>
+		<!-- <footer>
+			&copy; Team Bagpacker 2019
+		</footer> -->
 
 
-	<script src="../static/jquery_script.js"></script>
+	<script src="/static/jquery_script.js"></script>
+	<script src="/static/script.js"></script>
 </body>
 
 

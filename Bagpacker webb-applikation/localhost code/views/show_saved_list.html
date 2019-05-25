@@ -37,8 +37,8 @@
                     </span>
                     
                     <ul class="main-nav" id="js-menu">
-                            <li class="current"><a href="/newlist" class="nav-links current">Ny packlista</a></li>
-                            <li><a href="/fetch_list" class="nav-links">Hämta packlista</a></li>
+                            <li><a href="/newlist" class="nav-links">Ny packlista</a></li>
+                            <li class="current"><a href="/fetch_list" class="nav-links">Hämta packlista</a></li>
                             <li><a href="/packhacks" class="nav-links">Packtips</a></li>
                             <li><a href="/about" class="nav-links">Om oss</a></li>
                     </ul>      
@@ -65,10 +65,18 @@
                         %if item['category'] == "kläder":
                         <div class="table_div">
                             <div class="align_left">
-                                    <label class="cbcontainer">{{item['item']}}
+                            %if item['checked'] == True:
+                            
+                                <label class="cbcontainer">{{item['item']}}
+                                            <input type="checkbox" name="{{item['id']}}" value="true" checked>
+                                            <span class="checkmark" style="background-color: #FB005B;"></span>
+                                </label>
+                           %else:
+                                <label class="cbcontainer">{{item['item']}}
                                             <input type="checkbox" name="{{item['id']}}" value="true">
                                             <span class="checkmark"></span>
-                                    </label>
+                                </label>
+                            %end
                             </div>
                             <div class="align_right">
                                 {{item['quantity']}}
@@ -86,10 +94,18 @@
                         %if item['category'] == "necessär":
                         <div class="table_div">
                                 <div class="align_left">
-                                        <label class="cbcontainer">{{item['item']}}
+                                %if item['checked'] == True:
+                            
+                                    <label class="cbcontainer">{{item['item']}}
+                                                <input type="checkbox" name="{{item['id']}}" value="true" checked>
+                                                <span class="checkmark" style="background-color: #FB005B;"></span>
+                                    </label>
+                                %else:
+                                    <label class="cbcontainer">{{item['item']}}
                                                 <input type="checkbox" name="{{item['id']}}" value="true">
                                                 <span class="checkmark"></span>
-                                        </label>
+                                    </label>
+                                %end
                                 </div>
                             <div class="align_right">
                                     {{item['quantity']}}
@@ -105,12 +121,20 @@
                     % for item in item_list:
                         %if item['category'] == "resehandlingar":
                         <div class="table_div">
-                                <div class="align_left">
-                                        <label class="cbcontainer">{{item['item']}}
+                            <div class="align_left">
+                            %if item['checked'] == True:
+                        
+                                    <label class="cbcontainer">{{item['item']}}
+                                                <input type="checkbox" name="{{item['id']}}" value="true" checked>
+                                                <span class="checkmark" style="background-color: #FB005B;"></span>
+                                    </label>
+                            %else:
+                                    <label class="cbcontainer">{{item['item']}}
                                                 <input type="checkbox" name="{{item['id']}}" value="true">
                                                 <span class="checkmark"></span>
-                                        </label>
-                                </div>
+                                    </label>
+                            %end
+                            </div>
                             <div class="align_right">
                                     {{item['quantity']}}
                             </div>
@@ -125,12 +149,20 @@
                     % for item in item_list:
                         %if item['category'] == "elektronik":
                         <div class="table_div">
-                                <div class="align_left">
-                                        <label class="cbcontainer">{{item['item']}}
+                            <div class="align_left">
+                            %if item['checked'] == True:
+                        
+                                    <label class="cbcontainer">{{item['item']}}
+                                                <input type="checkbox" name="{{item['id']}}" value="true" checked>
+                                                <span class="checkmark" style="background-color: #FB005B;"></span>
+                                    </label>
+                            %else:
+                                    <label class="cbcontainer">{{item['item']}}
                                                 <input type="checkbox" name="{{item['id']}}" value="true">
                                                 <span class="checkmark"></span>
-                                        </label>
-                                </div>
+                                    </label>
+                            %end
+                            </div>
                             <div class="align_right">
                                     {{item['quantity']}}
                             </div>
@@ -145,12 +177,20 @@
                     % for item in item_list:
                         %if item['category'] == "specialutrustning":
                         <div class="table_div">
-                                <div class="align_left">
-                                        <label class="cbcontainer">{{item['item']}}
+                            <div class="align_left">
+                            %if item['checked'] == True:
+                        
+                                    <label class="cbcontainer">{{item['item']}}
+                                                <input type="checkbox" name="{{item['id']}}" value="true" checked>
+                                                <span class="checkmark" style="background-color: #FB005B;"></span>
+                                    </label>
+                            %else:
+                                    <label class="cbcontainer">{{item['item']}}
                                                 <input type="checkbox" name="{{item['id']}}" value="true">
                                                 <span class="checkmark"></span>
-                                        </label>
-                                </div>
+                                    </label>
+                            %end
+                            </div>
                             <div class="align_right">
                                     {{item['quantity']}}
                             </div>
@@ -165,12 +205,20 @@
                     % for item in item_list:
                         %if item['category'] == "övrigt":
                         <div class="table_div">
-                                <div class="align_left">
-                                        <label class="cbcontainer">{{item['item']}}
+                            <div class="align_left">
+                            %if item['checked'] == True:
+                        
+                                    <label class="cbcontainer">{{item['item']}}
+                                                <input type="checkbox" name="{{item['id']}}" value="true" checked>
+                                                <span class="checkmark" style="background-color: #FB005B;"></span>
+                                    </label>
+                            %else:
+                                    <label class="cbcontainer">{{item['item']}}
                                                 <input type="checkbox" name="{{item['id']}}" value="true">
                                                 <span class="checkmark"></span>
-                                        </label>
-                                </div>
+                                    </label>
+                            %end
+                            </div>
                             <div class="align_right">
                                     {{item['quantity']}}
                             </div>
@@ -180,7 +228,8 @@
                 </div>
             </div>
         </div>
-            <input type="hidden" name="destination" value="{{location[0]}}, {{location[1]}}">
+           <!-- Skicka med koden hit så att man kan spara ändringar också!!! 
+                <input type="hidden" name="destination" value="{{location[0]}}, {{location[1]}}">
             <input type="hidden" name="start" value="{{start}}">
             <input type="hidden" name="finish" value="{{finish}}">
             <input type="hidden" name="temp_min" value="{{temp_min}}">
@@ -194,7 +243,7 @@
         <form action="/edit_list/" method="POST">
             <input type="hidden" name="saved_list" value="{{item_list}}">
             <input type="submit" id="button" value="Redigera listan">
-        </form>
+        </form> -->
 
     </main>
     <script src="/static/script.js"></script>

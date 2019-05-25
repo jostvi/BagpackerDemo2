@@ -340,7 +340,7 @@ def show_startpage():
 def show_form():
     '''Returnerar formulär'''
     
-    return template ("javascriptform2")
+    return template ("javascriptform")
 
 @route("/validate_destination", method="POST")
 def validate_destination():
@@ -453,59 +453,126 @@ def generate_list_android():
     return json.dumps(the_list)
  
 
-@route("/get_saved_list/")
+@route("/get_saved_list", method="POST")
 def get_saved_list():
-
-    list_id = request.query.param1
+#aktuell!!! uppdaterat för att kunna hämta från webben, lägg in på pythonanywhere
+    list_id = getattr(request.forms, "code")
+    
     conn = psycopg2.connect(host="pgserver.mah.se",
                             database="bagpacker", user="ai8134", password="h9rbyai5")
     cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
-    cur.execute("SELECT id, item, weight, category, saved_lists.quantity FROM saved_lists JOIN all_items on item_id=id WHERE code = (%s)", (list_id, ))
+    cur.execute("SELECT id, item, weight, category, saved_lists.quantity, checked FROM saved_lists JOIN all_items on item_id=id WHERE code = (%s)", (list_id, ))
     item_list = cur.fetchall()
     cur.close()
     conn.close()
 
     complete_list = []
     for item in item_list:
-        item_dict = {"id": item[0], "item": item[1], "weight": item[2], "category": item[3], "quantity": item[4]}
+        item_dict = {"id": item[0], "item": item[1], "weight": item[2], "category": item[3], "quantity": item[4], "checked" : item[5]}
         complete_list.append(item_dict)
 
-#total_weight = get_weight(complete_list)
 
-    return json.dumps(complete_list)
-
-'''OBS! BARA TEST'''
-@route("/get_list/")
-def get_list_from_db():
-
-    list_id = request.query.param1
     conn = psycopg2.connect(host="pgserver.mah.se",
                             database="bagpacker", user="ai8134", password="h9rbyai5")
     cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
-    cur.execute("SELECT list FROM saved_lists WHERE id = (%s)", (list_id, ))
-    item_list = cur.fetchall()
+    cur.execute("SELECT destination, start, finish, temp_min, temp_max, temp_mean, which_data, rain from weather_data WHERE id = (%s)", (list_id, ))
+    data = cur.fetchall()
     cur.close()
     conn.close()
+    weather_data = data[0]
+    destination = weather_data[0]
+    location = destination.split(",")
+    start = weather_data [1]
+    finish = weather_data[2]
+    temp_min = weather_data[3]
+    temp_max = weather_data[4]
+    mean_temp = weather_data[5]
+    which_data = weather_data[6]
+    rain = weather_data[7]
+    if rain == True:
+        rain_risk = "hög"
+    else:
+        rain_risk = "låg"
+    
+    
+    total_weight = gl.get_weight(complete_list)
 
-    returned_list = item_list[0]
+    return template ('show_saved_list', item_list = item_list, which_data = which_data, start = start, finish = finish,
+                     location = location, temp_min = round(temp_min), temp_max = round(temp_max),
+                     total_weight = total_weight, rain_risk = rain_risk, mean_temp = round(mean_temp))
 
-    return returned_list[0]
+##'''OBS! BARA TEST'''
+##@route("/get_list/")
+##def get_list_from_db():
+##
+##    list_id = request.query.param1
+##    conn = psycopg2.connect(host="pgserver.mah.se",
+##                            database="bagpacker", user="ai8134", password="h9rbyai5")
+##    cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
+##    cur.execute("SELECT list FROM saved_lists WHERE id = (%s)", (list_id, ))
+##    item_list = cur.fetchall()
+##    cur.close()
+##    conn.close()
+##
+##    returned_list = item_list[0]
+##
+##    return returned_list[0]
 
 @route("/save_list/", method="POST")
 def save_list():
+#aktuell
     item_list_to_save = getattr(request.forms, "saved_list")
-    item_list = json.loads(item_list_to_save.replace("\'", "\""))  
+    item_list = json.loads(item_list_to_save.replace("\'", "\""))
+    
+    complete_list = []
+    for item in item_list:
+        checked = getattr(request.forms, str(item['id']))
+        if checked == "true":
+            item['checked'] = True
+        else:
+            item['checked'] = False
+        complete_list.append(item)
+    
     code = random.randint(100000,1000000)
     conn = psycopg2.connect(host="pgserver.mah.se",
                             database="bagpacker", user="ai8134", password="h9rbyai5")
     cur = conn.cursor()
-    for item in item_list:
-        cur.execute('INSERT into saved_lists VALUES (%s, %s, %s)', (code, item['id'], item['quantity']))
+    for item in complete_list:
+        cur.execute('INSERT into saved_lists VALUES (%s, %s, %s, %s)', (code, item['id'], item['quantity'], item['checked']))
     conn.commit()
     cur.close()
     conn.close()
-    return json.dumps(code)
 
+    destination = getattr(request.forms, "destination")
+    start = getattr(request.forms, "start")
+    finish = getattr(request.forms, "finish")
+    temp_min = int(getattr(request.forms, "temp_min"))
+    temp_max = int(getattr(request.forms, "temp_max"))
+    temp_mean = int(getattr(request.forms, "temp_mean"))
+    which_data = getattr(request.forms, "which_data")
+    rain_risk = getattr(request.forms, "rain_risk")
+    print(rain_risk)
+    if rain_risk == "hög":
+        rain = True
+    else:
+        rain = False
+
+    conn = psycopg2.connect(host="pgserver.mah.se",
+                            database="bagpacker", user="ai8134", password="h9rbyai5")
+    cur = conn.cursor()
+    cur.execute('INSERT into weather_data VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)', (code, destination, start, finish, temp_min, temp_max, temp_mean, which_data, rain))
+    conn.commit()
+    cur.close()
+    conn.close()
+    return template ('code', code=code)
+
+@route("/edit_list/", method="POST")
+def edit_list():
+    item_list_to_edit = getattr(request.forms, "saved_list")
+    item_list = json.loads(item_list_to_edit.replace("\'", "\""))
+    
+    
+    return template('edit_list', item_list = item_list)
 
 ## Tillfällig lösning: lista sparas som sträng och kan hämtas med hjälp av en kod
 ##@route("/save_list/", method="POST")
@@ -532,6 +599,21 @@ def save_list():
 ##
 ##    return template ('code', code = code)
 ##    
+
+@route("/fetch_list")
+def fetch_list():
+
+    return template ('get_list')
+
+@route("/packhacks")
+def show_packhacks():
+
+    return template ('packhacks')
+
+@route("/about")
+def show_about():
+
+    return template ('about')
 
 @route("/static/<filename>")
 def static_files(filename):

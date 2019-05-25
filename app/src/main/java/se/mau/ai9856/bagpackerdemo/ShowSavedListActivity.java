@@ -142,9 +142,10 @@ public class ShowSavedListActivity extends AppCompatActivity {
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
         boolean focusable = true;
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+        popupWindow.setElevation(100);
         TextView popupText = popupWindow.getContentView().findViewById(R.id.popupText);
         popupText.setText(info);
-        popupWindow.showAtLocation(v, Gravity.TOP, 0, 0);
+        popupWindow.showAtLocation(v, Gravity.CENTER, 0, -100);
         popupView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {

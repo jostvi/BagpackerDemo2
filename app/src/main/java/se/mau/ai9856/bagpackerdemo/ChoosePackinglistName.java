@@ -1,10 +1,14 @@
 package se.mau.ai9856.bagpackerdemo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -26,12 +30,14 @@ public class ChoosePackinglistName extends AppCompatActivity {
     private static final String INFO = "info";
     private EditText packinglistName;
     private TextView messageToUser;
+    private Button btnOk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_packinglist_name2);
         initializeComponents();
+
     }
 
     private void initializeComponents(){
@@ -48,24 +54,51 @@ public class ChoosePackinglistName extends AppCompatActivity {
         final String url = getIntent().getStringExtra(URL);
         packinglistName = findViewById(R.id.packinglistName);
         messageToUser = findViewById(R.id.messageToUser);
-        Button btnOk = findViewById(R.id.btnOk);
-        final ProgressBar progressBar = findViewById(R.id.progressLoader);
 
+        final Button btnOk = findViewById(R.id.btnNext);
+        btnOk.setEnabled(false);
+        btnOk.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
+        final ProgressBar progressBar = findViewById(R.id.progressLoader);
+        packinglistName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_DONE && packinglistName.getText().length() > 0) {
+                    handled = true;
+                    btnOk.setEnabled(true);
+                    btnOk.setTextColor(ContextCompat.getColor(ChoosePackinglistName.this,
+                            R.color.colorYellow));
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                } else{
+                    btnOk.setEnabled(false);
+                    btnOk.setTextColor(ContextCompat.getColor(ChoosePackinglistName.this,
+                            R.color.colorInputField));
+                }
+                return handled;
+            }
+        });
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (packinglistName.getText().length() > 0
-                        && !packinglistName.getText().toString().startsWith(" ") // Använd trim() istället
-                        && packinglistName.getText().length() < 16) {
                     progressBar.setVisibility(View.VISIBLE);
-//                    messageToUser.setText("Genererar packlista...");
                     getJSON(url);
-                } else {
-                    messageToUser.setText("Ange packlistans namn (max 15 tecken)");
-                }
             }
         });
     }
+
+    public void btnOkChecked(){
+        if (packinglistName.getText().length() > 0 ) {
+            btnOk.setEnabled(true);
+            btnOk.setTextColor(ContextCompat.getColor(ChoosePackinglistName.this, R.color.colorYellow));
+
+        }else{
+            btnOk.setEnabled(false);
+            btnOk.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
+
+        }
+    }
+
 
     public void getJSON(String url) {
         final String name = packinglistName.getText().toString().trim();
@@ -87,6 +120,7 @@ public class ChoosePackinglistName extends AppCompatActivity {
                 });
         queue.add(request);
     }
+
 
     public void showExpandableList(List list) {
         Intent intent = new Intent(this, EditableListActivity.class);
