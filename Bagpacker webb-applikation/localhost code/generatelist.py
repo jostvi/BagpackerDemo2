@@ -2,10 +2,11 @@ import psycopg2
 import psycopg2.extras
 import weather as w
 import userinput as ui
+import database as db
 
 def get_general_items():
-    conn = psycopg2.connect(host="pgserver.mah.se",
-                            database="bagpacker", user="ai8134", password="h9rbyai5")
+    '''Gets general items from the database, i.e. items not dependent on user parameters'''
+    conn = db.db_connection()
     cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
     cur.execute("SELECT id, item, weight, category, quantity from all_items where general = true")
     item_list = cur.fetchall()
@@ -15,11 +16,10 @@ def get_general_items():
     return item_list
 
 def get_activity_items(user_input):
-    '''OBS! Ändring, måste läggas till i pythonanywhere'''
+    '''Gets items that depend on planned activites'''
     activity = user_input[5]
 
-    conn = psycopg2.connect(host="pgserver.mah.se",
-                            database="bagpacker", user="ai8134", password="h9rbyai5")
+    conn = db.db_connection()
     cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
     cur.execute("SELECT id, item, weight, category, quantity FROM all_items LEFT OUTER JOIN activities ON id=item_id WHERE activity IN ('%s')" % "','".join(activity))
     item_list = cur.fetchall()
@@ -29,11 +29,10 @@ def get_activity_items(user_input):
     return item_list
 
 def get_accommodation_items(user_input):
-    '''OBS! Ändring, måste läggas till i pythonanywhere'''
+    '''Gets items that depend on type of accommodation'''
     accommodation = user_input[4]
 
-    conn = psycopg2.connect(host="pgserver.mah.se",
-                            database="bagpacker", user="ai8134", password="h9rbyai5")
+    conn = db.db_connection()
     cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
     cur.execute("SELECT id, item, weight, category, quantity FROM all_items LEFT OUTER JOIN accommodation ON id=item_id WHERE type IN ('%s')" % "','".join(accommodation))
     item_list = cur.fetchall()
@@ -43,11 +42,10 @@ def get_accommodation_items(user_input):
     return item_list
 
 def get_transport_items(user_input):
-    '''OBS! Ändring, måste läggas till i pythonanywhere'''
+    '''Gets items that depend on type of transport'''
     transport = user_input[3]
 
-    conn = psycopg2.connect(host="pgserver.mah.se",
-                            database="bagpacker", user="ai8134", password="h9rbyai5")
+    conn = db.db_connection()
     cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
     cur.execute("SELECT id, item, weight, category, quantity FROM all_items LEFT OUTER JOIN transport ON id=item_id WHERE type IN ('%s')" % "','".join(transport))
     item_list = cur.fetchall()
@@ -58,16 +56,14 @@ def get_transport_items(user_input):
 
 
 def get_temp_items(forecast):
-    '''OBS! lagt till other_dependencies på test för att utesluta att alla items som är temperaturberoende kommer med'''
-    '''Hämtar items baserad på min-/max-temperatur på destinationen'''
+    '''Gets items based on mean temperature at destination'''
     fc_temp_min = forecast[0]
     fc_temp_max = forecast[1]
     temp_mean = forecast[2]
     
-    conn = psycopg2.connect(host="pgserver.mah.se",
-                            database="bagpacker", user="ai8134", password="h9rbyai5")
+    conn = db.db_connection()
     cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
-##cur.execute("SELECT id, item, weight, category, quantity FROM all_items LEFT OUTER JOIN temperature ON id=item_id WHERE ((%s BETWEEN temp_min AND temp_max) OR (%s BETWEEN temp_min AND temp_max)) AND other_dependencies=FALSE;", (fc_temp_min, fc_temp_max));
+
     cur.execute("SELECT id, item, weight, category, quantity FROM all_items LEFT OUTER JOIN temperature ON id=item_id WHERE (%s BETWEEN temp_min AND temp_max) AND other_dependencies=FALSE;", (temp_mean, ));
     item_list = cur.fetchall()
     cur.close()
@@ -77,6 +73,7 @@ def get_temp_items(forecast):
     return item_list
 
 def get_weight(complete_list):
+    '''Calculates total weight of all items on the list'''
     weight_list = []
     for item in complete_list:
         item_weight = item["weight"]*item["quantity"]
@@ -86,7 +83,7 @@ def get_weight(complete_list):
     return round(total_weight, 2)
 
 def create_item_list(user_input):
-    '''Lägg till i pythonanywhere. Lägger alla items som har hämtats från databasen i en lista med dictionaries'''
+    '''Creates item list'''
     length = ui.get_length(user_input)
     current_or_historic = w.current_or_historic_weather_data(user_input)
     if current_or_historic == "current":
