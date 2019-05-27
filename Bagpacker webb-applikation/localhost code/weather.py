@@ -8,15 +8,16 @@ from datetime import datetime
 from datetime import date
 
 def get_geolocation(user_input):
-    '''Gör om användarinput till geolocation'''
+    '''Transforms user input (destination) to geolocation'''
     geolocator = Nominatim(user_agent = "Bagpacker")
     geolocation = geolocator.geocode(user_input[0])
     
     return geolocation.latitude, geolocation.longitude
 
 def get_weather_forecast(geolocation):
-    '''Hämtar max och min temperatur samt information om nederbörd
-    för de kommande fem dagarna från OWM-API:n'''
+    '''Fetches min, max, mean temperature and precipitation information
+    for the following five days from OWM-API'''
+
     lat = geolocation[0]
     lon = geolocation[1]
     api_key= "625b12521ea346774405a35cdf96d500"
@@ -35,10 +36,11 @@ def get_weather_forecast(geolocation):
     return fc_temp_min, fc_temp_max, fc_temp_mean, rain
 
 def get_climate_zone(geolocation):
-    '''Returnerar klimattyp för destinationens koordinater enligt Köppen-Geigers-klimatklassifikation'''
+    '''Returns a destination's climate zone according to Köppen & Geigers climate classification'''
     latitude = geolocation[0]
     longitude = geolocation[1]
-    response = requests.get("http://climateapi.scottpinkelman.com/api/v1/location/" + str(latitude) + "/" + str(longitude))
+    response = requests.get("http://climateapi.scottpinkelman.com/api/v1/location/"
+                            + str(latitude) + "/" + str(longitude))
     data = response.json()
     result = data['return_values']
     res = result[0]
@@ -50,8 +52,7 @@ def get_climate_zone(geolocation):
     return zone
 
 def current_or_historic_weather_data(user_input):
-    '''Lägg till i pythonanywhere. Avgör om resan påbörjas inom de närmsta fem dagarna,
-    måste även vara beroende av resans längd!!!, ev. kombination av KG och aktuell prognos i så fall?'''
+    ''' Returns current or historic depending on startdate for the trip.'''
     start = user_input[1]
     dt_start = datetime.strptime(start, "%Y/%m/%d")
     date_start = dt_start.date()
@@ -68,8 +69,7 @@ def current_or_historic_weather_data(user_input):
         return "historic"
 
 def get_season(user_input, geolocation):
-    '''OBS! nya ändringar, hur gör vi när någon är iväg över månadsgränsen, räkna ut hur många dagar i vilken månad?'''
-    '''Lägg till i pythonanywhere. Avgör om resan görs sommar eller vintertid, OBS! hur hanterar vi gränsfall?'''
+    '''Returns season for the trip based on destination, latitude and date'''
     start = user_input[1]
     finish = user_input[2]
 
@@ -104,12 +104,11 @@ def get_season(user_input, geolocation):
         
     
 def get_historic_weather_data(zone, season):
-    '''Lägg till i pythonanywhere. Hämtar historisk väderdata baserad på klimatzon och årstid'''
+    '''Fetches historic weather data from the database based on climate zone and season'''
     zone = zone
     season = season
     if season == "winter":
-        conn = psycopg2.connect(host="pgserver.mah.se",
-                            database="bagpacker", user="ai8134", password="h9rbyai5")
+        conn = db.db_connection()
         cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
         cur.execute("SELECT min_temp_winter, max_temp_winter, mean_winter, rain_winter from climate_classification where zone = (%s)", (zone, ))
         forecast = cur.fetchall()
@@ -119,8 +118,7 @@ def get_historic_weather_data(zone, season):
         return forecast[0]
 
     elif season == "summer":
-        conn = psycopg2.connect(host="pgserver.mah.se",
-                            database="bagpacker", user="ai8134", password="h9rbyai5")
+        conn = db.db_connection()
         cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
         cur.execute("SELECT min_temp_summer, max_temp_summer, mean_summer, rain_summer from climate_classification where zone = (%s)", (zone, ))
         forecast = cur.fetchall()
@@ -130,8 +128,7 @@ def get_historic_weather_data(zone, season):
         return forecast[0]
 
     elif season == "spring":
-        conn = psycopg2.connect(host="pgserver.mah.se",
-                            database="bagpacker", user="ai8134", password="h9rbyai5")
+        conn = db.db_connection()
         cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
         cur.execute("SELECT min_temp_spring, max_temp_spring, mean_spring, rain_spring from climate_classification where zone = (%s)", (zone, ))
         forecast = cur.fetchall()
@@ -141,8 +138,7 @@ def get_historic_weather_data(zone, season):
         return forecast[0]
     
     elif season == "autumn":
-        conn = psycopg2.connect(host="pgserver.mah.se",
-                            database="bagpacker", user="ai8134", password="h9rbyai5")
+        conn = db.db_connection()
         cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
         cur.execute("SELECT min_temp_autumn, max_temp_autumn, mean_autumn, rain_autumn from climate_classification where zone = (%s)", (zone, ))
         forecast = cur.fetchall()
