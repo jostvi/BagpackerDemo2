@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 
 public class List {
     private String name;
@@ -55,15 +56,15 @@ public class List {
         jsonString = gson.toJson(expList);
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public String getInfo(){
+    public String getInfo() {
         return info;
     }
 
-    public String getJsonString(){
+    public String getJsonString() {
         return jsonString;
     }
 
@@ -100,9 +101,8 @@ public class List {
                 rain = "hög";
         }
 
-
         info = dest + "\n" + startDate + " - " + endDate + "\n" + "min: " + minTemp + " °C, max: "
                 + maxTemp + " °C\n" + "Regnrisk: " + rain + "\n" + "Totalvikt ca: "
-                + String.format("%.2f", totalWeight);
+                + String.format(Locale.ENGLISH, "%.2f", totalWeight);
     }
 }

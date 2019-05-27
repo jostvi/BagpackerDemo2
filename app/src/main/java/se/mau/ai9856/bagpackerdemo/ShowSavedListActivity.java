@@ -132,6 +132,7 @@ public class ShowSavedListActivity extends AppCompatActivity {
         intent.putExtra(INFO, info);
         intent.putExtra("SAVED", "saved");
         startActivity(intent);
+        finish();
     }
 
     public void showPopupInfo(View v) {

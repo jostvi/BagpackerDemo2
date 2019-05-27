@@ -3,9 +3,9 @@ from datetime import datetime
 from datetime import date
 
 def get_user_input():
-    '''Hämtar användarinput från HTML-formuläret, kan snyggas till genom att lägga in värden i dictionary istället för lista'''
+    '''Gets user input from html-form'''
     user_input = []
-    '''Kolla hur man lägger till namn + value som dictionaries, splitta location!!! bara första ordet!!!'''
+    
     location = getattr(request.forms,"destination")
     user_input.append(location)
     print(location)
@@ -29,7 +29,7 @@ def get_user_input():
     return user_input
 
 def get_length(user_input):
-    '''Lägg till i pythonanywhere. Räknar ut resans längd i dagar utifrån användarens datum inmatning, om större än 14 utgår vi ifrån att man tvättar!!!'''
+    '''Calculates length of trip in days based on start and finish dates'''
     start = user_input[1]
     finish = user_input[2]
 

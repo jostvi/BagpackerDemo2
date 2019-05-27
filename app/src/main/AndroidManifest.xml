@@ -15,9 +15,8 @@
         <activity android:name=".TripActivity" android:screenOrientation="portrait"/>
         <activity android:name=".Transport" android:screenOrientation="portrait"/>
         <activity android:name=".Destination" android:screenOrientation="portrait"/>
-        <activity android:name=".DatePicker" android:screenOrientation="portrait"/>
         <activity android:name=".ChoosePackinglistName" android:screenOrientation="portrait"/>
-        <activity android:name=".Accomodation" android:screenOrientation="portrait"/>
+        <activity android:name=".Accommodation" android:screenOrientation="portrait"/>
         <activity android:name=".Login" android:screenOrientation="portrait"/>
         <activity android:name=".ShowSavedListActivity" android:screenOrientation="portrait"/>
         <activity android:name=".EditableListActivity" android:screenOrientation="portrait"/>

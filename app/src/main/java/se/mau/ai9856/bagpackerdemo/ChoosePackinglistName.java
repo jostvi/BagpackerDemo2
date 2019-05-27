@@ -29,15 +29,13 @@ public class ChoosePackinglistName extends AppCompatActivity {
     private static final String NAME = "name";
     private static final String INFO = "info";
     private EditText packinglistName;
-    private TextView messageToUser;
-    private Button btnOk;
+    private Button btnNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_packinglist_name2);
         initializeComponents();
-
     }
 
     private void initializeComponents(){
@@ -45,19 +43,17 @@ public class ChoosePackinglistName extends AppCompatActivity {
         bulletDate.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
         TextView bulletTransport=findViewById(R.id.page3);
         bulletTransport.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
-        TextView bulletAccomodation=findViewById(R.id.page4);
-        bulletAccomodation.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
+        TextView bulletAccommodation=findViewById(R.id.page4);
+        bulletAccommodation.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
         TextView bulletActivity=findViewById(R.id.page5);
         bulletActivity.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
         TextView bulletTitle=findViewById(R.id.page6);
         bulletTitle.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
         final String url = getIntent().getStringExtra(URL);
         packinglistName = findViewById(R.id.packinglistName);
-        messageToUser = findViewById(R.id.messageToUser);
-
-        final Button btnOk = findViewById(R.id.btnNext);
-        btnOk.setEnabled(false);
-        btnOk.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
+        btnNext = findViewById(R.id.btnNext);
+        btnNext.setEnabled(false);
+        btnNext.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
         final ProgressBar progressBar = findViewById(R.id.progressLoader);
         packinglistName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -65,20 +61,20 @@ public class ChoosePackinglistName extends AppCompatActivity {
                 boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_DONE && packinglistName.getText().length() > 0) {
                     handled = true;
-                    btnOk.setEnabled(true);
-                    btnOk.setTextColor(ContextCompat.getColor(ChoosePackinglistName.this,
+                    btnNext.setEnabled(true);
+                    btnNext.setTextColor(ContextCompat.getColor(ChoosePackinglistName.this,
                             R.color.colorYellow));
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 } else{
-                    btnOk.setEnabled(false);
-                    btnOk.setTextColor(ContextCompat.getColor(ChoosePackinglistName.this,
+                    btnNext.setEnabled(false);
+                    btnNext.setTextColor(ContextCompat.getColor(ChoosePackinglistName.this,
                             R.color.colorInputField));
                 }
                 return handled;
             }
         });
-        btnOk.setOnClickListener(new View.OnClickListener() {
+        btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                     progressBar.setVisibility(View.VISIBLE);
@@ -86,19 +82,6 @@ public class ChoosePackinglistName extends AppCompatActivity {
             }
         });
     }
-
-    public void btnOkChecked(){
-        if (packinglistName.getText().length() > 0 ) {
-            btnOk.setEnabled(true);
-            btnOk.setTextColor(ContextCompat.getColor(ChoosePackinglistName.this, R.color.colorYellow));
-
-        }else{
-            btnOk.setEnabled(false);
-            btnOk.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
-
-        }
-    }
-
 
     public void getJSON(String url) {
         final String name = packinglistName.getText().toString().trim();
@@ -113,14 +96,12 @@ public class ChoosePackinglistName extends AppCompatActivity {
                 }, new Response.ErrorListener() {
                     public void onErrorResponse(VolleyError e) {
                         e.printStackTrace();
-                        messageToUser.setText("");
                         Toast.makeText(ChoosePackinglistName.this,
                                 "Sorry, fel vid hämtning", Toast.LENGTH_LONG).show();
                     }
                 });
         queue.add(request);
     }
-
 
     public void showExpandableList(List list) {
         Intent intent = new Intent(this, EditableListActivity.class);
