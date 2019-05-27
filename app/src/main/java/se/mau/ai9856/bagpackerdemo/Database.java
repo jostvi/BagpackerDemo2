@@ -8,7 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Database { // Gör om till totalt 3 (eller 4) metoder
+public class Database {
 
     public static void saveList(Context context, String key, ArrayList<SubList> expList) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences((context));

@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class Accomodation extends AppCompatActivity {
+public class Accommodation extends AppCompatActivity {
     private CheckBox checkHotel;
     private CheckBox checkApartment;
     private CheckBox checkWithFriend;
@@ -20,8 +20,7 @@ public class Accomodation extends AppCompatActivity {
     private CheckBox checkCottage;
     private CheckBox checkOther;
     private CheckBox checkHostel;
-    private Button btnOk;
-    private TextView messageToUser;
+    private Button btnNext;
     private ArrayList<String> selection = new ArrayList<String>();
     private String url;
     private static final String URL = "url";
@@ -30,14 +29,18 @@ public class Accomodation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accomodation2);
+        initializeComponents();
+    }
+
+    private void initializeComponents(){
         TextView bulletDate = findViewById(R.id.page2);
         bulletDate.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
         TextView bulletDestination = findViewById(R.id.page1);
         bulletDestination.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
         TextView bulletTransport = findViewById(R.id.page3);
         bulletTransport.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
-        TextView bulletAccomodation = findViewById(R.id.page4);
-        bulletAccomodation.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
+        TextView bulletAccommodation = findViewById(R.id.page4);
+        bulletAccommodation.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
 
         checkHotel = findViewById(R.id.checkHotel);
         checkApartment = findViewById(R.id.checkApartment);
@@ -47,52 +50,40 @@ public class Accomodation extends AppCompatActivity {
         checkCottage = findViewById(R.id.checkCottage);
         checkOther = findViewById(R.id.otherAccommodation);
         checkHostel = findViewById(R.id.checkHostel);
-        messageToUser = findViewById(R.id.messageToUser);
 
-        btnOk = findViewById(R.id.btnNext);
-        btnOk.setEnabled(false);
-        btnOk.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
-        btnOk.setOnClickListener(new View.OnClickListener() {
+        btnNext = findViewById(R.id.btnNext);
+        btnNext.setEnabled(false);
+        btnNext.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
+        btnNext.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-//                url = getIntent().getStringExtra(URL);
-//                url+="&param5="+selection;
                 url = getIntent().getStringExtra(URL) + "&param5=";
                 for (String string : selection) {
                     url += string + ",";
                 }
                 url = url.substring(0, url.length() - 1);
-                if (!checkHotel.isChecked() && !checkApartment.isChecked()
-                        && !checkWithFriend.isChecked() && !checkCaravan.isChecked()
-                        && !checkTent.isChecked() && !checkCottage.isChecked()
-                        && !checkOther.isChecked() && !checkHostel.isChecked()) {
-                    messageToUser.setText("Välj något");
-                } else {
-                    Intent intent = new Intent(Accomodation.this, TripActivity.class);
-                    intent.putExtra(URL, url);
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(Accommodation.this, TripActivity.class);
+                intent.putExtra(URL, url);
+                startActivity(intent);
             }
         });
     }
 
-    public void btnOkChecked(){
+    private void btnNextEnabled(){
         if (checkHotel.isChecked() || checkApartment.isChecked()
                 || checkWithFriend.isChecked() || checkCaravan.isChecked()
                 || checkTent.isChecked() || checkCottage.isChecked()
                 || checkOther.isChecked() || checkHostel.isChecked()) {
-            btnOk.setEnabled(true);
-            btnOk.setTextColor(ContextCompat.getColor(Accomodation.this, R.color.colorYellow));
+            btnNext.setEnabled(true);
+            btnNext.setTextColor(ContextCompat.getColor(Accommodation.this, R.color.colorYellow));
 
         }else{
-            btnOk.setEnabled(false);
-            btnOk.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
+            btnNext.setEnabled(false);
+            btnNext.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
 
         }
     }
-
-
 
     public void onCheckboxClicked(View view) {
         boolean checked = ((CheckBox) view).isChecked();
@@ -169,6 +160,6 @@ public class Accomodation extends AppCompatActivity {
                 }
                 break;
         }
-        btnOkChecked();
+        btnNextEnabled();
     }
 }

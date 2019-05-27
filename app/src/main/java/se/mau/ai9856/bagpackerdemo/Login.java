@@ -13,7 +13,6 @@ import android.widget.TextView;
 public class Login extends AppCompatActivity {
     private EditText loginUsername;
     private EditText loginPassword;
-    private Button buttonLogin;
     SharedPreferences sharedPreferences;
     private static final String URL = "url";
     private TextView tvInfo;
@@ -23,9 +22,9 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        loginUsername = (EditText)findViewById(R.id.loginUsername);
-        loginPassword = (EditText)findViewById(R.id.loginPassword);
-        buttonLogin = (Button)findViewById(R.id.buttonLogin);
+        loginUsername = findViewById(R.id.loginUsername);
+        loginPassword = findViewById(R.id.loginPassword);
+        Button buttonLogin = findViewById(R.id.buttonLogin);
         tvInfo = findViewById(R.id.tvInfo);
 
         sharedPreferences = getSharedPreferences(CreateNewAccount.mypreference, Context.MODE_PRIVATE);
@@ -48,32 +47,7 @@ public class Login extends AppCompatActivity {
                 } else {
                     tvInfo.setText("lösenord eller användernamn är inte korrekt");
                 }
-
-
-
             }
         });
-
     }
-
-
-
 }
-
-/*
-{
-        if (loginUsername.getText().equals(sharedPreferences.contains(CreateNewAccount.Name))
-        && loginPassword.getText().equals(sharedPreferences.contains(CreateNewAccount.LÖSENORD))) {
-        Intent intent = new Intent (Login.this, ShowSavedListActivity.class);
-        startActivity(intent);
-
-        } else {
-        tvInfo.setText("Försök igen");
-        }
-                */
-/*Intent intent = new Intent (Login.this, ShowSavedListActivity.class);
-                startActivity(intent);*//*
-
-
-
-        }*/

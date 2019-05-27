@@ -1,6 +1,5 @@
 package se.mau.ai9856.bagpackerdemo;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class Transport extends AppCompatActivity {
-    private TextView questionTransport;
     private CheckBox checkCar;
     private CheckBox checkTrain;
     private CheckBox checkFlight;
@@ -22,14 +20,11 @@ public class Transport extends AppCompatActivity {
     private CheckBox checkMotorbike;
     private CheckBox checkBoat;
     private CheckBox checkOther;
-    private Button btnOk;
-    private TextView messageToUser;
+    private Button btnNext;
     private String url;
     private static final String URL = "url";
     private ArrayList<String> selection = new ArrayList<String>();
 
-
-    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +33,6 @@ public class Transport extends AppCompatActivity {
         bulletDate.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
         TextView bulletTransport=findViewById(R.id.page3);
         bulletTransport.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
-        questionTransport = findViewById(R.id.questionTransport);
         checkCar = findViewById(R.id.checkCar);
         checkTrain = findViewById(R.id.checkTrain);
         checkFlight = findViewById(R.id.checkFlight);
@@ -47,49 +41,37 @@ public class Transport extends AppCompatActivity {
         checkMotorbike = findViewById(R.id.checkMotorbike);
         checkBoat = findViewById(R.id.checkBoat);
         checkOther = findViewById(R.id.otherTransport);
-        btnOk = findViewById(R.id.btnNext);
-        btnOk.setEnabled(false);
-        btnOk.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
-        messageToUser = findViewById(R.id.messageToUser);
+        btnNext = findViewById(R.id.btnNext);
+        btnNext.setEnabled(false);
+        btnNext.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
 
-        btnOk.setOnClickListener(new View.OnClickListener(){
+        btnNext.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-//                url = getIntent().getStringExtra(URL);
-//                url+="&param4="+selection;
                 url = getIntent().getStringExtra(URL) + "&param4=";
                 for(String string : selection){
                     url += string + ",";
                 }
                 url = url.substring(0, url.length()-1);
-
-                if(!checkCar.isChecked() && !checkTrain.isChecked() && !checkFlight.isChecked()
-                        && !checkBus.isChecked() && !checkBike.isChecked() && !checkBoat.isChecked()
-                        && !checkMotorbike.isChecked() && !checkOther.isChecked()) {
-                    messageToUser.setText("Välj något");
-
-                }else {
-                    Intent intent = new Intent(Transport.this, Accomodation.class);
-                    intent.putExtra(URL, url);
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(Transport.this, Accommodation.class);
+                intent.putExtra(URL, url);
+                startActivity(intent);
             }
         });
     }
 
-    public void btnOkChecked(){
+    private void btnNextEnabled(){
         if(checkCar.isChecked() || checkTrain.isChecked() || checkFlight.isChecked()
                 || checkBus.isChecked() || checkBike.isChecked() || checkBoat.isChecked()
                 || checkMotorbike.isChecked() || checkOther.isChecked()) {
-            btnOk.setEnabled(true);
-            btnOk.setTextColor(ContextCompat.getColor(Transport.this, R.color.colorYellow));
+            btnNext.setEnabled(true);
+            btnNext.setTextColor(ContextCompat.getColor(Transport.this, R.color.colorYellow));
         }else{
-            btnOk.setEnabled(false);
-            btnOk.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
+            btnNext.setEnabled(false);
+            btnNext.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
 
         }
     }
-
 
     public void onCheckboxClicked(View view){
         boolean checked = ((CheckBox) view).isChecked();
@@ -158,13 +140,6 @@ public class Transport extends AppCompatActivity {
                 }
                 break;
         }
-         btnOkChecked();
-
-        /*url = getIntent().getStringExtra(URL);
-        url+="&param3="+selection;
-        Log.e("hej ", "url" + url);*/
-
+         btnNextEnabled();
     }
-
-
 }

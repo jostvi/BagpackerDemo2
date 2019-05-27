@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -14,7 +13,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -35,18 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String ITEMS = "items";
     private static final String NAME = "name";
     private static final String INFO = "info";
-
-    @Override
-    public void onBackPressed(){
-        finishAffinity();
-        finish();
-    }
-
-    @Override
-    public void onRestart() {
-        super.onRestart();
-        initializeComponents();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +78,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void createTrip(View v) {
+        Intent createTripIntent = new Intent(this, Destination.class);
+        startActivity(createTripIntent);
+    }
 
+    public void showSavedLists(View v) {
+        Intent intent = new Intent(this, ShowSavedListActivity.class);
+        startActivity(intent);
+    }
 
     public void getListFromServer() {
         EditText codeInput = findViewById(R.id.password_input);
@@ -127,13 +121,15 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void createTrip(View v) {
-        Intent createTripIntent = new Intent(this, Destination.class);
-        startActivity(createTripIntent);
+    @Override
+    public void onBackPressed(){
+        finishAffinity();
+        finish();
     }
 
-    public void showSavedLists(View v) {
-        Intent intent = new Intent(this, ShowSavedListActivity.class);
-        startActivity(intent);
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        initializeComponents();
     }
 }

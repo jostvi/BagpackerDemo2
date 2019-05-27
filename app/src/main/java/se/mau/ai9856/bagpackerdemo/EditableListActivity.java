@@ -3,7 +3,6 @@ package se.mau.ai9856.bagpackerdemo;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +11,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -41,7 +39,7 @@ public class EditableListActivity extends AppCompatActivity {
     private EditText etNewItem;
     private String category, name, info;
     private Spinner spinner;
-    private boolean fromSaved;
+    private boolean homeButtonPressed;
     protected static boolean saved;
 
     @Override
@@ -81,7 +79,7 @@ public class EditableListActivity extends AppCompatActivity {
         adapter = new EditableListAdapter(EditableListActivity.this, expList);
         expListView.setAdapter(adapter);
         saved = false;
-        fromSaved = false;
+        homeButtonPressed = false;
         ImageButton btnSaveList = findViewById(R.id.btnSaveList);
         btnSaveList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +98,7 @@ public class EditableListActivity extends AppCompatActivity {
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                homeButtonPressed = true;
                 confirmExit();
             }
         });
@@ -148,13 +147,19 @@ public class EditableListActivity extends AppCompatActivity {
 
     private void exitEditing() {
         Intent intent = getIntent();
-        String fromSaved = intent.getStringExtra("SAVED"); // OBS! Nödlösning! Skriv om!
-        if (fromSaved != null) {
-            intent = new Intent(this, ShowSavedListActivity.class);
-            startActivity(intent);
-        } else {
+        String fromSaved = intent.getStringExtra("SAVED");
+        if(homeButtonPressed){
             intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+
+        } else{
+            if (fromSaved != null) {
+                intent = new Intent(this, ShowSavedListActivity.class);
+                startActivity(intent);
+            } else {
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+            }
         }
         finish();
     }
@@ -253,6 +258,7 @@ public class EditableListActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {}
+        public void onNothingSelected(AdapterView<?> adapterView) {
+        }
     }
 }

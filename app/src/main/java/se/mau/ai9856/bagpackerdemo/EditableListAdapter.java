@@ -76,8 +76,8 @@ public class EditableListAdapter extends BaseExpandableListAdapter {
                              View view, ViewGroup parent) {
         final ViewHolder holder;
         final Packable packable = getChild(groupPosition, childPosition);
-        if (view == null) {
 
+        if (view == null) {
             holder = new ViewHolder();
             LayoutInflater childInflater = (LayoutInflater)
                     context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -88,7 +88,6 @@ public class EditableListAdapter extends BaseExpandableListAdapter {
             holder.btnAdd = view.findViewById(R.id.addQuantity);
             holder.tvQuantity = view.findViewById(R.id.itemQuantity);
             view.setTag(holder);
-
         } else {
             if (view.getTag() instanceof ViewHolder) {
                 holder = (ViewHolder) view.getTag();
@@ -96,6 +95,7 @@ public class EditableListAdapter extends BaseExpandableListAdapter {
                 holder = new ViewHolder();
             }
         }
+
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,7 +127,8 @@ public class EditableListAdapter extends BaseExpandableListAdapter {
             }
         });
         holder.tvName.setText(packable.getItemName().trim());
-        holder.tvQuantity.setText("" + packable.getQuantity());
+        String quantity = "" + packable.getQuantity();
+        holder.tvQuantity.setText(quantity);
 
         return view;
     }
