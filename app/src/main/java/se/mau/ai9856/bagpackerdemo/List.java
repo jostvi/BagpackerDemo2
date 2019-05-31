@@ -16,7 +16,7 @@ public class List {
     private String jsonString;
     private float totalWeight = 0;
 
-    public List(JSONObject json, String name, boolean isNewList){
+    public List(JSONObject json, String name, boolean newList){
         LinkedHashMap<String, SubList> categorySubList = new LinkedHashMap<>();
         ArrayList<SubList> expList = new ArrayList<>();
         this.name = name;
@@ -36,7 +36,7 @@ public class List {
                 Packable item = new Packable(jObject.getString("item"),
                         Integer.parseInt(jObject.getString("quantity")),
                         Float.parseFloat(jObject.getString("weight")));
-                if(!isNewList){
+                if(!newList){
                     if(jObject.getInt("checked") == 1)
                         item.isSelected = true;
                     else if (jObject.getInt("checked") == 0)
@@ -45,7 +45,7 @@ public class List {
                 totalWeight += (item.getQuantity() * item.getWeight());
                 subList.addItem(item);
             }
-            createInfoString(json, isNewList);
+            createInfoString(json, newList);
 
         }catch(JSONException e){
             e.printStackTrace();
