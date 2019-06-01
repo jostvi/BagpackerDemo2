@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 
 public class List {
     private String name;
@@ -15,7 +16,7 @@ public class List {
     private String jsonString;
     private float totalWeight = 0;
 
-    public List(JSONObject json, String name, boolean isNewList){
+    public List(JSONObject json, String name, boolean newList){
         LinkedHashMap<String, SubList> categorySubList = new LinkedHashMap<>();
         ArrayList<SubList> expList = new ArrayList<>();
         this.name = name;
@@ -35,7 +36,7 @@ public class List {
                 Packable item = new Packable(jObject.getString("item"),
                         Integer.parseInt(jObject.getString("quantity")),
                         Float.parseFloat(jObject.getString("weight")));
-                if(!isNewList){
+                if(!newList){
                     if(jObject.getInt("checked") == 1)
                         item.isSelected = true;
                     else if (jObject.getInt("checked") == 0)
@@ -44,7 +45,7 @@ public class List {
                 totalWeight += (item.getQuantity() * item.getWeight());
                 subList.addItem(item);
             }
-            createInfoString(json, isNewList);
+            createInfoString(json, newList);
 
         }catch(JSONException e){
             e.printStackTrace();
@@ -55,15 +56,15 @@ public class List {
         jsonString = gson.toJson(expList);
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public String getInfo(){
+    public String getInfo() {
         return info;
     }
 
-    public String getJsonString(){
+    public String getJsonString() {
         return jsonString;
     }
 
@@ -100,9 +101,8 @@ public class List {
                 rain = "hög";
         }
 
-
         info = dest + "\n" + startDate + " - " + endDate + "\n" + "min: " + minTemp + " °C, max: "
                 + maxTemp + " °C\n" + "Regnrisk: " + rain + "\n" + "Totalvikt ca: "
-                + String.format("%.2f", totalWeight);
+                + String.format(Locale.ENGLISH, "%.2f", totalWeight);
     }
 }

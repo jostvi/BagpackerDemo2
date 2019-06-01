@@ -21,8 +21,6 @@ public class SubList {
         return itemList;
     }
 
-    public void setItemList(ArrayList<Packable> itemList){ this.itemList = itemList; }
-
     public void addItem(Packable item){
         itemList.add(item);
         Collections.sort(itemList, new Comparator<Packable>() {

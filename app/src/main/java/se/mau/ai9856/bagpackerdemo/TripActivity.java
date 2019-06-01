@@ -21,8 +21,7 @@ public class TripActivity extends AppCompatActivity {
     private CheckBox checkNightlife;
     private CheckBox checkTraining;
     private CheckBox checkOther;
-    private TextView messageToUser;
-    private Button btnOk;
+    private Button btnNext;
     private ArrayList<String> selection = new ArrayList<>();
     private String url;
     private static final String URL = "url";
@@ -31,6 +30,10 @@ public class TripActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip2);
+        initializeComponents();
+    }
+
+    private void initializeComponents(){
         TextView bulletDate=findViewById(R.id.page2);
         bulletDate.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
         TextView bulletTransport=findViewById(R.id.page3);
@@ -48,46 +51,36 @@ public class TripActivity extends AppCompatActivity {
         checkNightlife = findViewById(R.id.checkNightlife);
         checkTraining = findViewById(R.id.checkTrainer);
         checkOther = findViewById(R.id.otherActivity);
-        messageToUser = findViewById(R.id.messageToUser);
-        btnOk = findViewById(R.id.btnNext);
-        btnOk.setEnabled(false); //refactora och sätt pilen som diabled i form_layout
-        btnOk.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
-        btnOk.setOnClickListener(new View.OnClickListener(){
+        btnNext = findViewById(R.id.btnNext);
+        btnNext.setEnabled(false);
+        btnNext.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
+        btnNext.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
-//                url = getIntent().getStringExtra(URL);
-//                url+="&param6="+selection;
                 url = getIntent().getStringExtra(URL) + "&param6=";
                 for(String string : selection){
                     url += string + ",";
                 }
                 url = url.substring(0, url.length()-1);
-                if (!checkOutdoor.isChecked() && !checkWintersport.isChecked()
-                        && !checkBeach.isChecked() && !checkSightseeing.isChecked()
-                        && !checkCulture.isChecked() && !checkNightlife.isChecked()
-                        && !checkOther.isChecked() && !checkTraining.isChecked()){
-                    messageToUser.setText("Välj något");
-                } else {
-                    Intent intent = new Intent(TripActivity.this, ChoosePackinglistName.class);
-                    intent.putExtra(URL, url);
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(TripActivity.this, ChoosePackinglistName.class);
+                intent.putExtra(URL, url);
+                startActivity(intent);
             }
         });
     }
 
-    public void btnOkChecked(){
+    private void btnNextEnabled(){
         if (checkOutdoor.isChecked() || checkWintersport.isChecked()
                 || checkBeach.isChecked() || checkSightseeing.isChecked()
                 || checkCulture.isChecked() || checkNightlife.isChecked()
                 || checkOther.isChecked() || checkTraining.isChecked()) {
-            btnOk.setEnabled(true);
-            btnOk.setTextColor(ContextCompat.getColor(TripActivity.this, R.color.colorYellow));
+            btnNext.setEnabled(true);
+            btnNext.setTextColor(ContextCompat.getColor(TripActivity.this, R.color.colorYellow));
 
         }else{
-            btnOk.setEnabled(false);
-            btnOk.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
+            btnNext.setEnabled(false);
+            btnNext.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
 
         }
     }
@@ -159,6 +152,6 @@ public class TripActivity extends AppCompatActivity {
                 }
                 break;
         }
-        btnOkChecked();
+        btnNextEnabled();
     }
 }
