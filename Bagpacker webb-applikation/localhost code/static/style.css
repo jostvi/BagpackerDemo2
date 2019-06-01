@@ -99,9 +99,9 @@ footer {
 }
 
 #videomodal {
-  margin-top: 40px;
+  margin-top: 20px;
   width: 100%;
-  padding: 40px;
+  padding: 0px !important;
 }
 
 #modalheader {
@@ -880,6 +880,10 @@ width: 50px;
     padding-right: 50px;
     min-height: 350px;
   }
+
+  #modalheader {
+    font-size: 30px;
+  }
 }
 
 @media (max-width: 540px) {
@@ -911,6 +915,12 @@ width: 50px;
 
   #startpic {
     width: 80%;
+  }
+
+  #videomodal {
+    width: 100%;
+    padding: 0px !important;
+    margin: 100px 0px 0px 0px !important;
   }
 }
 
