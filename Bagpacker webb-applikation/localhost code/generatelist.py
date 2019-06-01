@@ -4,11 +4,14 @@ import weather as w
 import userinput as ui
 import database as db
 
-def get_general_items():
+
+def get_general_items(user_input):
     '''Gets general items from the database, i.e. items not dependent on user parameters'''
+    length = ui.get_length(user_input)
+
     conn = db.db_connection()
     cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
-    cur.execute("SELECT id, item, weight, category, quantity from all_items where general = true")
+    cur.execute("SELECT id, item, weight, category, quantity from all_items where general = true and %s >= min_length", (length, ))
     item_list = cur.fetchall()
     cur.close()
     conn.close()
@@ -18,7 +21,8 @@ def get_general_items():
 def get_activity_items(user_input):
     '''Gets items that depend on planned activites'''
     activity = user_input[5]
-
+    length = ui.get_length(user_input)
+    
     conn = db.db_connection()
     cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
     cur.execute("SELECT id, item, weight, category, quantity FROM all_items LEFT OUTER JOIN activities ON id=item_id WHERE activity IN ('%s')" % "','".join(activity))
@@ -60,15 +64,27 @@ def get_temp_items(forecast):
     fc_temp_min = forecast[0]
     fc_temp_max = forecast[1]
     temp_mean = forecast[2]
-    
-    conn = db.db_connection()
-    cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
+    rain = forecast[3]
+    print(rain)
+    print(type(rain))
+    if rain == True:
+        conn = db.db_connection()
+        cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
-    cur.execute("SELECT id, item, weight, category, quantity FROM all_items LEFT OUTER JOIN temperature ON id=item_id WHERE (%s BETWEEN temp_min AND temp_max) AND other_dependencies=FALSE;", (temp_mean, ));
-    item_list = cur.fetchall()
-    cur.close()
-    conn.close()
-    '''sätt antal = 1, kanske redan här? eller via en if-sats i create item_list'''
+        cur.execute("SELECT id, item, weight, category, quantity FROM all_items LEFT OUTER JOIN temperature ON id=item_id WHERE (%s BETWEEN temp_min AND temp_max) AND other_dependencies=FALSE", (temp_mean, ))
+        item_list = cur.fetchall()
+        cur.close()
+        conn.close()
+        
+
+    else:
+        conn = db.db_connection()
+        cur = conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
+
+        cur.execute("SELECT id, item, weight, category, quantity FROM all_items LEFT OUTER JOIN temperature ON id=item_id WHERE (%s BETWEEN temp_min AND temp_max) AND other_dependencies=FALSE AND rain=FALSE", (temp_mean, ))
+        item_list = cur.fetchall()
+        cur.close()
+        conn.close()
 
     return item_list
 
@@ -101,7 +117,7 @@ def create_item_list(user_input):
         forecast = w.get_historic_weather_data(zone, season)
         rain = forecast[3]
         
-    general_items = get_general_items()
+    general_items = get_general_items(user_input)
     temp_items = get_temp_items(forecast)
     activity_items = get_activity_items(user_input)
     accommodation_items = get_accommodation_items(user_input)
@@ -114,8 +130,8 @@ def create_item_list(user_input):
             all_items_without_duplicates.append(sublist)
     complete_list = []
 
-    if length >= 14:
-        factor = 14
+    if length >= 10:
+        factor = 10
     else:
         factor = length
     

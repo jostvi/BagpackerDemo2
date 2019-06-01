@@ -4,6 +4,7 @@ import requests, json
 from statistics import mean
 import psycopg2
 import psycopg2.extras
+import database as db
 from datetime import datetime
 from datetime import date
 

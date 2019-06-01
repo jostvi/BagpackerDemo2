@@ -39,6 +39,7 @@ def validate_destination():
 
     try:
         lat = geolocation.latitude
+        print(lat)
         message = {"valid" : True}
         return json.dumps(message)
 

@@ -70,16 +70,38 @@ footer {
     background-position: cover;
     background-repeat: no-repeat;
     margin: 0;
+    background-repeat: repeat-y;
+}
+
+#startflex {
+  display: flex;
+  justify-content: center;
+  flex-basis: 50%;
+  height: 300px;
+  margin-top: 20px;
+  align-items: center;
 }
 
 #startpic {
   width: 40%;
-  margin: auto;
-  display: block;
-  margin-top: 100px;
 }
 
+#bagpackervideo {
+  margin: auto;
+  display: block;
+}
 
+#videomodal {
+  margin-top: 40px;
+  width: 100%;
+  padding: 40px;
+}
+
+#modalheader {
+  padding: 0px;
+  color: #FB005B;
+  margin-bottom: 0 !important;
+}
 
 #create {
   background-color: #FDFF1F !important;
@@ -87,15 +109,30 @@ footer {
   width: 220px;
   margin: auto;
   display: block;
-  margin-top: 5%;
+  margin-top: 2%;
   cursor: pointer;
   border-radius: 3px !important;
   border: none;
   box-shadow: 0 0 5px black;
   font-weight: bold;
+  font-size: 26px;
   font-family: 'Didact Gothic', sans-serif;
   -webkit-appearance:none;
 }
+
+#videobutton {
+  background-color: #FB005B;
+  color: white;
+  border-radius: 50%;
+  border: none;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  box-shadow: 0 0 5px black;
+  margin-left: 10px;
+}
+
 
 #fetch {
   background-color: #FDFF1F !important;
@@ -110,7 +147,23 @@ footer {
   box-shadow: 0 0 5px black;
   font-weight: bold;
   font-family: 'Didact Gothic', sans-serif;
+  font-size: 26px;
   -webkit-appearance:none;
+}
+
+#close {
+  color: grey !important;
+  font-size: 40px;
+}
+
+#create:hover {
+  background-color: #FB005B !important;
+  color: #FDFF1F !important;
+}
+
+#fetch:hover {
+  background-color: #FB005B !important;
+  color: #FDFF1F !important;
 }
 
 #codeform {
@@ -159,6 +212,8 @@ footer {
   color: #FB005B !important;
   padding: 12px 14px 15px 14px;
 }
+
+
 /*Form*/
 #multi-step-form {
   background-color: rgba(255, 255, 255, 0.9);
