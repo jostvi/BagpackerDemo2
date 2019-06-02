@@ -8,8 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
-
 import java.util.ArrayList;
+
+/**
+ * Class TripActivity where the the user can choose trip's activity.The class sends the user
+ * paramethers as a string  to the ChoosePackinglistName class.
+ */
 
 public class TripActivity extends AppCompatActivity {
 
@@ -81,7 +85,6 @@ public class TripActivity extends AppCompatActivity {
         }else{
             btnNext.setEnabled(false);
             btnNext.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
-
         }
     }
 

@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -23,6 +22,10 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import org.json.JSONObject;
 
+/**
+ * Class ChoosePackinglistName which sends the user
+ *   paramethers as a string to the sever and get back a packinglist as a JSON
+ */
 public class ChoosePackinglistName extends AppCompatActivity {
     private static final String URL = "url";
     private static final String ITEMS = "items";

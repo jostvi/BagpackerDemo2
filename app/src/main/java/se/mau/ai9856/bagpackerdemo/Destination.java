@@ -14,16 +14,21 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+
+/**
+ * Class Destination where the the user can write a destination for a trip. If the input
+ * results in a hit the text  in the input field changes to the matched destination in format: city,
+ * country.
+ */
+
 
 public class Destination extends AppCompatActivity {
     private EditText destination;
@@ -136,7 +141,6 @@ public class Destination extends AppCompatActivity {
                     }
                 });
         queue.add(request);
-//        messageToUser.setText("Letar efter plats...");
         progressBar.setVisibility(View.VISIBLE);
     }
 

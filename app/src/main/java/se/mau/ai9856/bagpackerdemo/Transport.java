@@ -8,9 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
+/**
+ * Class Transport where the the user can choose a way to travel. The class sends the user
+ *   paramethers as a string to the Accomodation class.
+ */
 public class Transport extends AppCompatActivity {
     private CheckBox checkCar;
     private CheckBox checkTrain;
