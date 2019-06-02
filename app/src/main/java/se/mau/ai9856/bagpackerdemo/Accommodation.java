@@ -8,8 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
-
 import java.util.ArrayList;
+
+/**
+ * Class Accomodation where the the user can choose where to stay. The class sends the user
+ *  paramethers as a string  to the TripActivity class.
+ */
 
 public class Accommodation extends AppCompatActivity {
     private CheckBox checkHotel;
@@ -28,7 +32,7 @@ public class Accommodation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_accomodation2);
+        setContentView(R.layout.activity_accomodation);
         initializeComponents();
     }
 
@@ -81,7 +85,6 @@ public class Accommodation extends AppCompatActivity {
         }else{
             btnNext.setEnabled(false);
             btnNext.setTextColor(ContextCompat.getColor(this, R.color.colorInputField));
-
         }
     }
 

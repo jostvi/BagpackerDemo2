@@ -7,14 +7,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.squareup.timessquare.CalendarPickerView;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+/**
+ * Class TripDate where the the user can choose trip's start date and stop date in a calendar.
+ * The class is sending the user paramethers as a string to the Transport class.
+ */
 
 public class TripDate extends AppCompatActivity {
     private List<Date> listDate;
