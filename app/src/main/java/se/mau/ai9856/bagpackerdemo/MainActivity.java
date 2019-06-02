@@ -22,9 +22,8 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONObject;
 
 /**
- * This is where the application starts. From here, the user can choose to retrieve
- * a list from a dummy webb-server then go to EditableListActivity, or go to CreateTripActivity to
- * create a new list, or to..
+ * This is where the application starts. The user can start creating a new packing list, open a
+ * saved packing list or open a packing list that was created with webb page
  *
  * @author Johan W
  */
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeComponents() {
         setContentView(R.layout.activity_main);
-        EditText codeInput = findViewById(R.id.password_input);
+        EditText codeInput = findViewById(R.id.passwordInput);
         Button btnCreateAccount = findViewById(R.id.btnCreateAccount);
         btnCreateAccount.setOnClickListener(new View.OnClickListener() {
 
@@ -89,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getListFromServer() {
-        EditText codeInput = findViewById(R.id.password_input);
+        EditText codeInput = findViewById(R.id.passwordInput);
         final String password = codeInput.getText().toString().trim();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         String url = "https://bagpacker.pythonanywhere.com/get_list/?param1=" + password;

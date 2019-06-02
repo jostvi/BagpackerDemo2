@@ -103,6 +103,8 @@ public class List {
 
         info = dest + "\n" + startDate + " - " + endDate + "\n" + "min: " + minTemp + " °C, max: "
                 + maxTemp + " °C\n" + "Regnrisk: " + rain + "\n" + "Totalvikt ca: "
+
                 + String.format(Locale.ENGLISH, "%.2f", totalWeight);
+
     }
 }

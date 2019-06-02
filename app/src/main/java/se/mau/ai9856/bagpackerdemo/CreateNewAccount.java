@@ -9,6 +9,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+
+/**
+ * Class CreateNewAccount where the the user can create an account. Username and password save
+ * locally.
+ */
+
+
 public class CreateNewAccount extends AppCompatActivity {
     private EditText username;
     private EditText password;
